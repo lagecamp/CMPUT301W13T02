@@ -74,7 +74,7 @@ public class IngredientList extends Model<View>{
 		   		}				   
 			}
 	}
-	/*
+	
 	public ArrayList<Ingredient> searchRecipe(String keyword) {
 		ArrayList<Ingredient> matchingIngredients = new ArrayList<Ingredient>();
 		ArrayList<Ingredient> ingredientList = load();
@@ -83,17 +83,10 @@ public class IngredientList extends Model<View>{
 		for(int i = 0; i<ingredientList.size(); i++){
 			if(ingredientList.get(i).getType().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getAuthor().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getProcedure().toLowerCase(Locale.ENGLISH).contains(keyword))
 				matchingIngredients.add(ingredientList.get(i));
-			else{
-				//Searches the Arraylist and looks for any ingredient that contains the keyword
-				for(int n = 0; n<ingredientList.get(i).getIngredients().length; n++)
-					if(ingredientList.get(i).getIngredients()[n].toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)))
-						matchingIngedient.add(ingredientList.get(i));
 			}
 		}
 		   	   
 		return matchingIngredients;
 		   
 	}
-	*/
-	   
 }
