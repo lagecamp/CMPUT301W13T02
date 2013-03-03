@@ -1,5 +1,7 @@
 package ca.ualberta.team2recipefinder;
 
+import java.util.List;
+
 import ca.ualberta.team2recipefinder.R;
 import ca.ualberta.team2recipefinder.RecipeFinderApplication;
 import ca.ualberta.team2recipefinder.R.id;
@@ -110,11 +112,12 @@ public class ViewRecipeActivity extends Activity {
 		procedure.setText(procedureText);
 		
 		TextView ingredients = (TextView) findViewById(R.id.ingredients_text);
-		String[] ingredientTextArray = currentRecipe.getIngredients();
+		List<Ingredient> ingredientTextArray = currentRecipe.getIngredients();
 		
 		String ingredientText = new String();
-		for (int i = 0; i < ingredientTextArray.length; i++) {
-			ingredientText.concat(ingredientTextArray[i]);
+		String nl = System.getProperty("line.seperator");
+		for (int i = 0; i < ingredientTextArray.size(); i++) {
+			ingredientText.concat(ingredientTextArray.get(i).toString()+nl);
 		}
 		ingredients.setText(ingredientText);
 	}
