@@ -1,4 +1,4 @@
-package com.example.recipefinder;
+package ca.ualberta.team2recipefinder;
 
 import android.os.Bundle;
 import android.app.Activity;

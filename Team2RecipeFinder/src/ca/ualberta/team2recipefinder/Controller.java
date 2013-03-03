@@ -9,4 +9,9 @@ public class Controller {
 									  boolean searchFromWeb) {
 		
 	}
+	
+	public Recipe getRecipe(int i) {
+		// should return ingredient at index i
+		return new Recipe();
+	}
 }
