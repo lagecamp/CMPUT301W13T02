@@ -1,6 +1,4 @@
 package ca.ualberta.team2recipefinder;
-
-
 import java.util.ArrayList;
 
 

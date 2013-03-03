@@ -1,4 +1,4 @@
-
+package ca.ualberta.team2recipefinder;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -20,7 +21,7 @@ public class RecipeModel
 	 * Constructor
 	 */
 	public RecipeModel(){
-		this.recipes= new ArrayList<Recipe>();
+		this.recipes = load();
 	}
 	
 	
@@ -28,7 +29,6 @@ public class RecipeModel
 	 * Add a new Recipe to the Recipe Array List and then write it to the phone's database
 	 */
 	   public void add(Recipe recipe) {
-		   this.recipes = load();
 		   recipes.add(recipe);
 		   sortRecipes();
 		   writeFile(recipes);
@@ -66,7 +66,7 @@ public class RecipeModel
 	 /*
 	  * Load an array of recipes from the phone's database 
 	  */	   
-	   public ArrayList<Recipe> load() {  
+	   private ArrayList<Recipe> load() {  
 		   ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		   
 		   try {  
@@ -134,8 +134,19 @@ public class RecipeModel
 		   		}
 	   }
 	   
+	   /*
+	    * Returns a single recipe
+	    */
+	   public Recipe getRecipe(int index) {
+		   return this.recipes.get(index);
+	   }
 	   
-	   
+	   /*
+	    * Returns all recipes
+	    */
+	   public List<Recipe> getAllRecipes() {
+		   return this.recipes;
+	   }
 
 		
 	
