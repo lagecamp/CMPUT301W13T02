@@ -81,7 +81,7 @@ public class IngredientList extends Model<View>{
 		   
 		   
 		for(int i = 0; i<ingredientList.size(); i++){
-			if(ingredientList.get(i).getType().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getAuthor().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getProcedure().toLowerCase(Locale.ENGLISH).contains(keyword))
+			if(ingredientList.get(i).getType().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getUnity().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH))){
 				matchingIngredients.add(ingredientList.get(i));
 			}
 		}
