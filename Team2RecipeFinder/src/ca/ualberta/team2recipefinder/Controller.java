@@ -1,5 +1,6 @@
 package ca.ualberta.team2recipefinder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
@@ -14,22 +15,23 @@ public class Controller {
 	
 	public List<Recipe> search(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
 		// for now, it only searches locally
-		return model.searchRecipe(keywords, searchLocally, searchFromWeb);
+		return model.searchRecipe(keywords);
 	}
 	
-	public void searchWithIngredients(String[] keywords, boolean searchLocally, 
+	public List<Recipe> searchWithIngredients(String[] keywords, boolean searchLocally, 
 									  boolean searchFromWeb) {
 		// for now, it only searches locally
-		return model.searchWithIngredients(keyowords, searchLocally, searchFromWeb);
+		//return model.searchWithIngredients(keyowords, searchLocally, searchFromWeb);
+		
+		// stil working in  the search with ingredients
+		return model.searchRecipe(keywords);
 	}
 	
-	public Recipe getRecipe(int i) {
-		
-		return new Recipe();
+	public Recipe getRecipe(int index) {
+		return model.getRecipe(index);
 	}
 	
-	public Recipe[] getRecipes() {
-		
-		return null;
+	public List<Recipe> getRecipes() {
+		return model.getAllRecipes();
 	}
 }
