@@ -22,11 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="ca.ualberta.team2recipefinder.SearchActivity" >
+        <activity android:name="ca.ualberta.team2recipefinder.SearchActivity" >
+        </activity>
+        <activity android:name="ca.ualberta.team2recipefinder.MyKitchenActivity" >
         </activity>
         <activity
-            android:name="ca.ualberta.team2recipefinder.MyKitchenActivity" >
+            android:name="ca.ualberta.team2recipefinder.EditRecipeActivity"
+            android:label="@string/title_activity_edit_recipe" >
         </activity>
     </application>
 
