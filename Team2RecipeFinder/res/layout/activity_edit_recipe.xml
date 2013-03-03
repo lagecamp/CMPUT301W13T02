@@ -8,8 +8,8 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/name" />
+        android:text="@string/name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <View
         android:id="@+id/view1"
@@ -51,7 +51,6 @@
             android1:layout_centerVertical="true"
             android1:text="@string/ingredients"
             android1:textAppearance="?android:attr/textAppearanceLarge" />
-
     </RelativeLayout>
 
     <View
@@ -86,10 +85,17 @@
         android:background="#000000" />
 
     <EditText
-        android1:id="@+id/editText2"
+        android1:id="@+id/edit_procedure"
         android1:layout_width="match_parent"
         android1:layout_height="wrap_content"
+        android1:layout_weight="0.87"
         android1:ems="10"
         android1:inputType="textMultiLine" />
+
+    <Button
+        android1:id="@+id/button_done"
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content"
+        android1:text="@string/done" />
 
 </LinearLayout>
