@@ -1,6 +1,3 @@
-package ca.ualberta.team2recipefinder;
-
-
 import java.io.Serializable;
 
 
@@ -8,7 +5,7 @@ import java.io.Serializable;
 
 public class Recipe implements Serializable
 {
-  /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -62,16 +59,6 @@ public class Recipe implements Serializable
 	
 	public void setIngredients(Ingredient[] ingredients){
 		this.ingredients = ingredients;
-	}
-	/*
-	 * Returns the ingredients as a list
-	 */
-	public String getIngredientsToString(){
-		String ingredientsList = new String();
-		for(int i = 0; i<ingredients.length; i++){
-			ingredientsList += ingredients[i] + ", ";
-		}
-		return ingredientsList;
 	}
 	
 
