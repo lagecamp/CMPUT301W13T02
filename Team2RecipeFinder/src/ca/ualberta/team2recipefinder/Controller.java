@@ -34,4 +34,12 @@ public class Controller {
 	public List<Recipe> getRecipes() {
 		return model.getAllRecipes();
 	}
+	
+	public void addRecipe(Recipe r) {
+		//add r to the recipe list
+	}
+	
+	public void replaceRecipe(Recipe r, int i) {
+		// should replace recipe at index i with r
+	}
 }
