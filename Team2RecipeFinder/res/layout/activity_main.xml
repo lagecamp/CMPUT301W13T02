@@ -33,11 +33,12 @@
 
     <View
         android:id="@+id/view1"
-        android:layout_width="wrap_content"
-        android:layout_height="1dip"
-        android:background="#000000"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip" />
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
 
     <ListView
         android:id="@+id/recipeList"

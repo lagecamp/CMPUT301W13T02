@@ -104,6 +104,8 @@ public class ViewRecipeActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				/* CALL DELETE FROM CONTROLLER, EXIT ACTIVITY */
+				
+				finish();
 			}
 		});
 		

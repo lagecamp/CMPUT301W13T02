@@ -15,18 +15,22 @@ import android.widget.ListView;
 
 public class EditRecipeActivity extends Activity {
 
-	EditText nameEdit = (EditText) findViewById(R.id.edit_name);;
-	EditText procedureEdit = (EditText) findViewById(R.id.edit_procedure);
+	EditText nameEdit;
+	EditText procedureEdit;
 	Recipe currentRecipe = new Recipe();
 	int recipeID = -1;
-	ListView ingredientList = (ListView) findViewById(R.id.ingredient_list);
+	ListView ingredientList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_recipe);
 		
+		nameEdit = (EditText) findViewById(R.id.edit_name);
+		procedureEdit = (EditText) findViewById(R.id.edit_procedure);
+		ingredientList = (ListView) findViewById(R.id.ingredient_list);
 		Controller c = RecipeFinderApplication.getController();
+		
 		
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
@@ -57,6 +61,8 @@ public class EditRecipeActivity extends Activity {
 				else {
 					c.replaceRecipe(currentRecipe, recipeID);
 				}
+				
+				finish();
 			}		
 		});
 		

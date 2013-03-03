@@ -17,14 +17,14 @@ import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
-	ListView recipes = (ListView) findViewById(R.id.recipeList);
+	ListView recipes;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-
+		recipes = (ListView) findViewById(R.id.recipeList);
 		/* set up all button listeners */
 		
 		Button addButton = (Button) findViewById(R.id.button_main_add);
@@ -54,6 +54,7 @@ public class MainActivity extends Activity {
 			}		
 		});
 		
+		
 		refresh();
 	
 		
@@ -62,19 +63,13 @@ public class MainActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(MainActivity.this, ViewRecipeActivity.class);
 				Recipe r = (Recipe) recipes.getItemAtPosition(position);
-				intent.putExtra("recipeID", r.getId());
+				intent.putExtra("recipeID", r.getRecipeID());
 				startActivity(intent);
 			}
 		});
 
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
 	
 	public void refresh() {
 		ListView recipes = (ListView) findViewById(R.id.recipeList);
@@ -82,6 +77,15 @@ public class MainActivity extends Activity {
 		List<Recipe> recipeList = c.getRecipes();
 		final ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, R.layout.list_item, recipeList);
 		recipes.setAdapter(adapter);
+		adapter.notifyDataSetChanged();
 	}
-
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		
+		refresh();
+	}
+	
+	
 }
