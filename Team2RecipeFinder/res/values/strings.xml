@@ -10,7 +10,8 @@
     <string name="search_locally">Search locally</string>
     <string name="search_from_web">Search from web</string>
     <string name="use_ingredients_from_kitchen">Use ingredients from My Kitchen</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="search">Search</string>
+    <string name="no_keyword">You haven\'t entered any keywords!</string>
 
 </resources>
