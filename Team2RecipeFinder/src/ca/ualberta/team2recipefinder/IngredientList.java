@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class IngredientList{
+public class IngredientList extends Model<View>{
 	private String filename="IngredientList.sav";
 	
 	public IngredientList(){
