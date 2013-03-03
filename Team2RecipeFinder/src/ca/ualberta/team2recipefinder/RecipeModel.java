@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class RecipeModel
 {
-  private static final String filename = "file.sav";
+	private static final String filename = "file.sav";
 	private ArrayList<Recipe> recipes; 
 	
 	/*
@@ -38,8 +38,9 @@ public class RecipeModel
 	    * Remove the specified recipe
 	    */
 	   public void remove(Recipe recipe){
-		   for(int i = 0; i<recipes.size(); i++){
-			   if(recipe.getName() == recipes.get(i).getName()  && recipe.getAuthor() == recipes.get(i).getAuthor()  && recipe.getProcedure() == recipes.get(i).getProcedure()){
+		   //Searches for recipes which have equivalent attributes (name, author, procedure) as the specified recipe
+		   for(int i = 0; i<recipes.size(); i++){			   
+			   if(recipe.getName().contentEquals(recipes.get(i).getName())  && recipe.getAuthor().contentEquals(recipes.get(i).getAuthor())   && recipe.getProcedure().contentEquals(recipes.get(i).getProcedure())){
 				   recipes.remove(i);
 				   break;
 			   }		   
