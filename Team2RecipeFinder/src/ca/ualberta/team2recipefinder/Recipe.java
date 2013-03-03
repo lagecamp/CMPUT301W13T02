@@ -15,6 +15,7 @@ public class Recipe implements Serializable
 	private String author;
 	private List<Ingredient> ingredients;
 	private boolean onServer;
+	private long id;
 	
 	public Recipe(){}
 	
@@ -24,6 +25,11 @@ public class Recipe implements Serializable
 		this.author = author;
 		this.ingredients = ingredients;
 		this.onServer = onServer;
+	 	this.id = System.currentTimeMillis();
+	}
+	
+		public long getRecipeID(){
+		return id;
 	}
 	
 	public String getName(){
