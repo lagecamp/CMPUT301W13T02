@@ -1,8 +1,7 @@
 package ca.ualberta.team2recipefinder;
 
 import java.io.Serializable;
-
-
+import java.util.List;
 
 
 public class Recipe implements Serializable
@@ -14,12 +13,12 @@ public class Recipe implements Serializable
 	private String name;
 	private String procedure;
 	private String author;
-	private Ingredient[] ingredients;
+	private List<Ingredient> ingredients;
 	private boolean onServer;
 	
 	public Recipe(){}
 	
-	public Recipe(String name, String procedure, String author, Ingredient[] ingredients, boolean onServer){
+	public Recipe(String name, String procedure, String author, List<Ingredient> ingredients, boolean onServer){
 		this.name = name;
 		this.procedure = procedure;
 		this.author = author;
@@ -55,11 +54,11 @@ public class Recipe implements Serializable
 		this.author = author;
 	}
 	
-	public Ingredient[] getIngredients(){
+	public List<Ingredient> getIngredients(){
 		return ingredients;
 	}
 	
-	public void setIngredients(Ingredient[] ingredients){
+	public void setIngredients(List<Ingredient> ingredients){
 		this.ingredients = ingredients;
 	}
 	

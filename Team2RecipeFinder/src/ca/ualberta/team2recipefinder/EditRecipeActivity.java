@@ -40,7 +40,7 @@ public class EditRecipeActivity extends Activity {
 		procedureEdit.setText(currentRecipe.getProcedure());
 		
 		List<Ingredient> ingredients =currentRecipe.getIngredients();
-		final ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, R.layout.list_item, ingredients);
+		final ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, R.layout.list_item, ingredients);
 		ingredientList.setAdapter(adapter);
 		
 		Button doneButton = (Button) findViewById(R.id.button_done);
