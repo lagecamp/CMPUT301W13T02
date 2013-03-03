@@ -1,3 +1,6 @@
+package ca.ualberta.team2recipefinder;
+
+
 import java.io.Serializable;
 
 
@@ -14,6 +17,8 @@ public class Recipe implements Serializable
 	private String author;
 	private String[] ingredients;
 	private boolean onServer;
+	
+	public Recipe(){}
 	
 	public Recipe(String name, String procedure, String author, String[] ingredients, boolean onServer){
 		this.name = name;

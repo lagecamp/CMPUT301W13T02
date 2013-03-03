@@ -14,4 +14,9 @@ public class Controller {
 		// should return ingredient at index i
 		return new Recipe();
 	}
+	
+	public Recipe[] getRecipes() {
+		// should return the complete recipe list as an array
+		return null;
+	}
 }
