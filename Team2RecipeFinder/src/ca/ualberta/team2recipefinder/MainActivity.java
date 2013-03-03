@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
 		addButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				//Intent intent = new Intent(MainActivity.this, EditRecipeActivity.class);
-				//startActivity(intent);
+				Intent intent = new Intent(MainActivity.this, EditRecipeActivity.class);
+				startActivity(intent);
 			}		
 		});
 		

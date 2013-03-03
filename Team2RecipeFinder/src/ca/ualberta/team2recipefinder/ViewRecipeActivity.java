@@ -22,7 +22,7 @@ public class ViewRecipeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 		
-		int recipeIndex;
+		int recipeIndex = 0;
 		Recipe currentRecipe = new Recipe();
 		Controller c = RecipeFinderApplication.getController();
 		boolean isLocal;
@@ -34,6 +34,8 @@ public class ViewRecipeActivity extends Activity {
 				currentRecipe = c.getRecipe(recipeIndex);
 			}
 		}
+		
+		final int editNumber = recipeIndex;
 		
 		if (currentRecipe.getOnServer()) {
 			isLocal = false;
@@ -82,7 +84,9 @@ public class ViewRecipeActivity extends Activity {
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				/* CALL EDITING ACTVITY HERE */
+				Intent intent = new Intent(ViewRecipeActivity.this, EditRecipeActivity.class);
+				intent.putExtra("recipeIndex", editNumber);
+				startActivity(intent);
 			}
 		});
 		
