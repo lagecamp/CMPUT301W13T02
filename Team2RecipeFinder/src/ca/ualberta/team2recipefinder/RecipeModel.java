@@ -1,4 +1,3 @@
-package ca.ualberta.team2recipefinder;
 
 
 import java.io.FileInputStream;
@@ -88,21 +87,23 @@ public class RecipeModel
 	   /*
 	    * Searches the phone's recipes for the specific keyword.  It looks at the recipe's name, procedure, author, and ingredients
 	    */
-	   public ArrayList<Recipe> searchRecipe(String keyword) {
+	   public ArrayList<Recipe> searchRecipe(String[] keywords) {
 		   //Array List of Recipes that match the keyword
 		   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();
 		   
 		   
-		   //Searches the Arrraylist and looks for any recipe name, author, procedure which contains the keyword
-		   for(int i = 0; i<recipes.size(); i++){
-			   if(recipes.get(i).getName().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)) || recipes.get(i).getAuthor().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)) || recipes.get(i).getProcedure().toLowerCase(Locale.ENGLISH).contains(keyword))
-				   matchingrecipes.add(recipes.get(i));
-			   else{
-				   //Searches the Arraylist and looks for any ingredient that contains the keyword
-				   for(int n = 0; n<recipes.get(i).getIngredients().length; n++)
-					   if(recipes.get(i).getIngredients()[n].toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)))
-						   matchingrecipes.add(recipes.get(i));
-			   }
+		   //Searches the Arrraylist and looks for any recipe name, author, procedure which contains the keywords
+		   for(int k = 0; k<keywords.length; k++){
+		   		for(int i = 0; i<recipes.size(); i++){
+		   			if((recipes.get(i).getName().toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) || recipes.get(i).getAuthor().toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) || recipes.get(i).getProcedure().toLowerCase(Locale.ENGLISH).contains(keywords[k]) ) && !matchingrecipes.contains(recipes.get(i)) )
+		   				matchingrecipes.add(recipes.get(i));
+		   			else{
+		   				//Searches the Arraylist and looks for any ingredient that contains the keyword
+		   				for(int n = 0; n<recipes.get(i).getIngredients().length; n++)
+		   					if((recipes.get(i).getIngredients()[n].toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) )  && !matchingrecipes.contains(recipes.get(i)))
+		   						matchingrecipes.add(recipes.get(i));
+		   			}
+		   		}
 		   }
 		   	   
 		   return matchingrecipes;
