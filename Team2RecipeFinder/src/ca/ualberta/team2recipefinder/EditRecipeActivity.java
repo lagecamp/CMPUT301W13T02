@@ -1,20 +1,25 @@
 package ca.ualberta.team2recipefinder;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 public class EditRecipeActivity extends Activity {
 
-	EditText nameEdit;
-	EditText procedureEdit;
+	EditText nameEdit = (EditText) findViewById(R.id.edit_name);;
+	EditText procedureEdit = (EditText) findViewById(R.id.edit_procedure);
 	Recipe currentRecipe = new Recipe();
-	int recipeIndex;
+	int recipeIndex = -1;
+	ListView ingredientList = (ListView) findViewById(R.id.ingredient_list);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +36,12 @@ public class EditRecipeActivity extends Activity {
 			}
 		}
 		
-		nameEdit = (EditText) findViewById(R.id.edit_name);
 		nameEdit.setText(currentRecipe.getName());
-		
-		procedureEdit = (EditText) findViewById(R.id.edit_procedure);
 		procedureEdit.setText(currentRecipe.getProcedure());
+		
+		List<Ingredient> ingredients =currentRecipe.getIngredients();
+		final ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, R.layout.list_item, ingredients);
+		ingredientList.setAdapter(adapter);
 		
 		Button doneButton = (Button) findViewById(R.id.button_done);
 		doneButton.setOnClickListener(new OnClickListener() {

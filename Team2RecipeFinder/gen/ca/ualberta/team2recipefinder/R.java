@@ -35,10 +35,10 @@ public final class R {
         public static final int edit_procedure=0x7f070009;
         public static final int handle=0x7f070013;
         public static final int imageView1=0x7f070021;
+        public static final int ingredient_list=0x7f070006;
         public static final int ingredient_title=0x7f070024;
         public static final int ingredients_text=0x7f070025;
         public static final int listResults=0x7f070010;
-        public static final int listView1=0x7f070006;
         public static final int menu_settings=0x7f070028;
         public static final int procedure_text=0x7f070027;
         public static final int procedure_title=0x7f070026;

@@ -15,12 +15,12 @@ public class Recipe implements Serializable
 	private String name;
 	private String procedure;
 	private String author;
-	private String[] ingredients;
+	private Ingredient[] ingredients;
 	private boolean onServer;
 	
 	public Recipe(){}
 	
-	public Recipe(String name, String procedure, String author, String[] ingredients, boolean onServer){
+	public Recipe(String name, String procedure, String author, Ingredient[] ingredients, boolean onServer){
 		this.name = name;
 		this.procedure = procedure;
 		this.author = author;
@@ -29,6 +29,10 @@ public class Recipe implements Serializable
 	}
 	
 	public String getName(){
+		return name;
+	}
+	
+	public String toString() {
 		return name;
 	}
 	
@@ -52,11 +56,11 @@ public class Recipe implements Serializable
 		this.author = author;
 	}
 	
-	public String[] getIngredients(){
+	public Ingredient[] getIngredients(){
 		return ingredients;
 	}
 	
-	public void setIngredients(String[] ingredients){
+	public void setIngredients(Ingredient[] ingredients){
 		this.ingredients = ingredients;
 	}
 	/*

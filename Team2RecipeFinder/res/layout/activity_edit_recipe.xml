@@ -63,7 +63,7 @@
         android:background="#000000" />
 
     <ListView
-        android1:id="@+id/listView1"
+        android1:id="@+id/ingredient_list"
         android1:layout_width="match_parent"
         android1:layout_height="128dp" >
     </ListView>
