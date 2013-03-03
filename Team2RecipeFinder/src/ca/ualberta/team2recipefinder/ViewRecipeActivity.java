@@ -20,13 +20,13 @@ import android.widget.TextView;
 public class ViewRecipeActivity extends Activity {
 
 	int recipeID = -1;
+	Recipe currentRecipe = new Recipe();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 		
-		Recipe currentRecipe = new Recipe();
 		Controller c = RecipeFinderApplication.getController();
 		boolean isLocal;
 		
@@ -94,10 +94,10 @@ public class ViewRecipeActivity extends Activity {
 		
 		Button deleteButton = (Button) findViewById(R.id.delete_button);
 		if (isLocal) {
-			editButton.setText("Delete");
+			deleteButton.setText("Delete");
 		}
 		else {
-			editButton.setMaxHeight(0);
+			deleteButton.setMaxHeight(0);
 		}
 		
 		deleteButton.setOnClickListener(new OnClickListener() {
@@ -109,6 +109,10 @@ public class ViewRecipeActivity extends Activity {
 			}
 		});
 		
+		refresh();
+	}
+	
+	public void refresh() {
 		TextView procedure = (TextView) findViewById(R.id.procedure_text);
 		String procedureText = currentRecipe.getProcedure();
 		procedure.setText(procedureText);
@@ -122,6 +126,13 @@ public class ViewRecipeActivity extends Activity {
 			ingredientText.concat(ingredientTextArray.get(i).toString()+nl);
 		}
 		ingredients.setText(ingredientText);
+	}
+	
+	@Override
+	public void onStart() {
+		super.onStart();
+		
+		refresh();
 	}
 
 }

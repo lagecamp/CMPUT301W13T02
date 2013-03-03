@@ -30,6 +30,8 @@
             android:name="ca.ualberta.team2recipefinder.EditRecipeActivity"
             android:label="@string/title_activity_edit_recipe" >
         </activity>
+        <activity android:name="ca.ualberta.team2recipefinder.ViewRecipeActivity" >
+            </activity>
     </application>
 
 </manifest>

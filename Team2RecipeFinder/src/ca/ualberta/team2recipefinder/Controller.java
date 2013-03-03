@@ -36,7 +36,7 @@ public class Controller {
 	}
 	
 	public void addRecipe(Recipe r) {
-		//add r to the recipe list
+		model.add(r);
 	}
 	
 	public void replaceRecipe(Recipe r, int id) {
