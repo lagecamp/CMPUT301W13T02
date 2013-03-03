@@ -1,3 +1,5 @@
+package ca.ualberta.team2recipefinder;
+
 import java.io.Serializable;
 
 
