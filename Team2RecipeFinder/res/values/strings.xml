@@ -4,5 +4,13 @@
     <string name="app_name">Team2RecipeFinder</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="search_results">Search Results</string>
+    <string name="search_criteria">Search Criteria</string>
+    <string name="keywords">Keywords</string>
+    <string name="search_locally">Search locally</string>
+    <string name="search_from_web">Search from web</string>
+    <string name="use_ingredients_from_kitchen">Use ingredients from My Kitchen</string>
+    <string name="ok">Ok</string>
+    <string name="search">Search</string>
 
 </resources>
