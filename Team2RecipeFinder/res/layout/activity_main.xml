@@ -1,14 +1,41 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+    <LinearLayout
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content"
+        android1:orientation="horizontal" >
 
-</RelativeLayout>
+        <Button
+            android1:id="@+id/button_main_add"
+            android1:layout_width="0dip"
+            android1:layout_height="wrap_content"
+            android1:layout_weight="1"
+            android1:text="@string/main_add_button" />
+
+        <Button
+            android1:id="@+id/button_main_search"
+            android1:layout_width="0dip"
+            android1:layout_height="wrap_content"
+            android1:layout_weight="1"
+            android1:text="@string/main_search_button" />
+
+        <Button
+            android1:id="@+id/button_main_mykitchen"
+            android1:layout_width="0dip"
+            android1:layout_height="wrap_content"
+            android1:layout_weight="1.5"
+            android1:text="@string/main_mykitchen_button" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/recipeList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    </ListView>
+
+</LinearLayout>

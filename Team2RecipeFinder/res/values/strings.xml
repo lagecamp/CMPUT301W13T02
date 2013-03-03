@@ -13,5 +13,14 @@
     <string name="ok">OK</string>
     <string name="search">Search</string>
     <string name="no_keyword">You haven\'t entered any keywords!</string>
+    <string name="main_mykitchen_button">MyKitchen</string>
+    <string name="main_add_button">Add</string>
+    <string name="main_search_button">Search</string>
+    <string name="title_activity_view_recipe">ViewRecipeActivity</string>
+    <string name="picture_description">recipe</string>
+    <string name="arrow_forward">-&gt;</string>
+    <string name="arrow_backward">&lt;-</string>
+    <string name="procedure">Procedure</string>
+    <string name="ingredients">Ingredients</string>
 
 </resources>
