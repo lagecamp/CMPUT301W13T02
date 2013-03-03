@@ -39,7 +39,7 @@ public class Controller {
 		//add r to the recipe list
 	}
 	
-	public void replaceRecipe(Recipe r, int i) {
-		// should replace recipe at index i with r
+	public void replaceRecipe(Recipe r, int id) {
+		// should replace recipe with given id with r
 	}
 }

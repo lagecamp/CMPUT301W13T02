@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 public class ViewRecipeActivity extends Activity {
 
-	int recipeIndex = -1;
+	int recipeID = -1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class ViewRecipeActivity extends Activity {
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				recipeIndex = extras.getInt("recipeIndex");
-				currentRecipe = c.getRecipe(recipeIndex);
+				recipeID = extras.getInt("recipeID");
+				currentRecipe = c.getRecipe(recipeID);
 			}
 		}
 		
@@ -87,7 +87,7 @@ public class ViewRecipeActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(ViewRecipeActivity.this, EditRecipeActivity.class);
-				intent.putExtra("recipeIndex", recipeIndex);
+				intent.putExtra("recipeID", recipeID);
 				startActivity(intent);
 			}
 		});

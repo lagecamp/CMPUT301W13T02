@@ -1,6 +1,7 @@
 package ca.ualberta.team2recipefinder;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,7 +17,13 @@ public class Recipe implements Serializable
 	private List<Ingredient> ingredients;
 	private boolean onServer;
 	
-	public Recipe(){}
+	public Recipe() {
+		name = new String();
+		procedure = new String();
+		author = new String();
+		ingredients = new ArrayList<Ingredient>();
+		onServer = false;
+	}
 	
 	public Recipe(String name, String procedure, String author, List<Ingredient> ingredients, boolean onServer){
 		this.name = name;

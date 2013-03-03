@@ -17,6 +17,8 @@ import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
+	ListView recipes = (ListView) findViewById(R.id.recipeList);
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,14 +55,14 @@ public class MainActivity extends Activity {
 		});
 		
 		refresh();
-		
-		ListView recipes = (ListView) findViewById(R.id.recipeList);
+	
 		
 		recipes.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(MainActivity.this, ViewRecipeActivity.class);
-				intent.putExtra("recipeIndex", position);
+				Recipe r = (Recipe) recipes.getItemAtPosition(position);
+				intent.putExtra("recipeID", r.getId());
 				startActivity(intent);
 			}
 		});

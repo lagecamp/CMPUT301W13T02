@@ -18,7 +18,7 @@ public class EditRecipeActivity extends Activity {
 	EditText nameEdit = (EditText) findViewById(R.id.edit_name);;
 	EditText procedureEdit = (EditText) findViewById(R.id.edit_procedure);
 	Recipe currentRecipe = new Recipe();
-	int recipeIndex = -1;
+	int recipeID = -1;
 	ListView ingredientList = (ListView) findViewById(R.id.ingredient_list);
 	
 	@Override
@@ -31,8 +31,8 @@ public class EditRecipeActivity extends Activity {
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				recipeIndex = extras.getInt("recipeIndex");
-				currentRecipe = c.getRecipe(recipeIndex);
+				recipeID = extras.getInt("recipeID");
+				currentRecipe = c.getRecipe(recipeID);
 			}
 		}
 		
@@ -51,13 +51,21 @@ public class EditRecipeActivity extends Activity {
 				currentRecipe.setProcedure(procedureEdit.getText().toString());
 				
 				Controller c = RecipeFinderApplication.getController();
-				if (recipeIndex == -1) {
+				if (recipeID == -1) {
 					c.addRecipe(currentRecipe);
 				}
 				else {
-					c.replaceRecipe(currentRecipe, recipeIndex);
+					c.replaceRecipe(currentRecipe, recipeID);
 				}
 			}		
+		});
+		
+		Button addIngredient = (Button) findViewById(R.id.button_add_ingredient);
+		addIngredient.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				// need to add code to add an ingredient to the recipes ingredient list
+			}
 		});
 	}
 
