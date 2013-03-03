@@ -22,5 +22,8 @@
     <string name="arrow_backward">&lt;-</string>
     <string name="procedure">Procedure</string>
     <string name="ingredients">Ingredients</string>
+    <string name="no_source_search">You must select at least one source (local or remote) for your search</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
 
 </resources>

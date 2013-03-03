@@ -2,14 +2,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+    
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/add" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="@string/delete" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/results_label"
+        android:layout_below="@+id/buttons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
-        android:layout_alignParentTop="true"
         android:text="@string/search_results"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -33,7 +54,7 @@
     <SlidingDrawer
         android:id="@+id/slidingDrawer1"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="190dp"
         android:layout_alignParentBottom="true"
         android:content="@+id/content"
         android:handle="@+id/handle"
@@ -42,7 +63,7 @@
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="181dp"
             android:orientation="vertical" >
 
             <TextView
@@ -70,24 +91,6 @@
 
                 <requestFocus />
             </EditText>
-
-            <CheckBox
-                android:id="@+id/cbxSearchLocally"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/search_locally" />
-
-            <CheckBox
-                android:id="@+id/cbxSearchFromWeb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/search_from_web" />
-
-            <CheckBox
-                android:id="@+id/cbxIngredientsKitchen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/use_ingredients_from_kitchen" />
 
             <Button
                 android:id="@+id/btnOk"

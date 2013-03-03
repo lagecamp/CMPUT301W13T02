@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+
 		/* set up all button listeners */
 		
 		Button addButton = (Button) findViewById(R.id.button_main_add);
@@ -60,6 +61,7 @@ public class MainActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+
 	}
 
 	@Override
