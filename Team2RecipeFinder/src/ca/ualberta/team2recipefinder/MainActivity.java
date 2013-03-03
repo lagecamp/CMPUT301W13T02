@@ -1,5 +1,7 @@
 package ca.ualberta.team2recipefinder;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -74,8 +76,8 @@ public class MainActivity extends Activity {
 	public void refresh() {
 		ListView recipes = (ListView) findViewById(R.id.recipeList);
 		Controller c = RecipeFinderApplication.getController();
-		Recipe[] recipeArray = c.getRecipes();
-		final ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, R.layout.list_item, recipeArray);
+		List<Recipe> recipeList = c.getRecipes();
+		final ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, R.layout.list_item, recipeList);
 		recipes.setAdapter(adapter);
 	}
 

@@ -17,12 +17,13 @@ import android.widget.TextView;
 
 public class ViewRecipeActivity extends Activity {
 
+	int recipeIndex = -1;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 		
-		int recipeIndex = 0;
 		Recipe currentRecipe = new Recipe();
 		Controller c = RecipeFinderApplication.getController();
 		boolean isLocal;
@@ -35,7 +36,6 @@ public class ViewRecipeActivity extends Activity {
 			}
 		}
 		
-		final int editNumber = recipeIndex;
 		
 		if (currentRecipe.getOnServer()) {
 			isLocal = false;
@@ -85,7 +85,7 @@ public class ViewRecipeActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(ViewRecipeActivity.this, EditRecipeActivity.class);
-				intent.putExtra("recipeIndex", editNumber);
+				intent.putExtra("recipeIndex", recipeIndex);
 				startActivity(intent);
 			}
 		});

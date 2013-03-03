@@ -28,5 +28,6 @@
     <string name="title_activity_edit_recipe">EditRecipeActivity</string>
     <string name="name">Recipe Name</string>
     <string name="recipe_name_hint">Enter a name for this recipe...</string>
+    <string name="done">Done</string>
 
 </resources>
