@@ -25,6 +25,9 @@
         <activity
             android:name="ca.ualberta.team2recipefinder.SearchActivity" >
         </activity>
+        <activity
+            android:name="ca.ualberta.team2recipefinder.MyKitchenActivity" >
+        </activity>
     </application>
 
 </manifest>

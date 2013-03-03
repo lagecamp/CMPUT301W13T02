@@ -24,7 +24,7 @@
         android:background="#000000" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/listResults"
         android:layout_below="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="146dp" >
