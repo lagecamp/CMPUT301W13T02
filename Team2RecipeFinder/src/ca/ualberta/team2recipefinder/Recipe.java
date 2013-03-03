@@ -24,6 +24,7 @@ public class Recipe implements Serializable
 		author = new String();
 		ingredients = new ArrayList<Ingredient>();
 		onServer = false;
+		id = System.currentTimeMillis();
 	}
 	
 	public Recipe(String name, String procedure, String author, List<Ingredient> ingredients, boolean onServer){
