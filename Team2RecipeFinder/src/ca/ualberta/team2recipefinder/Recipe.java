@@ -18,6 +18,8 @@ public class Recipe implements Serializable
 	private String[] ingredients;
 	private boolean onServer;
 	
+	public Recipe(){}
+	
 	public Recipe(String name, String procedure, String author, String[] ingredients, boolean onServer){
 		this.name = name;
 		this.procedure = procedure;
