@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/name" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
+
+    <EditText
+        android1:id="@+id/edit_name"
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content"
+        android1:ems="10"
+        android1:hint="@string/recipe_name_hint" >
+
+        <requestFocus />
+    </EditText>
+
+    <RelativeLayout
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content" >
+
+        <Button
+            android1:id="@+id/button_add_ingredient"
+            style="?android:attr/buttonStyleSmall"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_alignParentRight="true"
+            android1:layout_alignParentTop="true"
+            android1:text="@string/main_add_button" />
+
+        <TextView
+            android1:id="@+id/textView2"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_alignParentLeft="true"
+            android1:layout_centerVertical="true"
+            android1:text="@string/ingredients"
+            android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
+
+    <ListView
+        android1:id="@+id/listView1"
+        android1:layout_width="match_parent"
+        android1:layout_height="128dp" >
+    </ListView>
+
+    <TextView
+        android1:id="@+id/textView3"
+        android1:layout_width="wrap_content"
+        android1:layout_height="wrap_content"
+        android1:text="@string/procedure"
+        android1:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
+
+    <EditText
+        android1:id="@+id/editText2"
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content"
+        android1:ems="10"
+        android1:inputType="textMultiLine" />
+
+</LinearLayout>
