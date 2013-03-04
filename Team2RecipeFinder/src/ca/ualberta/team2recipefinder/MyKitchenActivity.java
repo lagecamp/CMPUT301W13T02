@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -56,7 +57,7 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
         		else {
         			displayResults(RecipeFinderApplication.getController().searchIngredient(text));
         		}
-        	}	
+			}
 		});
 		
 		// sets up the event when the user wants to delete an ingredient
@@ -98,6 +99,17 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 			}
         });
 		
+        listResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                Ingredient ingredient = (Ingredient)listResults.getItemAtPosition(position);
+                
+				Intent intent = new Intent(MyKitchenActivity.this, AddEditIngredientActivity.class);
+				// need ingredientID
+				//intent.putExtra("ingredientID", ingredient.getID());
+				startActivity(intent);
+            }
+        });
+        
 		RecipeFinderApplication.getMyKitchen().addView(this);
 		this.update(RecipeFinderApplication.getMyKitchen());
 	}

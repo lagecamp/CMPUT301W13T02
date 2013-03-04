@@ -11,15 +11,19 @@ import java.util.Locale;
 
 public class IngredientList extends Model<View>{
 	private String filename="IngredientList.sav";
+	private String path;
 	
 	public IngredientList(){
+		// gets the folder where we should put the files
+		// created by the application (and appends filename)
+		path = RecipeFinderApplication.getAppContext().getFilesDir() + filename;
 	}
 	
 	public ArrayList<Ingredient> load() {  
 		ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 		   
 		try {  
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));  
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));  
 			ingredientList = (ArrayList<Ingredient>) in.readObject();
 		} 
 		catch (IOException e) {  
@@ -54,7 +58,7 @@ public class IngredientList extends Model<View>{
 	
 	private void write(ArrayList<Ingredient> ingredientList){
 		try {  
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
 			out.writeObject(ingredientList);
 			out.close();  
 		} catch (FileNotFoundException e) {  

@@ -31,5 +31,10 @@
     <string name="done">Done</string>
     <string name="no_record_selected">You haven\'t selected any records!</string>
     <string name="delete_succesful">The records have been successfully deleted!</string>
+    <string name="add_ingredient">Add Ingredient</string>
+    <string name="edit_ingredient">Edit Ingredientq</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="amount">Amount</string>
+    <string name="unit">Unit</string>
 
 </resources>

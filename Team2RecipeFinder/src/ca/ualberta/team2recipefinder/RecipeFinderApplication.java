@@ -34,4 +34,17 @@ public class RecipeFinderApplication extends Application {
 		}
 		return myKitchen;
     }
+	
+    transient private static Context context = null;
+    
+    @Override
+    public void onCreate(){
+        super.onCreate();
+        context = super.getApplicationContext();
+    }
+
+    // returns application context
+    public static Context getAppContext() {
+        return context;
+    }
 }

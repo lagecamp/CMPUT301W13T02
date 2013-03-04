@@ -21,7 +21,7 @@ public class Controller {
 	public List<Recipe> searchWithIngredients(String[] keywords, boolean searchLocally, 
 									  boolean searchFromWeb) {
 		// for now, it only searches locally
-		//return model.searchWithIngredients(keyowords, searchLocally, searchFromWeb);
+		//return model.searchWithIngredients(keywords, searchLocally, searchFromWeb);
 		
 		// stil working in  the search with ingredients
 		return model.searchRecipe(keywords);
@@ -53,5 +53,9 @@ public class Controller {
 	
 	public List<Ingredient> searchIngredient(String keyword) {
 		return myKitchen.searchIngredient(keyword);
+	}
+	
+	public void addIngredient(Ingredient ingredient) {
+		myKitchen.add(ingredient);
 	}
 }

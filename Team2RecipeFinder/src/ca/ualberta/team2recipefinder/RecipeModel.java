@@ -15,12 +15,17 @@ import java.util.Locale;
 public class RecipeModel
 {
 	private static final String filename = "file.sav";
+	private String path;
 	private ArrayList<Recipe> recipes; 
 	
 	/*
 	 * Constructor
 	 */
 	public RecipeModel(){
+		// gets the folder where we should put the files
+		// created by the application (and appends filename)
+		path = RecipeFinderApplication.getAppContext().getFilesDir() + filename;
+		
 		this.recipes = load();
 	}
 	
@@ -51,9 +56,9 @@ public class RecipeModel
 	   /*
 	    * Write an arraylist of recipes to the phone's database
 	    */
-	   public static void writeFile(ArrayList<Recipe> recipes) {  
+	   public void writeFile(ArrayList<Recipe> recipes) {  
 			try {  
-				ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filename));
+				ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
 				out.writeObject(recipes);
 				out.close();  
 			} catch (FileNotFoundException e) {  
@@ -70,7 +75,7 @@ public class RecipeModel
 		   ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		   
 		   try {  
-				ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));  
+				ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));  
 				recipes = (ArrayList<Recipe>) in.readObject();
 				
 
