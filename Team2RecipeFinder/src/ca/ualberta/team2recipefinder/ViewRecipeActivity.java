@@ -27,7 +27,7 @@ public class ViewRecipeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 		
-		Controller c = RecipeFinderApplication.getController();
+		final Controller c = RecipeFinderApplication.getController();
 		boolean isLocal;
 		
 		if (savedInstanceState == null) {
@@ -104,7 +104,7 @@ public class ViewRecipeActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				/* CALL DELETE FROM CONTROLLER, EXIT ACTIVITY */
-				
+				c.deleteRecipe(currentRecipe);
 				
 				
 				finish();

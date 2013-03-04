@@ -59,4 +59,8 @@ public class Controller {
 	public void addIngredient(Ingredient ingredient) {
 		myKitchen.add(ingredient);
 	}
+	
+	public void deleteRecipe(Recipe r){
+		model.remove(r);
+	}
 }
