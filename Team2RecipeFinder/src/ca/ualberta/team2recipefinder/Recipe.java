@@ -19,7 +19,7 @@ public class Recipe implements Serializable
 	private long id;
 	
 	public Recipe() {
-		name = new String();
+		name = "NEW_RECIPE";
 		procedure = new String();
 		author = new String();
 		ingredients = new ArrayList<Ingredient>();

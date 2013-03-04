@@ -99,7 +99,7 @@ public class RecipeModel
 		   				matchingrecipes.add(recipes.get(i));
 		   			else{
 		   				//Searches the Arraylist and looks for any ingredient that contains the keyword
-		   				//for(int n = 0; n<recipes.get(i).getIngredients().length; n++)
+		   				// 	for(int n = 0; n<recipes.get(i).getIngredients().length; n++)
 		   					//if((recipes.get(i).getIngredients()[n].toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) )  && !matchingrecipes.contains(recipes.get(i)))
 		   						//matchingrecipes.add(recipes.get(i));
 		   			}
@@ -148,6 +148,18 @@ public class RecipeModel
 		   return this.recipes;
 	   }
 
+	   public Recipe getRecipeById(int id) {
+		   Recipe r = new Recipe();;
+		   
+		   for (int i = 0; i < recipes.size(); i++) {
+			   
+			   if (id == recipes.get(i).getRecipeID()) {
+				   r = recipes.get(i);
+			   }
+		   }
+		   
+		   return r;
+	   }
 		
 	
 	

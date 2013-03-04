@@ -105,6 +105,8 @@ public class ViewRecipeActivity extends Activity {
 			public void onClick(View view) {
 				/* CALL DELETE FROM CONTROLLER, EXIT ACTIVITY */
 				
+				
+				
 				finish();
 			}
 		});
@@ -113,6 +115,9 @@ public class ViewRecipeActivity extends Activity {
 	}
 	
 	public void refresh() {
+		TextView recipeName = (TextView) findViewById(R.id.recipe_name);
+		recipeName.setText(currentRecipe.getName());
+		
 		TextView procedure = (TextView) findViewById(R.id.procedure_text);
 		String procedureText = currentRecipe.getProcedure();
 		procedure.setText(procedureText);

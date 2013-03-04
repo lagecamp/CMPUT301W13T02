@@ -27,8 +27,8 @@ public class Controller {
 		return model.searchRecipe(keywords);
 	}
 	
-	public Recipe getRecipe(int index) {
-		return model.getRecipe(index);
+	public Recipe getRecipe(int id) {
+		return model.getRecipeById(id);
 	}
 	
 	public List<Recipe> getRecipes() {
