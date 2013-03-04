@@ -8,7 +8,7 @@ import java.util.List;
 public class Recipe implements Serializable
 {
 	/**
-	 * 
+	 * Constructor
 	 */
 	private static final long serialVersionUID = 1L;
 	private String name;
