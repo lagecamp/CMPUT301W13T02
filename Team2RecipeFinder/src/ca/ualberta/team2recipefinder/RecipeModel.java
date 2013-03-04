@@ -201,6 +201,12 @@ public class RecipeModel
 		   
 		   return r;
 	   }
+	   
+	   public void replaceRecipe(Recipe r, long id){
+		   Recipe old = getRecipeById(id);
+		   old.setName(r.getName());
+		   old.setProcedure(r.getProcedure());
+	   }
 		
 	
 	

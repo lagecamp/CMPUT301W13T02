@@ -18,7 +18,7 @@ public class EditRecipeActivity extends Activity {
 	EditText nameEdit;
 	EditText procedureEdit;
 	Recipe currentRecipe = new Recipe();
-	int recipeID = -1;
+	long recipeID = -1;
 	ListView ingredientList;
 	
 	@Override
@@ -35,7 +35,7 @@ public class EditRecipeActivity extends Activity {
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				recipeID = extras.getInt("recipeID");
+				recipeID = extras.getLong("recipeID");
 				currentRecipe = c.getRecipe(recipeID);
 			}
 		}

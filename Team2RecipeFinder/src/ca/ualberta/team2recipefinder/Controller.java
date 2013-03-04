@@ -39,7 +39,8 @@ public class Controller {
 		model.add(r);
 	}
 	
-	public void replaceRecipe(Recipe r, int id) {
+	public void replaceRecipe(Recipe r, long id) {
+		model.replaceRecipe(r, id);
 		// should replace recipe with given id with r
 	}
 	
