@@ -27,7 +27,7 @@ public class Controller {
 		return model.searchRecipe(keywords);
 	}
 	
-	public Recipe getRecipe(int id) {
+	public Recipe getRecipe(long id) {
 		return model.getRecipeById(id);
 	}
 	

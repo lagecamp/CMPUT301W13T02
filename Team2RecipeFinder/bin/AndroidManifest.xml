@@ -26,6 +26,8 @@
         </activity>
         <activity android:name="ca.ualberta.team2recipefinder.MyKitchenActivity" >
         </activity>
+        <activity android:name="ca.ualberta.team2recipefinder.AddEditIngredientActivity" >
+        </activity>
         <activity
             android:name="ca.ualberta.team2recipefinder.EditRecipeActivity"
             android:label="@string/title_activity_edit_recipe" >

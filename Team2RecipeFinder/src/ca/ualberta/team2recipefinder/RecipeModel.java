@@ -185,8 +185,8 @@ public class RecipeModel
 		   return this.recipes;
 	   }
 
-	   public Recipe getRecipeById(int id) {
-		   Recipe r = new Recipe();;
+	   public Recipe getRecipeById(long id) {
+		   Recipe r = new Recipe();
 		   
 		   for (int i = 0; i < recipes.size(); i++) {
 			   
