@@ -32,4 +32,10 @@ public class Ingredient implements Serializable{
 	public void modifyAmount(Integer amount){
 		this.amount= amount;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return amount + " " + unity + " " + type;
+	}
 }

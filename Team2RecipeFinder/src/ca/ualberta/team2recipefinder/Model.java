@@ -1,7 +1,7 @@
 package ca.ualberta.team2recipefinder;
 import java.util.ArrayList;
 
-
+// class based on prof. Hindle's class FModel for FillerCreep
 public class Model<V extends View>{
 	private ArrayList<V> views;
 	

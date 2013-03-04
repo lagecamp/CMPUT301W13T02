@@ -5,10 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -74,7 +76,7 @@ public class SearchActivity extends Activity {
         		}
         		// input ok
         		else {
-        			/*List<Recipe> results;
+        			List<Recipe> results;
         			
         			// use ingredients from kitchen
         			if (cbxIngredientsKitchen.isChecked()) {
@@ -90,9 +92,19 @@ public class SearchActivity extends Activity {
     							   cbxSearchFromWeb.isChecked());
         			}
         			
-        			this.displayResults(results);*/
+        			displayResults(results);
         		}
         	}
+        });
+        
+        listResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                Recipe recipe = (Recipe)listResults.getItemAtPosition(position);
+                
+				Intent intent = new Intent(SearchActivity.this, ViewRecipeActivity.class);
+				intent.putExtra("recipeID", recipe.getRecipeID());
+				startActivity(intent);    
+            }
         });
     }
 
@@ -111,23 +123,12 @@ public class SearchActivity extends Activity {
     		checkBox.setChecked(true);
     	}
     }
-    /*
-    private void displayResults(List<Recipe> results) {		
-		LinkedList<String> stringsList = new LinkedList<String>();
-		
-		// transforms records into strings and uses them to display in a ListView
-		for (Recipe record : results) {
-			stringsList.add((new SimpleDateFormat("yyyy-MM-dd")).format(record.getDate()) + "\n" + 
-					record.getDescription() + "\n" +
-					record.getTotalCalories() + " " + getString(R.string.cal) + " = " + 
-					record.getNServings() + " * " + record.getCalPerServing());
-		}
-		
+    
+    private void displayResults(List<Recipe> results) {						
 		// uses an ArrayAdapter and displays the items
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				  android.R.layout.select_dialog_multichoice, android.R.id.text1, stringsList);
-		listResults.setAdapter(adapter); 
-		listResults.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-    }*/
+		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this,
+				  android.R.layout.select_dialog_multichoice, android.R.id.text1, results);
+		listResults.setAdapter(adapter);
+    }
     
 }
