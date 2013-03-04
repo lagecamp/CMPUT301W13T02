@@ -37,11 +37,13 @@ public class IngredientList extends Model<View>{
 			ingredientList.add(ingredient);
 		sort(ingredientList);
 		write(ingredientList);
+		notifyViews();
 	}
 	public void remove(Ingredient ingredient){
 		ArrayList<Ingredient> ingredientList=load();
 		ingredientList.remove(ingredient);
 		write(ingredientList);
+		notifyViews();
 	}
 	public boolean search(Ingredient ingredient){
 		ArrayList<Ingredient> ingredientList=load();
@@ -75,7 +77,7 @@ public class IngredientList extends Model<View>{
 			}
 	}
 	
-	public ArrayList<Ingredient> searchRecipe(String keyword) {
+	public ArrayList<Ingredient> searchIngredient(String keyword) {
 		ArrayList<Ingredient> matchingIngredients = new ArrayList<Ingredient>();
 		ArrayList<Ingredient> ingredientList = load();
 		   

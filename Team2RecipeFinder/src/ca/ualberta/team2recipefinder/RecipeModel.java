@@ -113,8 +113,45 @@ public class RecipeModel
 	   /*
 	    * Searches the database for recipes in which the user has every ingredient
 	    */
-	   /*public Recipe[] searchWithIngredient(String keyword){
-		   IngredientModel im = new IngredientModel();
+	 /*  public ArrayList<Recipe> searchWithIngredient(String[] keywords, boolean searchLocally, boolean searchFromWeb){
+		   boolean ingredientIsInKitchen = true;
+		   IngredientList il = new IngredientList();
+		   ArrayList<Ingredient> kitchenIngredients = new ArrayList<Ingredient>();
+		   
+		   ArrayList<Recipe> matchingRecipes = new ArrayList<Recipe>();
+		   
+		   //Call the local search method to find recipes that match the keywords
+		 //  matchingRecipes = searchRecipe(keywords, searchLocally, searchFromWeb);
+		   ArrayList<Recipe> matchingIngredientRecipes = new ArrayList<Recipe>();
+		   
+		   
+		   kitchenIngredients = il.load();
+		   
+		   
+		   for (int i = 0; i<matchingRecipes.size(); i++){
+			   for (int q = 0; q<matchingRecipes.get(i).getIngredients().length; q++){
+				   if(!ingredientIsInKitchen){
+					   break;
+				   }
+		   			//for (int n = 0; n<kitchenIngredients.size(); n++){
+		   			//	if(!matchingRecipes.get(i).getIngredients()[q].getType().equals(kitchenIngredients.get(n).getType())){
+		   			//	ingredientIsInKitchen = false;		   				
+		   			//	}
+		   			//	else{
+		   			//		ingredientIsInKitchen = true;
+		   			//		break;
+		   			//	}
+		   				
+		   			//}
+
+		   			}
+	   			if(ingredientIsInKitchen){
+	   				matchingIngredientRecipes.add(matchingRecipes.get(i));
+	   				
+		   		}
+		   }
+		   
+		   return matchingIngredientRecipes;
 		   
 		   
 	   } */

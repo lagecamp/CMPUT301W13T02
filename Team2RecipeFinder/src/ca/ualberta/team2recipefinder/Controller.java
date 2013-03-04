@@ -42,4 +42,16 @@ public class Controller {
 	public void replaceRecipe(Recipe r, int id) {
 		// should replace recipe with given id with r
 	}
+	
+	public List<Ingredient> getIngredients() {
+		return myKitchen.load();
+	}
+	
+	public void deleteIngredient(Ingredient ingredient) {
+		myKitchen.remove(ingredient);
+	}
+	
+	public List<Ingredient> searchIngredient(String keyword) {
+		return myKitchen.searchIngredient(keyword);
+	}
 }

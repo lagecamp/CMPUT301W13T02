@@ -76,6 +76,7 @@ public final class R {
         public static final int arrow_backward=0x7f040012;
         public static final int arrow_forward=0x7f040011;
         public static final int delete=0x7f040017;
+        public static final int delete_succesful=0x7f04001d;
         public static final int done=0x7f04001b;
         public static final int hello_world=0x7f040001;
         public static final int ingredients=0x7f040014;
@@ -86,6 +87,7 @@ public final class R {
         public static final int menu_settings=0x7f040002;
         public static final int name=0x7f040019;
         public static final int no_keyword=0x7f04000b;
+        public static final int no_record_selected=0x7f04001c;
         public static final int no_source_search=0x7f040015;
         public static final int ok=0x7f040009;
         public static final int picture_description=0x7f040010;
