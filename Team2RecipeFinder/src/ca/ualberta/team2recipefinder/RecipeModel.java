@@ -43,13 +43,12 @@ public class RecipeModel
 	    */
 	   public void remove(Recipe recipe){
 		   //Searches for recipes which have equivalent attributes (name, author, procedure) as the specified recipe
-		   for(int i = 0; i<recipes.size(); i++){			   
-			   if(recipe.getName().contentEquals(recipes.get(i).getName())  && recipe.getAuthor().contentEquals(recipes.get(i).getAuthor())   && recipe.getProcedure().contentEquals(recipes.get(i).getProcedure())){
+		    for(int i = 0; i<recipes.size(); i++){			   
+			   if(recipe.getRecipeID() == recipes.get(i).getRecipeID()){
 				   recipes.remove(i);
 				   break;
 			   }		   
 		   }
-		   recipes.remove(recipe);
 		   writeFile(recipes);
 	   }
 	   
