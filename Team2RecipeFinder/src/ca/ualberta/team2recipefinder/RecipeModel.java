@@ -165,7 +165,7 @@ public class RecipeModel
 	   private void sortRecipes(){
 		   Recipe temp;
 		   
-		   for(int n = recipes.size()-1; n > 1; n--)
+		   for(int n = recipes.size()-1; n >= 1; n--)
 		   		for(int i = 0; i<n; i++){
 		   			if(recipes.get(i).getName().compareToIgnoreCase(recipes.get(i+1).getName()) > 0){
 		   				temp = recipes.get(i);
@@ -206,6 +206,8 @@ public class RecipeModel
 		   Recipe old = getRecipeById(id);
 		   old.setName(r.getName());
 		   old.setProcedure(r.getProcedure());
+		   sortRecipes();
+		   writeFile(recipes);
 	   }
 		
 	
