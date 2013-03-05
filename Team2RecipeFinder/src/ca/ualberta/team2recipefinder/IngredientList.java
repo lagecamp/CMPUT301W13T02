@@ -7,24 +7,30 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class IngredientList extends Model<View>{
 	private String filename="IngredientList.sav";
 	private String path;
 	
+	ArrayList<Ingredient> ingredientList;
+	
 	public IngredientList(){
 		// gets the folder where we should put the files
 		// created by the application (and appends filename)
-		path = RecipeFinderApplication.getAppContext().getFilesDir() + filename;
+		path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + filename;
+		
+		ingredientList = load();
 	}
 	
-	public ArrayList<Ingredient> load() {  
+	private ArrayList<Ingredient> load() {  
 		ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 		   
 		try {  
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));  
 			ingredientList = (ArrayList<Ingredient>) in.readObject();
+			in.close();
 		} 
 		catch (IOException e) {  
 			e.printStackTrace();  
@@ -35,8 +41,7 @@ public class IngredientList extends Model<View>{
 		return ingredientList;
 	}
 	   
-	public void add(Ingredient ingredient){
-		ArrayList<Ingredient> ingredientList=load();
+	public void add(Ingredient ingredient){		
 		if(!ingredientList.contains(ingredient))
 			ingredientList.add(ingredient);
 		sort(ingredientList);
@@ -44,13 +49,11 @@ public class IngredientList extends Model<View>{
 		notifyViews();
 	}
 	public void remove(Ingredient ingredient){
-		ArrayList<Ingredient> ingredientList=load();
 		ingredientList.remove(ingredient);
 		write(ingredientList);
 		notifyViews();
 	}
 	public boolean search(Ingredient ingredient){
-		ArrayList<Ingredient> ingredientList=load();
 		if(ingredientList.contains(ingredient))
 			return true;
 		return false;
@@ -81,9 +84,34 @@ public class IngredientList extends Model<View>{
 			}
 	}
 	
+	// get ingredient with a specific type
+	public Ingredient getIngredient(String type) {		
+		for (Ingredient ingredient : ingredientList) {
+			if (ingredient.getType().equals(type)) {
+				return ingredient;
+			}
+		}
+		
+		return null;
+	}
+	
+	// replace two ingredients with same type
+	public void replaceIngredient(Ingredient oldIngredient, Ingredient newIngredient) {
+		// only replace if they represent the same ingredient
+		if (oldIngredient.getType().equals(newIngredient.getType())) {
+			ingredientList.remove(oldIngredient);
+			ingredientList.add(newIngredient);
+			sort(ingredientList);
+			write(ingredientList);
+			notifyViews();
+		}
+		else {
+			// error case
+		}
+	}
+	
 	public ArrayList<Ingredient> searchIngredient(String keyword) {
 		ArrayList<Ingredient> matchingIngredients = new ArrayList<Ingredient>();
-		ArrayList<Ingredient> ingredientList = load();
 		   
 		   
 		for(int i = 0; i<ingredientList.size(); i++){
@@ -94,5 +122,9 @@ public class IngredientList extends Model<View>{
 		   	   
 		return matchingIngredients;
 		   
+	}
+	
+	public List<Ingredient> getIngredients() {
+		return ingredientList;
 	}
 }

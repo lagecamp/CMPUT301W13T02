@@ -6,13 +6,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddEditIngredientActivity extends Activity {
 	
 	private final int EDIT = 0;
 	private final int ADD = 1;
 	
-	long ingredientID;
+	String ingredientType;
 	Ingredient currentIngredient;
 	
 	int mode = ADD;
@@ -37,10 +38,9 @@ public class AddEditIngredientActivity extends Activity {
 			Bundle extras = getIntent().getExtras();
 			
 			if (extras != null) {
-				ingredientID = extras.getLong("ingredientID");
-				// need to add an ID to ingredient
-				// mode EDIT will be done later
-				// currentIngredient = RecipeFinderApplication.getController().get(ingredientID);
+				ingredientType = extras.getString("ingredientType");				
+				currentIngredient = RecipeFinderApplication.getController().getIngredient(ingredientType);
+				
 				mode = EDIT;
 			}
 			else {
@@ -48,8 +48,12 @@ public class AddEditIngredientActivity extends Activity {
 			}
 		}
 		
-		if (mode == EDIT) {
-			// complete this code later
+		if (mode == EDIT) {			
+			txtType.setText(currentIngredient.getType());
+			txtAmount.setText(currentIngredient.getAmount().toString());
+			txtUnit.setText(currentIngredient.getUnity());
+			
+			txtType.setEnabled(false);
 			
 			lblAddEdit.setText(getString(R.string.edit_ingredient));
 		}
@@ -68,18 +72,32 @@ public class AddEditIngredientActivity extends Activity {
 					txtType.getText().toString().length() > 0 &&
 					Integer.parseInt(txtAmount.getText().toString()) > 0) {
 					
-					if (mode == ADD) {
-						Ingredient ingredient = new Ingredient(txtType.getText().toString(),
-								Integer.parseInt(txtAmount.getText().toString()), txtUnit.getText().toString());
-						
+					Ingredient ingredient = new Ingredient(txtType.getText().toString(),
+							Integer.parseInt(txtAmount.getText().toString()), txtUnit.getText().toString());
+					
+					if (mode == ADD) {					
 						RecipeFinderApplication.getController().addIngredient(ingredient);
-						
-						finish();
 					}
 					else {
-						// edit mode
+						RecipeFinderApplication.getController().replaceIngredient(currentIngredient, ingredient);
 					}
+					
+					finish();
 				}
+				else {
+					Toast.makeText(AddEditIngredientActivity.this, getString(R.string.missing_fields), 
+							   Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+		
+		// sets the event for when the user wants to delete the record
+		Button btnEdit = (Button) findViewById(R.id.btnDelete);
+		btnEdit.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				RecipeFinderApplication.getController().deleteIngredient(currentIngredient);
+				finish();
 			}			
 		});
 	}

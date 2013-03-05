@@ -32,9 +32,12 @@
     <string name="no_record_selected">You haven\'t selected any records!</string>
     <string name="delete_succesful">The records have been successfully deleted!</string>
     <string name="add_ingredient">Add Ingredient</string>
-    <string name="edit_ingredient">Edit Ingredientq</string>
+    <string name="edit_ingredient">Edit Ingredient</string>
     <string name="ingredient">Ingredient</string>
     <string name="amount">Amount</string>
     <string name="unit">Unit</string>
+    <string name="show_all">Show All</string>
+    <string name="my_kitchen">My Kitchen</string>
+    <string name="missing_fields">Some fields are missing!</string>
 
 </resources>

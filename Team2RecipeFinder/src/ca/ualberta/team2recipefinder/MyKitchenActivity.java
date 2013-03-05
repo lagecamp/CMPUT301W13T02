@@ -22,7 +22,7 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	ListView listResults;
 	
 	TextView txtKeywords;
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,6 +38,15 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 			public void onClick(android.view.View arg0) {
 				Intent intent = new Intent(MyKitchenActivity.this, AddEditIngredientActivity.class);
                 startActivity(intent);
+			}			
+		});
+		
+		// sets up the event for when the user wants to show all records
+		Button btnShowAll = (Button) findViewById(R.id.btnShowAll);
+		btnShowAll.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(android.view.View arg0) {
+				update(RecipeFinderApplication.getMyKitchen());
 			}			
 		});
 		
@@ -59,53 +68,13 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
         		}
 			}
 		});
-		
-		// sets up the event when the user wants to delete an ingredient
-        Button btnDelete = (Button) findViewById(R.id.btnDelete);
-        btnDelete.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				SparseBooleanArray bolArray = listResults.getCheckedItemPositions();
-				
-				Controller controller = RecipeFinderApplication.getController();
-				List<Ingredient> records = controller.getIngredients();
-				LinkedList<Ingredient> recordsToDelete = new LinkedList<Ingredient>();
-				
-				// the records are copied to "recordsToDelete" so that, when deleting them,
-				// the changes will affect "records", but not affect "recordsToDelete", allowing
-				// us to safely iterate over it
-				
-				int i = 0;
-				for (Ingredient record : records) {
-					if (bolArray.get(i)) {
-						recordsToDelete.add(records.get(i));
-					}
-					i++;
-				}
-				
-				for (Ingredient record : recordsToDelete) {
-					controller.deleteIngredient(record);
-				}			
-				
-				// prints message (Ok or error)
-				if (recordsToDelete.size() > 0) {
-					Toast.makeText(MyKitchenActivity.this, getString(R.string.delete_succesful), 
-							Toast.LENGTH_LONG).show();
-				}
-				else {
-					Toast.makeText(MyKitchenActivity.this, getString(R.string.no_record_selected), 
-							Toast.LENGTH_LONG).show();
-				}
-			}
-        });
-		
+			
         listResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Ingredient ingredient = (Ingredient)listResults.getItemAtPosition(position);
                 
 				Intent intent = new Intent(MyKitchenActivity.this, AddEditIngredientActivity.class);
-				// need ingredientID
-				//intent.putExtra("ingredientID", ingredient.getID());
+				intent.putExtra("ingredientType", ingredient.getType());
 				startActivity(intent);
             }
         });
@@ -129,8 +98,7 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	private void displayResults(List<Ingredient> ingredients) {
 		// uses an ArrayAdapter and displays the items
 		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this,
-				  android.R.layout.select_dialog_multichoice, android.R.id.text1, ingredients);
+				  R.layout.list_item, ingredients);
 		listResults.setAdapter(adapter); 
-		listResults.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 	}
 }

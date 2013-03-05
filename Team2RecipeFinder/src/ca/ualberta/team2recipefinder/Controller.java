@@ -45,7 +45,7 @@ public class Controller {
 	}
 	
 	public List<Ingredient> getIngredients() {
-		return myKitchen.load();
+		return myKitchen.getIngredients();
 	}
 	
 	public void deleteIngredient(Ingredient ingredient) {
@@ -58,6 +58,14 @@ public class Controller {
 	
 	public void addIngredient(Ingredient ingredient) {
 		myKitchen.add(ingredient);
+	}
+	
+	public Ingredient getIngredient(String type) {
+		return myKitchen.getIngredient(type);
+	}
+	
+	public void replaceIngredient(Ingredient oldIngredient, Ingredient newIngredient) {
+		myKitchen.replaceIngredient(oldIngredient, newIngredient);
 	}
 	
 	public void deleteRecipe(Recipe r){

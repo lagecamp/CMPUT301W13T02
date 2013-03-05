@@ -127,7 +127,7 @@ public class SearchActivity extends Activity {
     private void displayResults(List<Recipe> results) {						
 		// uses an ArrayAdapter and displays the items
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this,
-				  android.R.layout.select_dialog_multichoice, android.R.id.text1, results);
+				  R.layout.list_item, results);
 		listResults.setAdapter(adapter);
     }
     
