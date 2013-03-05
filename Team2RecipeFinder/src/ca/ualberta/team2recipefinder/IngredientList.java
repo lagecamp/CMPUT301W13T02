@@ -1,5 +1,6 @@
 package ca.ualberta.team2recipefinder;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -35,17 +36,33 @@ public class IngredientList extends Model<View>{
 		return ingredientList;
 	}
 	   
+	/*
+	 * Adds a new ingredient to the ingredient list.  However, if the ingredient is already there, it will not be added
+	 */
 	public void add(Ingredient ingredient){
+		boolean alreadyThere = false;
 		ArrayList<Ingredient> ingredientList=load();
-		if(!ingredientList.contains(ingredient))
+		for(int n = 0; n<ingredientList.size(); n++){
+			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())  && ingredientList.get(n).getUnity().equalsIgnoreCase(ingredient.getUnity())){
+				alreadyThere = true;
+				break;
+			}
+		}
+		if(!alreadyThere){
 			ingredientList.add(ingredient);
+		}
+		
 		sort(ingredientList);
 		write(ingredientList);
-		notifyViews();
-	}
+		}
 	public void remove(Ingredient ingredient){
 		ArrayList<Ingredient> ingredientList=load();
-		ingredientList.remove(ingredient);
+		for(int n = 0; n<ingredientList.size(); n++){
+			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())  && ingredientList.get(n).getUnity().equalsIgnoreCase(ingredient.getUnity())){
+				ingredientList.remove(n);
+				break;
+			}
+		}
 		write(ingredientList);
 		notifyViews();
 	}
