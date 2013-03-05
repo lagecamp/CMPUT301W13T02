@@ -45,7 +45,6 @@ public class ViewRecipeActivity extends Activity {
 		else {
 			isLocal = true;
 		}
-		
 		Button publishDownloadButton = (Button) findViewById(R.id.publish_download_button);
 		if (isLocal) {
 			publishDownloadButton.setText("Publish");
@@ -104,10 +103,28 @@ public class ViewRecipeActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 				/* CALL DELETE FROM CONTROLLER, EXIT ACTIVITY */
-				c.deleteRecipe(currentRecipe);
-				
-				
+				c.deleteRecipe(currentRecipe);				
 				finish();
+			}
+		});
+		
+		Button rightButton = (Button) findViewById(R.id.button5);
+		rightButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				currentRecipe = c.getNextRecipe(recipeID);
+				recipeID = currentRecipe.getRecipeID();
+				refresh();
+			}
+		});
+		
+		Button leftButton = (Button) findViewById(R.id.button6);
+		leftButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				currentRecipe = c.getPreviousRecipe(recipeID);
+				recipeID = currentRecipe.getRecipeID();
+				refresh();
 			}
 		});
 		

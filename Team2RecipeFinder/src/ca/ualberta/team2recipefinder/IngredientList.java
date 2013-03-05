@@ -42,8 +42,17 @@ public class IngredientList extends Model<View>{
 	}
 	   
 	public void add(Ingredient ingredient){		
-		if(!ingredientList.contains(ingredient))
+		boolean alreadyThere = false;
+		for(int n = 0; n<ingredientList.size(); n++){
+			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())  && ingredientList.get(n).getUnity().equalsIgnoreCase(ingredient.getUnity())){
+				alreadyThere = true;
+				break;
+			}
+		}
+		if(!alreadyThere){
 			ingredientList.add(ingredient);
+		}
+		
 		sort(ingredientList);
 		write(ingredientList);
 		notifyViews();
