@@ -31,6 +31,14 @@ public class Controller {
 		return model.getRecipeById(id);
 	}
 	
+	public Recipe getNextRecipe(long id){
+		return model.getNextRecipeById(id);
+	}
+	
+	public Recipe getPreviousRecipe(long id){
+		return model.getPreviousRecipeById(id);
+	}
+	
 	public List<Recipe> getRecipes() {
 		return model.getAllRecipes();
 	}

@@ -189,6 +189,9 @@ public class RecipeModel
 		   return this.recipes;
 	   }
 
+	   /*
+	    * Finds and returns the recipe specified by the ID
+	    */
 	   public Recipe getRecipeById(long id) {
 		   Recipe r = new Recipe();
 		   
@@ -202,6 +205,51 @@ public class RecipeModel
 		   return r;
 	   }
 	   
+	   /*
+	    * Finds the next recipe in the list
+	    */
+	   public Recipe getNextRecipeById(long id){
+		   	Recipe r = new Recipe();
+		   
+		   for (int i = 0; i < recipes.size(); i++) {
+			   
+			   if (id == recipes.get(i).getRecipeID()) {
+				  //loops to beginning of list if they click 'rightButton' on the last item in a list
+				   if(i == recipes.size()-1){
+					   r = recipes.get(0);
+				   }
+				   else{
+				   r = recipes.get(i+1);
+				   }
+			   }
+		   }
+		   
+		   return r;
+	   }
+	   
+	   public Recipe getPreviousRecipeById(long id){
+		   	Recipe r = new Recipe();
+		   
+		   for (int i = 0; i < recipes.size(); i++) {
+			   
+			   if (id == recipes.get(i).getRecipeID()) {
+				  //loops to beginning of list if they click 'rightButton' on the last item in a list
+				   if(i == 0){
+					   r = recipes.get(recipes.size()-1);
+				   }
+				   else{
+				   r = recipes.get(i-1);
+				   }
+			   }
+		   }
+		   
+		   return r;
+	   }
+	   
+	   
+	   
+	   
+	   
 	   public void replaceRecipe(Recipe r, long id){
 		   Recipe old = getRecipeById(id);
 		   old.setName(r.getName());
@@ -209,6 +257,8 @@ public class RecipeModel
 		   sortRecipes();
 		   writeFile(recipes);
 	   }
+	   
+	   
 		
 	
 	
