@@ -20,10 +20,10 @@ public class Controller {
 	
 	public List<Recipe> searchWithIngredients(String[] keywords, boolean searchLocally, 
 									  boolean searchFromWeb) {
-		// for now, it only searches locally
 		//return model.searchWithIngredients(keywords, searchLocally, searchFromWeb);
 		
 		// stil working in  the search with ingredients
+		// for now, it will search without considering the ingredients
 		return model.searchRecipe(keywords);
 	}
 	

@@ -24,7 +24,7 @@ public final class R {
         public static final int button_done=0x7f070012;
         public static final int button_main_add=0x7f07001b;
         public static final int button_main_mykitchen=0x7f07001d;
-        public static final int button_main_search=0x7f07001c;
+        public static final int button_main_show_all=0x7f07001c;
         public static final int buttons=0x7f070000;
         public static final int cbxIngredientsKitchen=0x7f070021;
         public static final int cbxSearchFromWeb=0x7f070020;

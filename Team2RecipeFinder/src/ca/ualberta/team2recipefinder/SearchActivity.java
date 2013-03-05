@@ -97,6 +97,7 @@ public class SearchActivity extends Activity {
         	}
         });
         
+        // event for when the user clicks an item
         listResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Recipe recipe = (Recipe)listResults.getItemAtPosition(position);
