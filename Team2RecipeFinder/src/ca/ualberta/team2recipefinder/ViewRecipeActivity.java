@@ -2,16 +2,10 @@ package ca.ualberta.team2recipefinder;
 
 import java.util.List;
 
-import ca.ualberta.team2recipefinder.R;
-import ca.ualberta.team2recipefinder.RecipeFinderApplication;
-import ca.ualberta.team2recipefinder.R.id;
-import ca.ualberta.team2recipefinder.R.layout;
-import ca.ualberta.team2recipefinder.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
+import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -136,6 +130,7 @@ public class ViewRecipeActivity extends Activity {
 		recipeName.setText(currentRecipe.getName());
 		
 		TextView procedure = (TextView) findViewById(R.id.procedure_text);
+		procedure.setMovementMethod(new ScrollingMovementMethod());
 		String procedureText = currentRecipe.getProcedure();
 		procedure.setText(procedureText);
 		
