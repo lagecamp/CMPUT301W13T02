@@ -103,9 +103,9 @@ public class RecipeModel
 		   				matchingrecipes.add(recipes.get(i));
 		   			else{
 		   				//Searches the Arraylist and looks for any ingredient that contains the keyword
-		   				// 	for(int n = 0; n<recipes.get(i).getIngredients().length; n++)
-		   					//if((recipes.get(i).getIngredients()[n].toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) )  && !matchingrecipes.contains(recipes.get(i)))
-		   						//matchingrecipes.add(recipes.get(i));
+		   				 	for(int n = 0; n<recipes.get(i).getIngredients().size(); n++)
+		   					if((recipes.get(i).getIngredients().get(n).getType().toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) )  && !matchingrecipes.contains(recipes.get(i)))
+		   						matchingrecipes.add(recipes.get(i));
 		   			}
 		   		}
 		   }
