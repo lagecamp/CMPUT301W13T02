@@ -24,7 +24,7 @@ public class IngredientList extends Model<View>{
 		ingredientList = load();
 	}
 	
-	private ArrayList<Ingredient> load() {  
+	public ArrayList<Ingredient> load() {  
 		ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 		   
 		try {  
