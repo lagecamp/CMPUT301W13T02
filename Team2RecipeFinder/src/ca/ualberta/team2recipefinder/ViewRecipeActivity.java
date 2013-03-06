@@ -143,9 +143,9 @@ public class ViewRecipeActivity extends Activity {
 		List<Ingredient> ingredientTextArray = currentRecipe.getIngredients();
 		
 		String ingredientText = new String();
-		String nl = System.getProperty("line.seperator");
+		String nl = System.getProperty("line.separator");
 		for (int i = 0; i < ingredientTextArray.size(); i++) {
-			ingredientText.concat(ingredientTextArray.get(i).toString()+nl);
+			ingredientText += ingredientTextArray.get(i).toString() + nl;
 		}
 		ingredients.setText(ingredientText);
 	}
