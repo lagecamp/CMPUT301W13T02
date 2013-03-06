@@ -60,8 +60,8 @@ public class Controller {
 		myKitchen.remove(ingredient);
 	}
 	
-	public List<Ingredient> searchIngredient(String keyword) {
-		return myKitchen.searchIngredient(keyword);
+	public List<Ingredient> searchIngredient(String[] keywords) {
+		return myKitchen.searchIngredient(keywords);
 	}
 	
 	public void addIngredient(Ingredient ingredient) {

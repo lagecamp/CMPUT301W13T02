@@ -67,6 +67,7 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 			@Override
 			public void onClick(android.view.View arg0) {
         		String text = txtKeywords.getText().toString();
+        		String[] keywords = text.split(" ");
         		
         		// error ==> user didn't insert any keyword
         		if (text.length() == 0) {
@@ -75,7 +76,7 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
         		}
         		// input ok
         		else {
-        			displayResults(RecipeFinderApplication.getController().searchIngredient(text));
+        			displayResults(RecipeFinderApplication.getController().searchIngredient(keywords));
         		}
 			}
 		});
