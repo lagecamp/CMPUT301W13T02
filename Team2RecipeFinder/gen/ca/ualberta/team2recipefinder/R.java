@@ -50,7 +50,7 @@ public final class R {
         public static final int results_label=0x7f070015;
         public static final int separator=0x7f070004;
         public static final int share_button=0x7f070023;
-        public static final int slidingDrawer1=0x7f070017;
+        public static final int sldSearch=0x7f070017;
         public static final int textView1=0x7f070008;
         public static final int textView2=0x7f07000c;
         public static final int textView3=0x7f07000f;

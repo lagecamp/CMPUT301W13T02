@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,11 +23,15 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	ListView listResults;
 	
 	TextView txtKeywords;
+	
+	SlidingDrawer sldSearch;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kitchen);
+		
+		sldSearch = (SlidingDrawer) findViewById(R.id.sldSearch);
 		
 		listResults = (ListView) findViewById(R.id.listResults);
 		txtKeywords = (TextView) findViewById(R.id.txtKeywords);
@@ -88,6 +93,14 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
         super.onDestroy();
         RecipeFinderApplication.getMyKitchen().removeView(this);
     }
+    
+	 @Override
+	 public boolean onSearchRequested() {
+		 // show the search if the user presses the "search" button of the phone
+		 sldSearch.animateOpen();
+		 
+	     return false;  // don't go ahead and show the search box
+	 }
 	
 	@Override
 	public void update(IngredientList model) {

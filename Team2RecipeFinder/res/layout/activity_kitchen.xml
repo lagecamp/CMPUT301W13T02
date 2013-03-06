@@ -53,7 +53,7 @@
     </ListView>
 
     <SlidingDrawer
-        android:id="@+id/slidingDrawer1"
+        android:id="@+id/sldSearch"
         android:layout_width="match_parent"
         android:layout_height="190dp"
         android:layout_alignParentBottom="true"

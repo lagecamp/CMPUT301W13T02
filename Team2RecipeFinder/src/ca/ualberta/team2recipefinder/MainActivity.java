@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,10 +33,14 @@ public class MainActivity extends Activity {
 	
 	TextView txtKeywords;
 	
+	SlidingDrawer sldSearch;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		sldSearch = (SlidingDrawer) findViewById(R.id.sldSearch);
 				
 		recipes = (ListView) findViewById(R.id.recipeList);
 		/* set up all button listeners */
@@ -157,6 +162,14 @@ public class MainActivity extends Activity {
 		
 		refresh();
 	}
+	
+	 @Override
+	 public boolean onSearchRequested() {
+		 // show the search if the user presses the "search" button of the phone
+		 sldSearch.animateOpen();
+		 
+	     return false;  // don't go ahead and show the search box
+	 }
 	
 	
     // make sure that at least one check box (cbxSearchLocally or cbxSearchFromWeb) is checked
