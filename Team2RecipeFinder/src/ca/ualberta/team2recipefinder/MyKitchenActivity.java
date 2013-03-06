@@ -25,6 +25,11 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	TextView txtKeywords;
 	
 	SlidingDrawer sldSearch;
+	
+	Ingredient oldIngredient;
+	
+	private final int ADD_INGR_CODE = 0;
+	private final int EDIT_INGR_CODE = 1;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +47,8 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 			@Override
 			public void onClick(android.view.View arg0) {
 				Intent intent = new Intent(MyKitchenActivity.this, AddEditIngredientActivity.class);
-                startActivity(intent);
+				intent.putExtra("mode", "add");
+				startActivityForResult(intent, ADD_INGR_CODE);
 			}			
 		});
 		
@@ -78,9 +84,14 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Ingredient ingredient = (Ingredient)listResults.getItemAtPosition(position);
                 
+                oldIngredient = ingredient;
+                
 				Intent intent = new Intent(MyKitchenActivity.this, AddEditIngredientActivity.class);
-				intent.putExtra("ingredientType", ingredient.getType());
-				startActivity(intent);
+				intent.putExtra("mode", "edit");
+				intent.putExtra("type", ingredient.getType());
+				intent.putExtra("amount", ingredient.getAmount().toString());
+				intent.putExtra("unit", ingredient.getUnity());
+				startActivityForResult(intent, EDIT_INGR_CODE);
             }
         });
         
@@ -113,5 +124,26 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this,
 				  R.layout.list_item, ingredients);
 		listResults.setAdapter(adapter); 
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode,
+            Intent data) {
+        if (requestCode == ADD_INGR_CODE) {
+            if (resultCode == RESULT_OK) {
+            	Ingredient ingredient = (Ingredient) data.getSerializableExtra("result");
+            	RecipeFinderApplication.getController().addIngredient(ingredient);
+            }
+        }
+        else if (requestCode == EDIT_INGR_CODE) {
+            if (resultCode == RESULT_OK) {
+            	if (data.getStringExtra("deleted") != null) {
+            		RecipeFinderApplication.getController().deleteIngredient(oldIngredient);
+            	}
+            	else {
+	            	Ingredient ingredient = (Ingredient) data.getSerializableExtra("result");
+	            	RecipeFinderApplication.getController().replaceIngredient(oldIngredient, ingredient);
+            	}
+            }
+        }
 	}
 }

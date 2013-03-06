@@ -1,6 +1,7 @@
 package ca.ualberta.team2recipefinder;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,15 +13,14 @@ public class AddEditIngredientActivity extends Activity {
 	
 	private final int EDIT = 0;
 	private final int ADD = 1;
-	
-	String ingredientType;
-	Ingredient currentIngredient;
-	
+		
 	int mode = ADD;
 	
 	TextView txtType;
 	TextView txtAmount;
 	TextView txtUnit;
+	
+	Button btnDelete;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,31 +33,39 @@ public class AddEditIngredientActivity extends Activity {
 		
 		TextView lblAddEdit = (TextView) findViewById(R.id.lblAddEdit);
 		
+		btnDelete = (Button) findViewById(R.id.btnDelete);
+		
 		// get parameters for the activity
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			
 			if (extras != null) {
-				ingredientType = extras.getString("ingredientType");				
-				currentIngredient = RecipeFinderApplication.getController().getIngredient(ingredientType);
-				
-				mode = EDIT;
+				String screenMode = extras.getString("mode");				
+								
+				if (screenMode.equals("edit")) {
+					mode = EDIT;
+					
+					txtType.setText(extras.getString("type"));
+					txtAmount.setText(extras.getString("amount"));
+					txtUnit.setText(extras.getString("unit"));
+				}
+				else {
+					mode = ADD;
+				}
 			}
 			else {
 				mode = ADD;
 			}
 		}
 		
-		if (mode == EDIT) {			
-			txtType.setText(currentIngredient.getType());
-			txtAmount.setText(currentIngredient.getAmount().toString());
-			txtUnit.setText(currentIngredient.getUnity());
-			
+		if (mode == EDIT) {						
 			txtType.setEnabled(false);
 			
 			lblAddEdit.setText(getString(R.string.edit_ingredient));
 		}
 		else {
+			btnDelete.setVisibility(View.INVISIBLE);
+			
 			lblAddEdit.setText(getString(R.string.add_ingredient));
 		}
 		
@@ -75,13 +83,9 @@ public class AddEditIngredientActivity extends Activity {
 					Ingredient ingredient = new Ingredient(txtType.getText().toString(),
 							Integer.parseInt(txtAmount.getText().toString()), txtUnit.getText().toString());
 					
-					if (mode == ADD) {					
-						RecipeFinderApplication.getController().addIngredient(ingredient);
-					}
-					else {
-						RecipeFinderApplication.getController().replaceIngredient(currentIngredient, ingredient);
-					}
-					
+					Intent intent = new Intent();
+					intent.putExtra("result", ingredient);
+					setResult(RESULT_OK, intent);
 					finish();
 				}
 				else {
@@ -92,11 +96,12 @@ public class AddEditIngredientActivity extends Activity {
 		});
 		
 		// sets the event for when the user wants to delete the record
-		Button btnEdit = (Button) findViewById(R.id.btnDelete);
-		btnEdit.setOnClickListener(new OnClickListener() {
+		btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				RecipeFinderApplication.getController().deleteIngredient(currentIngredient);
+				Intent intent = new Intent();
+				intent.putExtra("deleted", "yes");
+				setResult(RESULT_OK, intent);
 				finish();
 			}			
 		});

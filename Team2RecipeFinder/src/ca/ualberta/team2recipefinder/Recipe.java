@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Recipe implements Serializable
+public class Recipe extends Model<View> implements Serializable
 {
 	/**
 	 * Constructor
@@ -36,7 +36,7 @@ public class Recipe implements Serializable
 	 	this.id = System.currentTimeMillis();
 	}
 	
-		public long getRecipeID(){
+	public long getRecipeID(){
 		return id;
 	}
 	
@@ -50,6 +50,7 @@ public class Recipe implements Serializable
 	
 	public void setName(String name){
 		this.name = name;
+		notifyViews();
 	}
 	
 	public String getProcedure(){
@@ -58,6 +59,7 @@ public class Recipe implements Serializable
 	
 	public void setProcedure(String procedure){
 		this.procedure = procedure;
+		notifyViews();
 	}
 	
 	public String getAuthor(){
@@ -66,17 +68,38 @@ public class Recipe implements Serializable
 	
 	public void setAuthor(String author){
 		this.author = author;
+		notifyViews();
 	}
 	
 	public List<Ingredient> getIngredients(){
 		return ingredients;
 	}
-	
-	public void setIngredients(List<Ingredient> ingredients){
-		this.ingredients = ingredients;
+		
+	public void removeIngredient(Ingredient ingredient) {
+		ingredients.remove(ingredient);
+		notifyViews();
 	}
 	
-
+	public void replaceIngredient(Ingredient oldIngredient, Ingredient newIngredient) {
+		ingredients.remove(oldIngredient);
+		ingredients.add(newIngredient);
+		notifyViews();
+	}
+	
+	public void addIngredient(Ingredient ingredient) {
+		ingredients.add(ingredient);
+		notifyViews();
+	}
+	
+	public Ingredient getIngredient(String type) {
+		for (Ingredient ingredient : ingredients) {
+			if (ingredient.getType().equals(type)) {
+				return ingredient;
+			}
+		}
+		
+		return null;
+	}
 	
 	public boolean getOnServer(){
 		return onServer;
@@ -84,6 +107,7 @@ public class Recipe implements Serializable
 	
 	public void setOnServer(boolean onServer){
 		this.onServer = onServer;
+		notifyViews();
 	}
 	
 	

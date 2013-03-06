@@ -76,6 +76,22 @@ public class Controller {
 		myKitchen.replaceIngredient(oldIngredient, newIngredient);
 	}
 	
+	public Ingredient getIngredient(Recipe recipe, String type) {
+		return recipe.getIngredient(type);
+	}
+	
+	public void addIngredient(Recipe recipe, Ingredient ingredient) {
+		recipe.addIngredient(ingredient);
+	}
+	
+	public void deleteIngredient(Recipe recipe, Ingredient ingredient) {
+		recipe.removeIngredient(ingredient);
+	}
+	
+	public void replaceIngredient(Recipe recipe, Ingredient oldIngredient, Ingredient newIngredient) {
+		recipe.replaceIngredient(oldIngredient, newIngredient);
+	}
+	
 	public void deleteRecipe(Recipe r){
 		model.remove(r);
 	}
