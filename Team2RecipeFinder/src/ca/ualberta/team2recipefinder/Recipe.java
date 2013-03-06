@@ -19,7 +19,7 @@ public class Recipe extends Model<View> implements Serializable
 	private long id;
 	
 	public Recipe() {
-		name = "NEW_RECIPE";
+		name = new String();
 		procedure = new String();
 		author = new String();
 		ingredients = new ArrayList<Ingredient>();

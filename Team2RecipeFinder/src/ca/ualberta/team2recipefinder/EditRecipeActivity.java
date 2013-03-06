@@ -50,8 +50,11 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		doneButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				currentRecipe.setName(nameEdit.getText().toString());
-				currentRecipe.setProcedure(procedureEdit.getText().toString());
+				String newName = nameEdit.getText().toString();
+				String newProcedure = procedureEdit.getText().toString();
+				
+				currentRecipe.setName(newName);
+				currentRecipe.setProcedure(newProcedure);
 				
 				Controller c = RecipeFinderApplication.getController();
 				if (recipeID == -1) {
