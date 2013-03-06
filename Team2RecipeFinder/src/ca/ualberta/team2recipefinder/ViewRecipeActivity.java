@@ -127,6 +127,7 @@ public class ViewRecipeActivity extends Activity {
 	
 	public void refresh() {
 		TextView recipeName = (TextView) findViewById(R.id.recipe_name);
+		recipeName.setMovementMethod(new ScrollingMovementMethod());
 		recipeName.setText(currentRecipe.getName());
 		
 		TextView procedure = (TextView) findViewById(R.id.procedure_text);
@@ -135,6 +136,7 @@ public class ViewRecipeActivity extends Activity {
 		procedure.setText(procedureText);
 		
 		TextView ingredients = (TextView) findViewById(R.id.ingredients_text);
+		ingredients.setMovementMethod(new ScrollingMovementMethod());
 		List<Ingredient> ingredientTextArray = currentRecipe.getIngredients();
 		
 		String ingredientText = new String();
