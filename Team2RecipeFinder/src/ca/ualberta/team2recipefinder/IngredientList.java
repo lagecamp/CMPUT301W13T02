@@ -44,7 +44,7 @@ public class IngredientList extends Model<View>{
 	public void add(Ingredient ingredient){		
 		boolean alreadyThere = false;
 		for(int n = 0; n<ingredientList.size(); n++){
-			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())  && ingredientList.get(n).getUnity().equalsIgnoreCase(ingredient.getUnity())){
+			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())){
 				alreadyThere = true;
 				break;
 			}
