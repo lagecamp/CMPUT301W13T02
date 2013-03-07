@@ -21,12 +21,12 @@ import java.util.Locale;
  */
 
 public class IngredientList extends Model<View>{
-	private String filename="IngredientList.sav";// the name of the file where the ingredient list will be stored
+	private String filename = "IngredientList.sav";// the name of the file where the ingredient list will be stored
 	private String path;// the path to the file
 	
 	ArrayList<Ingredient> ingredientList;// the list of the ingredients
 	
-	public IngredientList(){
+	public IngredientList() {
 		// gets the folder where we should put the files
 		// created by the application (and appends filename)
 		path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + filename;
@@ -60,8 +60,8 @@ public class IngredientList extends Model<View>{
 	 * @throws DuplicateIngredientException 
 	 */
 	public void add(Ingredient ingredient) throws DuplicateIngredientException{		
-		for(int n = 0; n<ingredientList.size(); n++){
-			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())){
+		for(int n = 0; n < ingredientList.size(); n++) {
+			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())) {
 				throw new DuplicateIngredientException(ingredient.getType());
 			}
 		}
@@ -76,7 +76,7 @@ public class IngredientList extends Model<View>{
 	 * Removes an ingredient from the list
 	 * @param ingredient to remove
 	 */
-	public void remove(Ingredient ingredient){
+	public void remove(Ingredient ingredient) {
 		ingredientList.remove(ingredient);
 		write(ingredientList);
 		notifyViews();
@@ -86,7 +86,7 @@ public class IngredientList extends Model<View>{
 	 * Writes the ingredientList back to file
 	 * @param ingredientList to write
 	 */
-	private void write(ArrayList<Ingredient> ingredientList){
+	private void write(ArrayList<Ingredient> ingredientList) {
 		try {  
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
 			out.writeObject(ingredientList);
@@ -102,15 +102,15 @@ public class IngredientList extends Model<View>{
 	 * Sort the ingredient List by type in dictionary order
 	 * @param ingredientList to sort
 	 */
-	private void sort(ArrayList<Ingredient> ingredientList){
+	private void sort(ArrayList<Ingredient> ingredientList) {
 		Ingredient temp;
 		   
-		for(int n = ingredientList.size()-1; n > 1; n--)
-			for(int i = 0; i<n; i++){
+		for(int n = ingredientList.size() - 1; n > 1; n--)
+			for(int i = 0; i < n; i++){
 				if(ingredientList.get(i).getType().compareToIgnoreCase(ingredientList.get(i+1).getType()) > 0){
 					temp = ingredientList.get(i);
-		   			ingredientList.set(i, ingredientList.get(i+1));
-		   			ingredientList.set(i+1, temp);
+		   			ingredientList.set(i, ingredientList.get(i + 1));
+		   			ingredientList.set(i + 1, temp);
 		   		}				   
 			}
 	}
@@ -158,8 +158,8 @@ public class IngredientList extends Model<View>{
 		ArrayList<Ingredient> matchingIngredients = new ArrayList<Ingredient>();
 		   
 		
-		for(int n = 0; n<keywords.length; n++){
-			for(int i = 0; i<ingredientList.size(); i++){
+		for(int n = 0; n < keywords.length; n++){
+			for(int i = 0; i < ingredientList.size(); i++){
 				if(ingredientList.get(i).getType().toLowerCase(Locale.ENGLISH).contains(keywords[n].toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getUnit().toLowerCase(Locale.ENGLISH).contains(keywords[n].toLowerCase(Locale.ENGLISH))){
 					matchingIngredients.add(ingredientList.get(i));
 				}
@@ -170,6 +170,7 @@ public class IngredientList extends Model<View>{
 		   
 	}
 	
+	// Is it really needed? guess load() can already do this job.
 	public List<Ingredient> getIngredients() {
 		return ingredientList;
 	}

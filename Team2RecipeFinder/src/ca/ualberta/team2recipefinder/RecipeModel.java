@@ -25,9 +25,10 @@ import java.util.Locale;
  * @author	CMPUT 301 Team 2
  *
  */
-public class RecipeModel
+
+public class RecipeModel extends Model<View>
 {
-	private static final String filename = "file.sav";
+	private static final String filename = "file11.sav";
 	private String path;
 	private ArrayList<Recipe> recipes; 
 	
@@ -38,7 +39,13 @@ public class RecipeModel
 	public RecipeModel(){
 		// gets the folder where we should put the files
 		// created by the application (and appends filename)
+<<<<<<< HEAD
 		path = filename;//RecipeFinderApplication.getAppContext()
+=======
+		path = filename;
+				
+				//RecipeFinderApplication.getAppContext()
+>>>>>>> branch 'master' of ssh://git@github.com/lagecamp/CMPUT301W13T02.git
 				//.getFilesDir() + "/" + filename;
 		
 		this.recipes = load();
@@ -55,6 +62,7 @@ public class RecipeModel
 		   recipes.add(recipe);
 		   sortRecipes();
 		   writeFile(recipes);
+		   notifyViews();
 	}
 	   /*
 	    *
@@ -74,6 +82,7 @@ public class RecipeModel
 			   }		   
 		   }
 		   writeFile(recipes);
+		   notifyViews();
 	   }
 	   
 
@@ -298,5 +307,6 @@ public class RecipeModel
 		   old.setProcedure(r.getProcedure());
 		   sortRecipes();
 		   writeFile(recipes);
+		   notifyViews();
 	   }	
 }

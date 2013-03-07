@@ -1,3 +1,10 @@
+/* ViewRecipeAcivity
+ * 
+ * Last Edited: March 7, 2013
+ * 
+ * 
+ */
+
 package ca.ualberta.team2recipefinder;
 
 import java.util.List;
@@ -11,12 +18,25 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ViewRecipeActivity extends Activity {
+
+/**
+ * ViewRecipeActivity is an android activity for displaying information about
+ * a single recipe.
+ * 
+ * @author cmput-301 team 2
+ * @see ca.ualberta.team2recipefinder.Recipe
+ */
+public class ViewRecipeActivity extends Activity implements ca.ualberta.team2recipefinder.View<Recipe> {
 
 	long recipeID = -1;
 	Recipe currentRecipe = new Recipe();
 	
 	@Override
+	/**
+	 * Sets up all button listeners for this activity.
+	 * 
+	 * @param	savedInstanceState Bundle containing the activity's previously frozen state, if there was one. 
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
@@ -108,7 +128,7 @@ public class ViewRecipeActivity extends Activity {
 			public void onClick(View view) {
 				currentRecipe = c.getNextRecipe(recipeID);
 				recipeID = currentRecipe.getRecipeID();
-				refresh();
+				update(currentRecipe);
 			}
 		});
 		
@@ -118,14 +138,18 @@ public class ViewRecipeActivity extends Activity {
 			public void onClick(View view) {
 				currentRecipe = c.getPreviousRecipe(recipeID);
 				recipeID = currentRecipe.getRecipeID();
-				refresh();
+				update(currentRecipe);
 			}
 		});
 		
-		refresh();
+		update(currentRecipe);
+		currentRecipe.addView(this);
 	}
 	
-	public void refresh() {
+	/**
+	 * Updates the current info being displayed. Use if the recipe is changed.
+	 */
+	public void update(Recipe model) {
 		TextView recipeName = (TextView) findViewById(R.id.recipe_name);
 		recipeName.setMovementMethod(new ScrollingMovementMethod());
 		recipeName.setText(currentRecipe.getName());
@@ -146,12 +170,10 @@ public class ViewRecipeActivity extends Activity {
 		}
 		ingredients.setText(ingredientText);
 	}
-	
-	@Override
-	public void onStart() {
-		super.onStart();
-		
-		refresh();
-	}
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        currentRecipe.removeView(this);
+    }
 }

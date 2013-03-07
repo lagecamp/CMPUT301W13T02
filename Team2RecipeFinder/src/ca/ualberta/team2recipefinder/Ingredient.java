@@ -18,44 +18,44 @@ public class Ingredient implements Serializable{
 	private Double amount;// the amount of the ingredient
 	private String unit;// the unit to measure the ingredient
 
-	public Ingredient(String type, Double amount, String unity){
+	public Ingredient(String type, Double amount, String unit){
 		this.type=type;
 		this.amount=amount;
 		this.unit=unit;
 	}
 	
-	public Ingredient(){
-		type="Unknow";
-		amount=0.0;
-		unit="Unkonw";
+	public Ingredient() {
+		type = "Unknow";
+		amount = 0.0;
+		unit = "Unkonw";
 	}
 	/**
 	 * Returns the type of the ingredient in <code>String</code>
 	 * @return	the type of the ingredient
 	 */
-	public String getType(){
+	public String getType() {
 		return type;
 	}
 	/**
 	 * Returns the amount of the ingredient in <code>Double</code>
 	 * @return	the amount of the ingredient
 	 */
-	public Double getAmount(){
+	public Double getAmount() {
 		return amount;
 	}
 	/**
 	 * Returns the unit of the ingredient in <code>String</code>
 	 * @return	the unit of the ingredient
 	 */
-	public String getUnit(){
+	public String getUnit() {
 		return unit;
 	}
 	/**
 	 * To modify the amount of the ingredient
 	 * @param	the new amount of the ingredient
 	 */
-	public void modifyAmount(Double amount){
-		this.amount= amount;
+	public void modifyAmount(Double amount) {
+		this.amount = amount;
 	}
 	
 	/**
