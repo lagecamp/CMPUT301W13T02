@@ -89,7 +89,7 @@ public class Recipe extends Model<View> implements Serializable
 	public void addIngredient(Ingredient ingredient) {
 		boolean alreadyThere = false;
 		for (int n = 0; n < ingredients.size(); n++) {
-			if (ingredients.get(n).getType().equalsIgnoreCase(ingredient.getType())){
+			if (ingredients.get(n).getType().equalsIgnoreCase(ingredient.getType())) {
 				alreadyThere = true;
 				break;
 			}
@@ -105,8 +105,7 @@ public class Recipe extends Model<View> implements Serializable
 			if (ingredient.getType().equals(type)) {
 				return ingredient;
 			}
-		}
-		
+		}		
 		return null;
 	}
 	
@@ -117,8 +116,5 @@ public class Recipe extends Model<View> implements Serializable
 	public void setOnServer(boolean onServer){
 		this.onServer = onServer;
 		notifyViews();
-	}
-	
-	
-	
+	}	
 }

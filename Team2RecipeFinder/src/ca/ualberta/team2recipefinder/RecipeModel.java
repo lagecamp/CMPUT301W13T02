@@ -1,3 +1,13 @@
+/*
+*
+*RecipeModel
+*
+*
+*Version 1
+*
+*
+*/
+
 package ca.ualberta.team2recipefinder;
 
 import java.io.FileInputStream;
@@ -9,7 +19,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 
 
 public class RecipeModel
@@ -24,11 +33,11 @@ public class RecipeModel
 	public RecipeModel(){
 		// gets the folder where we should put the files
 		// created by the application (and appends filename)
-		path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + filename;
+		path = RecipeFinderApplication.getAppContext()
+				.getFilesDir() + "/" + filename;
 		
 		this.recipes = load();
-	}
-	
+	}	
 	
 	/*
 	 * Add a new Recipe to the Recipe Array List and then write it to the phone's database
@@ -76,15 +85,11 @@ public class RecipeModel
 		   try {  
 				ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));  
 				recipes = (ArrayList<Recipe>) in.readObject();
-				
-
-			} 
-			catch (IOException e) {  
+			} catch (IOException e) {  
 				e.printStackTrace();  
 			} catch (ClassNotFoundException e) {  
 				e.printStackTrace();  
-			}
-			
+			}			
 		   return recipes;
 	   }
 	   
@@ -92,26 +97,35 @@ public class RecipeModel
 	    * Searches the phone's recipes for the specific keyword.  It looks at the recipe's name, procedure, author, and ingredients
 	    */
 	   public ArrayList<Recipe> searchRecipe(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
-		   //Array List of Recipes that match the keyword
-		   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();
-		   
-		   
-		   //Searches the Arrraylist and looks for any recipe name, author, procedure which contains the keywords
-		   for(int k = 0; k<keywords.length; k++){
+		   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();		   
+		  
+		   for(int k = 0; k<keywords.length; k++){							//Searches the Arrraylist and looks for any recipe name, author, procedure which contains the keywords
 		   		for(int i = 0; i<recipes.size(); i++){
-		   			if((recipes.get(i).getName().toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) || recipes.get(i).getAuthor().toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) || recipes.get(i).getProcedure().toLowerCase(Locale.ENGLISH).contains(keywords[k]) ) && !matchingrecipes.contains(recipes.get(i)) )
-		   				matchingrecipes.add(recipes.get(i));
-		   			else{
-		   				//Searches the Arraylist and looks for any ingredient that contains the keyword
-		   				 	for(int n = 0; n<recipes.get(i).getIngredients().size(); n++)
-		   					if((recipes.get(i).getIngredients().get(n).getType().toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) )  && !matchingrecipes.contains(recipes.get(i)))
-		   						matchingrecipes.add(recipes.get(i));
+		   			if((recipes.get(i).getName()
+		   					.toLowerCase(Locale.ENGLISH)
+		   					.contains(keywords[k]
+		   					.toLowerCase(Locale.ENGLISH)) 
+		   					|| recipes.get(i).getAuthor()
+		   					.toLowerCase(Locale.ENGLISH)
+		   					.contains(keywords[k]
+		   					.toLowerCase(Locale.ENGLISH)) 
+		   					|| recipes.get(i).getProcedure().
+		   					toLowerCase(Locale.ENGLISH).contains(keywords[k])) 
+		   					&& !matchingrecipes.contains(recipes.get(i))){
+		   				matchingrecipes.add(recipes.get(i));						
+		   			} else {		   				
+		   				 	for(int n = 0; n<recipes.get(i).getIngredients().size(); n++)		//Searches the Arraylist and looks for any ingredient that contains the keyword
+		   				 		if((recipes.get(i)
+		   				 				.getIngredients().get(n)
+		   				 				.getType().toLowerCase(Locale.ENGLISH)
+		   				 				.contains(keywords[k].toLowerCase(Locale.ENGLISH)))  
+		   				 				&& !matchingrecipes.contains(recipes.get(i))) {
+		   				 			matchingrecipes.add(recipes.get(i));
+		   				 		}
 		   			}
 		   		}
-		   }
-		   	   
-		   return matchingrecipes;
-		   
+		   }		   	   
+		   return matchingrecipes;		   
 	   }
 	   
 	   /*
@@ -120,17 +134,12 @@ public class RecipeModel
 	   public ArrayList<Recipe> searchWithIngredient(String[] keywords, boolean searchLocally, boolean searchFromWeb){
 		   boolean ingredientIsInKitchen = true;
 		   IngredientList il = new IngredientList();
-		   ArrayList<Ingredient> kitchenIngredients = new ArrayList<Ingredient>();
+		   ArrayList<Ingredient> kitchenIngredients = new ArrayList<Ingredient>();		   
+		   ArrayList<Recipe> matchingRecipes = new ArrayList<Recipe>();			   
+		   matchingRecipes = searchRecipe(keywords, searchLocally, searchFromWeb);				//Call the local search method to find recipes that match the keywords
+		   ArrayList<Recipe> matchingIngredientRecipes = new ArrayList<Recipe>();		   
 		   
-		   ArrayList<Recipe> matchingRecipes = new ArrayList<Recipe>();
-		   
-		   //Call the local search method to find recipes that match the keywords
-		   matchingRecipes = searchRecipe(keywords, searchLocally, searchFromWeb);
-		   ArrayList<Recipe> matchingIngredientRecipes = new ArrayList<Recipe>();
-		   
-		   
-		   kitchenIngredients = il.load();
-		   
+		   kitchenIngredients = il.load();		   
 		   
 		   for (int i = 0; i<matchingRecipes.size(); i++){
 			   for (int q = 0; q<matchingRecipes.get(i).getIngredients().size(); q++){
@@ -138,26 +147,20 @@ public class RecipeModel
 					   break;
 				   }
 		   			for (int n = 0; n<kitchenIngredients.size(); n++){
-		   				if(!matchingRecipes.get(i).getIngredients().get(q).getType().equals(kitchenIngredients.get(n).getType())){
+		   				if (!matchingRecipes.get(i).getIngredients().get(q).getType()
+		   						.equals(kitchenIngredients.get(n).getType())) {
 		   				ingredientIsInKitchen = false;		   				
-		   				}
-		   				else{
+		   				} else {
 		   					ingredientIsInKitchen = true;
 		   					break;
-		   				}
-		   				
+		   				}		   				
 		   			}
-
-		   			}
-	   			if(ingredientIsInKitchen){
-	   				matchingIngredientRecipes.add(matchingRecipes.get(i));
-	   				
 		   		}
-		   }
-		   
-		   return matchingIngredientRecipes;
-		   
-		   
+	   			if (ingredientIsInKitchen) {
+	   				matchingIngredientRecipes.add(matchingRecipes.get(i));	   				
+		   		}
+		   }		   
+		   return matchingIngredientRecipes;		   
 	   } 
 	   /*
 	    * Sorts the recipe in alphabetical order by the recipe's name
@@ -165,9 +168,10 @@ public class RecipeModel
 	   private void sortRecipes(){
 		   Recipe temp;
 		   
-		   for(int n = recipes.size()-1; n >= 1; n--)
+		   for(int n = recipes.size()-1; n >= 1; n--)								//Sorts all recipes using bubble sort
 		   		for(int i = 0; i<n; i++){
-		   			if(recipes.get(i).getName().compareToIgnoreCase(recipes.get(i+1).getName()) > 0){
+		   			if(recipes.get(i).getName().compareToIgnoreCase
+		   					(recipes.get(i+1).getName()) > 0){
 		   				temp = recipes.get(i);
 		   				recipes.set(i, recipes.get(i+1));
 		   				recipes.set(i+1, temp);
@@ -195,13 +199,11 @@ public class RecipeModel
 	   public Recipe getRecipeById(long id) {
 		   Recipe r = new Recipe();
 		   
-		   for (int i = 0; i < recipes.size(); i++) {
-			   
+		   for (int i = 0; i < recipes.size(); i++) {			   
 			   if (id == recipes.get(i).getRecipeID()) {
 				   r = recipes.get(i);
 			   }
-		   }
-		   
+		   }		   
 		   return r;
 	   }
 	   
@@ -211,56 +213,39 @@ public class RecipeModel
 	   public Recipe getNextRecipeById(long id){
 		   	Recipe r = new Recipe();
 		   
-		   for (int i = 0; i < recipes.size(); i++) {
-			   
-			   if (id == recipes.get(i).getRecipeID()) {
-				  //loops to beginning of list if they click 'rightButton' on the last item in a list
-				   if(i == recipes.size()-1){
+		   for (int i = 0; i < recipes.size(); i++) {			   
+			   if (id == recipes.get(i).getRecipeID()) {				  
+				   if(i == recipes.size()-1){					//loops to beginning of list if they click 'rightButton' on the last item in a list
 					   r = recipes.get(0);
-				   }
-				   else{
+				   } else {
 				   r = recipes.get(i+1);
 				   }
 			   }
-		   }
-		   
+		   }		   
 		   return r;
 	   }
 	   
 	   public Recipe getPreviousRecipeById(long id){
 		   	Recipe r = new Recipe();
 		   
-		   for (int i = 0; i < recipes.size(); i++) {
-			   
-			   if (id == recipes.get(i).getRecipeID()) {
-				  //loops to beginning of list if they click 'rightButton' on the last item in a list
-				   if(i == 0){
+		   for (int i = 0; i < recipes.size(); i++) {			   
+			   if (id == recipes.get(i).getRecipeID()) {				  
+				   if(i == 0){									//loops to beginning of list if they click 'rightButton' on the last item in a list
 					   r = recipes.get(recipes.size()-1);
-				   }
-				   else{
+				   } else {
 				   r = recipes.get(i-1);
 				   }
 			   }
-		   }
-		   
+		   }		   
 		   return r;
-	   }
-	   
-	   
-	   
-	   
+	   }	   
 	   
 	   public void replaceRecipe(Recipe r, long id){
 		   Recipe old = getRecipeById(id);
+		   
 		   old.setName(r.getName());
 		   old.setProcedure(r.getProcedure());
 		   sortRecipes();
 		   writeFile(recipes);
-	   }
-	   
-	   
-		
-	
-	
-	
+	   }	
 }
