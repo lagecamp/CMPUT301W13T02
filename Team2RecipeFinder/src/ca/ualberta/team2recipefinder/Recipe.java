@@ -87,8 +87,17 @@ public class Recipe extends Model<View> implements Serializable
 	}
 	
 	public void addIngredient(Ingredient ingredient) {
-		ingredients.add(ingredient);
-		notifyViews();
+		boolean alreadyThere = false;
+		for (int n = 0; n < ingredients.size(); n++) {
+			if (ingredients.get(n).getType().equalsIgnoreCase(ingredient.getType())){
+				alreadyThere = true;
+				break;
+			}
+		}
+		if (!alreadyThere){
+			ingredients.add(ingredient);
+			notifyViews();
+		}
 	}
 	
 	public Ingredient getIngredient(String type) {

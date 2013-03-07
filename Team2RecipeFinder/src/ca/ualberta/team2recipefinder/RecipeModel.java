@@ -91,7 +91,7 @@ public class RecipeModel
 	   /*
 	    * Searches the phone's recipes for the specific keyword.  It looks at the recipe's name, procedure, author, and ingredients
 	    */
-	   public ArrayList<Recipe> searchRecipe(String[] keywords) {
+	   public ArrayList<Recipe> searchRecipe(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
 		   //Array List of Recipes that match the keyword
 		   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();
 		   
@@ -103,9 +103,9 @@ public class RecipeModel
 		   				matchingrecipes.add(recipes.get(i));
 		   			else{
 		   				//Searches the Arraylist and looks for any ingredient that contains the keyword
-		   				// 	for(int n = 0; n<recipes.get(i).getIngredients().length; n++)
-		   					//if((recipes.get(i).getIngredients()[n].toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) )  && !matchingrecipes.contains(recipes.get(i)))
-		   						//matchingrecipes.add(recipes.get(i));
+		   				 	for(int n = 0; n<recipes.get(i).getIngredients().size(); n++)
+		   					if((recipes.get(i).getIngredients().get(n).getType().toLowerCase(Locale.ENGLISH).contains(keywords[k].toLowerCase(Locale.ENGLISH)) )  && !matchingrecipes.contains(recipes.get(i)))
+		   						matchingrecipes.add(recipes.get(i));
 		   			}
 		   		}
 		   }
@@ -117,7 +117,7 @@ public class RecipeModel
 	   /*
 	    * Searches the database for recipes in which the user has every ingredient
 	    */
-	 /*  public ArrayList<Recipe> searchWithIngredient(String[] keywords, boolean searchLocally, boolean searchFromWeb){
+	   public ArrayList<Recipe> searchWithIngredient(String[] keywords, boolean searchLocally, boolean searchFromWeb){
 		   boolean ingredientIsInKitchen = true;
 		   IngredientList il = new IngredientList();
 		   ArrayList<Ingredient> kitchenIngredients = new ArrayList<Ingredient>();
@@ -125,7 +125,7 @@ public class RecipeModel
 		   ArrayList<Recipe> matchingRecipes = new ArrayList<Recipe>();
 		   
 		   //Call the local search method to find recipes that match the keywords
-		 //  matchingRecipes = searchRecipe(keywords, searchLocally, searchFromWeb);
+		   matchingRecipes = searchRecipe(keywords, searchLocally, searchFromWeb);
 		   ArrayList<Recipe> matchingIngredientRecipes = new ArrayList<Recipe>();
 		   
 		   
@@ -133,20 +133,20 @@ public class RecipeModel
 		   
 		   
 		   for (int i = 0; i<matchingRecipes.size(); i++){
-			   for (int q = 0; q<matchingRecipes.get(i).getIngredients().length; q++){
+			   for (int q = 0; q<matchingRecipes.get(i).getIngredients().size(); q++){
 				   if(!ingredientIsInKitchen){
 					   break;
 				   }
-		   			//for (int n = 0; n<kitchenIngredients.size(); n++){
-		   			//	if(!matchingRecipes.get(i).getIngredients()[q].getType().equals(kitchenIngredients.get(n).getType())){
-		   			//	ingredientIsInKitchen = false;		   				
-		   			//	}
-		   			//	else{
-		   			//		ingredientIsInKitchen = true;
-		   			//		break;
-		   			//	}
+		   			for (int n = 0; n<kitchenIngredients.size(); n++){
+		   				if(!matchingRecipes.get(i).getIngredients().get(q).getType().equals(kitchenIngredients.get(n).getType())){
+		   				ingredientIsInKitchen = false;		   				
+		   				}
+		   				else{
+		   					ingredientIsInKitchen = true;
+		   					break;
+		   				}
 		   				
-		   			//}
+		   			}
 
 		   			}
 	   			if(ingredientIsInKitchen){
@@ -158,7 +158,7 @@ public class RecipeModel
 		   return matchingIngredientRecipes;
 		   
 		   
-	   } */
+	   } 
 	   /*
 	    * Sorts the recipe in alphabetical order by the recipe's name
 	    */
