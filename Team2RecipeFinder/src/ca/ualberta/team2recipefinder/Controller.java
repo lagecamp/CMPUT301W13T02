@@ -95,4 +95,8 @@ public class Controller {
 	public void deleteRecipe(Recipe r){
 		model.remove(r);
 	}
+	
+	public RecipeModel getModel() {
+		return this.model;
+	}
 }

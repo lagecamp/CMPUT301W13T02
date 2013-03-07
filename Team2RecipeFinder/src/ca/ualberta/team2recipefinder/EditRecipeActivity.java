@@ -1,7 +1,13 @@
+/* EditRecipeAcivity
+ * 
+ * Last Edited: March 7, 2013
+ * 
+ * 
+ */
+
 package ca.ualberta.team2recipefinder;
 
 import java.util.List;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,6 +23,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+/**
+ * EditRecipeActivity is an android activity for editting a single recipe, 
+ * or creating a new one.
+ * 
+ * @author cmput-301 team 2
+ * @see ca.ualberta.team2recipefinder.Recipe
+ */
 public class EditRecipeActivity extends Activity implements ca.ualberta.team2recipefinder.View<Recipe> {
 
 	EditText nameEdit;
@@ -30,6 +43,12 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	private final int ADD_INGR_CODE = 0;
 	private final int EDIT_INGR_CODE = 1;
 	
+	/**
+	 * Sets up all button listener's for this activity and gets Strings from this
+	 * activity's EditText fields.
+	 * 
+	 * @author cmput-301 team 2
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -129,12 +148,18 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		this.update(currentRecipe);
 	}
 	
+	/**
+	 * Removes this View from Model.
+	 */
     @Override
     public void onDestroy() {
         super.onDestroy();
         currentRecipe.removeView(this);
     }
 	
+    /**
+     * Updates all fields with current information from the recipe object.
+     */
 	@Override
 	public void update(Recipe model) {		
 		nameEdit.setText(currentRecipe.getName());
@@ -145,6 +170,10 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		ingredientList.setAdapter(adapter);
 	}
 	
+	/**
+	 * Takes the result from AddEditIngredientActivity and adds it to, or 
+	 * replaces an item from this recipe's ingredient list.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode,
             Intent data) {
         if (requestCode == ADD_INGR_CODE) {

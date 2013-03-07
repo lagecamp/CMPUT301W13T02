@@ -1,3 +1,10 @@
+/* MainAcivity
+ * 
+ * Last Edited: March 7, 2013
+ * 
+ * 
+ */
+
 package ca.ualberta.team2recipefinder;
 
 import java.util.List;
@@ -21,7 +28,15 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+/**
+ * MainActivity is the main activity for the recipefinder application. It
+ * displays the users current saved recipes and provides an interface to reach other
+ * areas of the application.
+ * 
+ * @author cmput-301 team 2
+ * @see ca.ualberta.team2recipefinder.Recipe
+ */
+public class MainActivity extends Activity implements ca.ualberta.team2recipefinder.View<RecipeModel> {
 
 	ListView recipes;
 		
@@ -43,6 +58,7 @@ public class MainActivity extends Activity {
 		sldSearch = (SlidingDrawer) findViewById(R.id.sldSearch);
 				
 		recipes = (ListView) findViewById(R.id.recipeList);
+        Controller c = RecipeFinderApplication.getController();
 		/* set up all button listeners */
 		
 		Button addButton = (Button) findViewById(R.id.button_main_add);
@@ -58,7 +74,8 @@ public class MainActivity extends Activity {
 		showAllButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				refresh();
+				Controller c = RecipeFinderApplication.getController();
+				update(c.getModel());
 			}		
 		});
 		
@@ -72,7 +89,7 @@ public class MainActivity extends Activity {
 		});
 		
 		
-		refresh();
+		update(c.getModel());
 	
 		
 		recipes.setOnItemClickListener(new OnItemClickListener() {
@@ -144,10 +161,11 @@ public class MainActivity extends Activity {
         	}
         });
         
+        c.getModel().addView(this);
 	}
 
 	
-	public void refresh() {
+	public void update(RecipeModel model) {
 		ListView recipes = (ListView) findViewById(R.id.recipeList);
 		Controller c = RecipeFinderApplication.getController();
 		List<Recipe> recipeList = c.getRecipes();
@@ -156,12 +174,6 @@ public class MainActivity extends Activity {
 		adapter.notifyDataSetChanged();
 	}
 	
-	@Override
-	public void onStart() {
-		super.onStart();
-		
-		refresh();
-	}
 	
 	 @Override
 	 public boolean onSearchRequested() {
@@ -187,6 +199,13 @@ public class MainActivity extends Activity {
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this,
 				  R.layout.list_item, results);
 		recipes.setAdapter(adapter);
+    }
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Controller c = RecipeFinderApplication.getController();
+        c.getModel().removeView(this);
     }
 	
 }

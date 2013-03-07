@@ -12,7 +12,7 @@ import java.util.Locale;
 
 
 
-public class RecipeModel
+public class RecipeModel extends Model<View>
 {
 	private static final String filename = "file.sav";
 	private String path;
@@ -37,6 +37,7 @@ public class RecipeModel
 		   recipes.add(recipe);
 		   sortRecipes();
 		   writeFile(recipes);
+		   notifyViews();
 	}
 	   /*
 	    * Remove the specified recipe
@@ -50,12 +51,13 @@ public class RecipeModel
 			   }		   
 		   }
 		   writeFile(recipes);
+		   notifyViews();
 	   }
 	   
 	   /*
 	    * Write an arraylist of recipes to the phone's database
 	    */
-	   public void writeFile(ArrayList<Recipe> recipes) {  
+	   private void writeFile(ArrayList<Recipe> recipes) {  
 			try {  
 				ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
 				out.writeObject(recipes);
@@ -256,6 +258,7 @@ public class RecipeModel
 		   old.setProcedure(r.getProcedure());
 		   sortRecipes();
 		   writeFile(recipes);
+		   notifyViews();
 	   }
 	   
 	   
