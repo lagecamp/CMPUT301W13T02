@@ -20,15 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
+/*
+ * 
+ * @author	CMPUT 301 Team 2
+ *
+ */
 public class RecipeModel
 {
 	private static final String filename = "file.sav";
 	private String path;
 	private ArrayList<Recipe> recipes; 
 	
-	/*
-	 * Constructor
+	/**
+	 * Constructor Method
+	 * Creates a RecipeModel Object and loads the recipes from the specified file
 	 */
 	public RecipeModel(){
 		// gets the folder where we should put the files
@@ -38,9 +43,13 @@ public class RecipeModel
 		
 		this.recipes = load();
 	}	
+
 	
-	/*
+	/**
 	 * Add a new Recipe to the Recipe Array List and then write it to the phone's database
+	 * 
+	 * @param  recipe A recipe that the chef wants to add to his phone
+	 * @see    Recipe
 	 */
 	   public void add(Recipe recipe) {
 		   recipes.add(recipe);
@@ -48,8 +57,14 @@ public class RecipeModel
 		   writeFile(recipes);
 	}
 	   /*
-	    * Remove the specified recipe
+	    *
 	    */
+		/**
+		 * Remove the specified recipe from the phone's database
+		 * 
+		 * @param  recipe A recipe that the chef wants to remove from his phone
+		 * @see    Recipe
+		 */
 	   public void remove(Recipe recipe){
 		   //Searches for recipes which have equivalent attributes (name, author, procedure) as the specified recipe
 		    for(int i = 0; i<recipes.size(); i++){			   
@@ -61,8 +76,10 @@ public class RecipeModel
 		   writeFile(recipes);
 	   }
 	   
-	   /*
-	    * Write an arraylist of recipes to the phone's database
+
+	   /**
+	    *  Write an arraylist of recipes to the phone's database
+	    * @param recipes
 	    */
 	   private void writeFile(ArrayList<Recipe> recipes) {  
 			try {  
@@ -75,10 +92,12 @@ public class RecipeModel
 				e.printStackTrace();  
 			}  
 		} 
-	   
-	 /*
-	  * Load an array of recipes from the phone's database 
-	  */	   
+	   	   
+	   /**
+	    *  Load an array of recipes from the phone's database 
+	    * 
+	    * @return Return an ArrayList of Recipes from the phone's database
+	    */
 	   private ArrayList<Recipe> load() {  
 		   ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		   
@@ -92,9 +111,13 @@ public class RecipeModel
 			}			
 		   return recipes;
 	   }
-	   
-	   /*
+
+	   /**
 	    * Searches the phone's recipes for the specific keyword.  It looks at the recipe's name, procedure, author, and ingredients
+	    * @param keywords An array of strings filled with keywords
+	    * @param searchLocally Boolean that is true or false depending on whether the search is local
+	    * @param searchFromWeb Boolean that is true or false depending on whether the search is from the web
+	    * @return Returns an ArrayList of type Recipe that match the keywords
 	    */
 	   public ArrayList<Recipe> searchRecipe(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
 		   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();		   
@@ -128,8 +151,13 @@ public class RecipeModel
 		   return matchingrecipes;		   
 	   }
 	   
-	   /*
+	   
+	   /**
 	    * Searches the database for recipes in which the user has every ingredient
+	    * @param keywords An array of strings filled with keywords
+	    * @param searchLocally Boolean that is true or false depending on whether the search is local
+	    * @param searchFromWeb Boolean that is true or false depending on whether the search is from the web
+	    * @return Returns an ArrayList of type Recipe that match the keywords and ingredients from My Kitchen
 	    */
 	   public ArrayList<Recipe> searchWithIngredient(String[] keywords, boolean searchLocally, boolean searchFromWeb){
 		   boolean ingredientIsInKitchen = true;
@@ -162,8 +190,9 @@ public class RecipeModel
 		   }		   
 		   return matchingIngredientRecipes;		   
 	   } 
-	   /*
-	    * Sorts the recipe in alphabetical order by the recipe's name
+
+	   /**
+	    * Sorts the recipe in alphabetical order by the recipe's name	    * 
 	    */
 	   private void sortRecipes(){
 		   Recipe temp;
@@ -179,22 +208,29 @@ public class RecipeModel
 		   		}
 	   }
 	   
-	   /*
+
+	   /**
 	    * Returns a single recipe
+	    * @param index
+	    * @return
 	    */
 	   public Recipe getRecipe(int index) {
 		   return this.recipes.get(index);
 	   }
 	   
-	   /*
+
+	   /**
 	    * Returns all recipes
+	    * @return Returns a List of type Recipes
 	    */
 	   public List<Recipe> getAllRecipes() {
 		   return this.recipes;
 	   }
 
-	   /*
+	   /**
 	    * Finds and returns the recipe specified by the ID
+	    * @param id Recipe's ID
+	    * @return Returns a Recipe object specified by the recipe ID
 	    */
 	   public Recipe getRecipeById(long id) {
 		   Recipe r = new Recipe();
@@ -209,6 +245,11 @@ public class RecipeModel
 	   
 	   /*
 	    * Finds the next recipe in the list
+	    */
+	   /**
+	    * Finds the next recipe in the list
+	    * @param id Recipe's ID that is used to find the next recipe in the list
+	    * @return A Recipe that is the next recipe on the list
 	    */
 	   public Recipe getNextRecipeById(long id){
 		   	Recipe r = new Recipe();
@@ -225,6 +266,11 @@ public class RecipeModel
 		   return r;
 	   }
 	   
+	   /**
+	    * Finds the previous recipe in the list
+	    * @param id Recipe's ID that is used to find the previous recipe in the list
+	    * @return A Recipe that is the previous recipe on the list
+	    */
 	   public Recipe getPreviousRecipeById(long id){
 		   	Recipe r = new Recipe();
 		   
@@ -240,6 +286,11 @@ public class RecipeModel
 		   return r;
 	   }	   
 	   
+	   /**
+	    * Replaces the recipe specified by the ID with a new recipe
+	    * @param r A recipe that will replace the old recipe
+	    * @param id The ID for the old recipe that will be replaced
+	    */
 	   public void replaceRecipe(Recipe r, long id){
 		   Recipe old = getRecipeById(id);
 		   
