@@ -25,7 +25,8 @@ import java.util.Locale;
  * @author	CMPUT 301 Team 2
  *
  */
-public class RecipeModel
+
+public class RecipeModel extends Model<View>
 {
 	private static final String filename = "file11.sav";
 	private String path;
@@ -55,6 +56,7 @@ public class RecipeModel
 		   recipes.add(recipe);
 		   sortRecipes();
 		   writeFile(recipes);
+		   notifyViews();
 	}
 	   /*
 	    *
@@ -74,6 +76,7 @@ public class RecipeModel
 			   }		   
 		   }
 		   writeFile(recipes);
+		   notifyViews();
 	   }
 	   
 
@@ -298,5 +301,6 @@ public class RecipeModel
 		   old.setProcedure(r.getProcedure());
 		   sortRecipes();
 		   writeFile(recipes);
+		   notifyViews();
 	   }	
 }
