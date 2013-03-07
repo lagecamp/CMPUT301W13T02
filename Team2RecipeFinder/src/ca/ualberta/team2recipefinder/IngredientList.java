@@ -10,11 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * IngredientList manipulates a list of ingredients. It stores the list to the file <code>filename</code>.
+ * It can add/remove/replace ingredients to/from the list. It can sort the list by the <code>type</code> of the <code>Ingredient</code>
+ * And it also provides the functionality of searching ingredients by keywords
+ * @author lxian
+ * @version 1.0 07/03/13
+ * @see	ca.ualberta.team2recipefinder.Ingredient
+ * @see	ca.ualberta.team2recipefinder.Recipe
+ */
+
 public class IngredientList extends Model<View>{
-	private String filename="IngredientList.sav";
-	private String path;
+	private String filename="IngredientList.sav";// the name of the file where the ingredient list will be stored
+	private String path;// the path to the file
 	
-	ArrayList<Ingredient> ingredientList;
+	ArrayList<Ingredient> ingredientList;// the list of the ingredients
 	
 	public IngredientList(){
 		// gets the folder where we should put the files
@@ -23,7 +33,10 @@ public class IngredientList extends Model<View>{
 		
 		ingredientList = load();
 	}
-	
+	/**
+	 * Loads the ingredient list from file
+	 * @return the ingredient list loaded
+	 */
 	public ArrayList<Ingredient> load() {  
 		ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 		   
@@ -41,33 +54,38 @@ public class IngredientList extends Model<View>{
 		return ingredientList;
 	}
 	   
-	public void add(Ingredient ingredient){		
-		boolean alreadyThere = false;
+	/**
+	 * Adds a new ingredient to the list
+	 * @param the ingredient to add
+	 * @throws DuplicateIngredientException 
+	 */
+	public void add(Ingredient ingredient) throws DuplicateIngredientException{		
 		for(int n = 0; n<ingredientList.size(); n++){
 			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())){
-				alreadyThere = true;
-				break;
+				throw new DuplicateIngredientException(ingredient.getType());
 			}
 		}
-		if(!alreadyThere){
-			ingredientList.add(ingredient);
-		}
+		ingredientList.add(ingredient);
 		
 		sort(ingredientList);
 		write(ingredientList);
 		notifyViews();
 	}
+	
+	/**
+	 * Removes an ingredient from the list
+	 * @param ingredient to remove
+	 */
 	public void remove(Ingredient ingredient){
 		ingredientList.remove(ingredient);
 		write(ingredientList);
 		notifyViews();
 	}
-	public boolean search(Ingredient ingredient){
-		if(ingredientList.contains(ingredient))
-			return true;
-		return false;
-	}
 	
+	/**
+	 * Writes the ingredientList back to file
+	 * @param ingredientList to write
+	 */
 	private void write(ArrayList<Ingredient> ingredientList){
 		try {  
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
@@ -80,6 +98,10 @@ public class IngredientList extends Model<View>{
 		}  	
 	}
 	
+	/**
+	 * Sort the ingredient List by type in dictionary order
+	 * @param ingredientList to sort
+	 */
 	private void sort(ArrayList<Ingredient> ingredientList){
 		Ingredient temp;
 		   
@@ -93,7 +115,11 @@ public class IngredientList extends Model<View>{
 			}
 	}
 	
-	// get ingredient with a specific type
+	/**
+	 * Get the ingredient object with the wanted type
+	 * @param type of the ingredient looking for
+	 * @return	the ingredient with the matched type or null if no such a ingredient is found
+	 */
 	public Ingredient getIngredient(String type) {		
 		for (Ingredient ingredient : ingredientList) {
 			if (ingredient.getType().equals(type)) {
@@ -104,7 +130,11 @@ public class IngredientList extends Model<View>{
 		return null;
 	}
 	
-	// replace two ingredients with same type
+	/**
+	 * Replaces one old ingredient with a new one
+	 * @param oldIngredient
+	 * @param newIngredient
+	 */
 	public void replaceIngredient(Ingredient oldIngredient, Ingredient newIngredient) {
 		// only replace if they represent the same ingredient
 		if (oldIngredient.getType().equals(newIngredient.getType())) {
@@ -119,13 +149,18 @@ public class IngredientList extends Model<View>{
 		}
 	}
 	
+	/**
+	 * Searches for the ingredients contains some keywords and returns a list of all matched ingredients
+	 * @param keywords 
+	 * @return
+	 */
 	public ArrayList<Ingredient> searchIngredient(String[] keywords) {
 		ArrayList<Ingredient> matchingIngredients = new ArrayList<Ingredient>();
 		   
 		
 		for(int n = 0; n<keywords.length; n++){
 			for(int i = 0; i<ingredientList.size(); i++){
-				if(ingredientList.get(i).getType().toLowerCase(Locale.ENGLISH).contains(keywords[n].toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getUnity().toLowerCase(Locale.ENGLISH).contains(keywords[n].toLowerCase(Locale.ENGLISH))){
+				if(ingredientList.get(i).getType().toLowerCase(Locale.ENGLISH).contains(keywords[n].toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getUnit().toLowerCase(Locale.ENGLISH).contains(keywords[n].toLowerCase(Locale.ENGLISH))){
 					matchingIngredients.add(ingredientList.get(i));
 				}
 			}

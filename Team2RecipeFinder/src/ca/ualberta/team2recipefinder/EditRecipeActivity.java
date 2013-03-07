@@ -139,7 +139,7 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				intent.putExtra("mode", "edit");
 				intent.putExtra("type", ingredient.getType());
 				intent.putExtra("amount", ingredient.getAmount().toString());
-				intent.putExtra("unit", ingredient.getUnity());
+				intent.putExtra("unit", ingredient.getUnit());
 				startActivityForResult(intent, EDIT_INGR_CODE);
             }
         });
