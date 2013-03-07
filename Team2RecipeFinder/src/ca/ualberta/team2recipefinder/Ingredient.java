@@ -26,8 +26,8 @@ public class Ingredient implements Serializable{
 	
 	public Ingredient(){
 		type="Unknow";
-		amount=0;
-		unity="Unkonw";
+		amount=0.0;
+		unit="Unkonw";
 	}
 	/**
 	 * Returns the type of the ingredient in <code>String</code>
@@ -54,7 +54,7 @@ public class Ingredient implements Serializable{
 	 * To modify the amount of the ingredient
 	 * @param	the new amount of the ingredient
 	 */
-	public void modifyAmount(Integer amount){
+	public void modifyAmount(Double amount){
 		this.amount= amount;
 	}
 	
