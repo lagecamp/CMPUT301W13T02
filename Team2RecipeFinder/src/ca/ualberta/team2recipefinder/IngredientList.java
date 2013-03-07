@@ -10,11 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * IngredientList manipulates a list of ingredients. It stores the list to the file <code>filename</code>.
+ * It can add/remove/replace ingredients to/from the list. It can sort the list by the <code>type</code> of the <code>Ingredient</code>
+ * And it also provides the functionality of searching ingredients by keywords
+ * @author lxian
+ * @version 1.0 07/03/13
+ * @see	ca.ualberta.team2recipefinder.Ingredient
+ * @see	ca.ualberta.team2recipefinder.Recipe
+ */
+
 public class IngredientList extends Model<View>{
-	private String filename="IngredientList.sav";
-	private String path;
+	private String filename="IngredientList.sav";// the name of the file where the ingredient list will be stored
+	private String path;// the path to the file
 	
-	ArrayList<Ingredient> ingredientList;
+	ArrayList<Ingredient> ingredientList;// the list of the ingredients
 	
 	public IngredientList(){
 		// gets the folder where we should put the files
@@ -23,7 +33,10 @@ public class IngredientList extends Model<View>{
 		
 		ingredientList = load();
 	}
-	
+	/**
+	 * Loads the ingredient list from file
+	 * @return the ingredient list loaded
+	 */
 	public ArrayList<Ingredient> load() {  
 		ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 		   
@@ -41,11 +54,16 @@ public class IngredientList extends Model<View>{
 		return ingredientList;
 	}
 	   
+	/**
+	 * Adds a new ingredient to the list
+	 * @param the ingredient to add
+	 */
 	public void add(Ingredient ingredient){		
 		boolean alreadyThere = false;
 		for(int n = 0; n<ingredientList.size(); n++){
 			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())){
 				alreadyThere = true;
+				throw new IngredientAlreadyExistException(ingredient.getType());
 				break;
 			}
 		}
@@ -57,6 +75,7 @@ public class IngredientList extends Model<View>{
 		write(ingredientList);
 		notifyViews();
 	}
+	
 	public void remove(Ingredient ingredient){
 		ingredientList.remove(ingredient);
 		write(ingredientList);

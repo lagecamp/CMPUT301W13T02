@@ -10,7 +10,6 @@ import java.io.Serializable;
  * @version 1.00 07/03/13
  * @see ca.ualberta.team2recipefinder.IngredientList
  * @see ca.ualberta.team2recipefinder.Recipe
- *
  */
 
 public class Ingredient implements Serializable{
