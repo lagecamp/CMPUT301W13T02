@@ -64,7 +64,7 @@ public class RecipeModel
 	   /*
 	    * Write an arraylist of recipes to the phone's database
 	    */
-	   public void writeFile(ArrayList<Recipe> recipes) {  
+	   private void writeFile(ArrayList<Recipe> recipes) {  
 			try {  
 				ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
 				out.writeObject(recipes);
