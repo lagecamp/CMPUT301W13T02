@@ -24,7 +24,7 @@ public class IngredientList extends Model<View>{
 		ingredientList = load();
 	}
 	
-	private ArrayList<Ingredient> load() {  
+	public ArrayList<Ingredient> load() {  
 		ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 		   
 		try {  
@@ -119,13 +119,15 @@ public class IngredientList extends Model<View>{
 		}
 	}
 	
-	public ArrayList<Ingredient> searchIngredient(String keyword) {
+	public ArrayList<Ingredient> searchIngredient(String[] keywords) {
 		ArrayList<Ingredient> matchingIngredients = new ArrayList<Ingredient>();
 		   
-		   
-		for(int i = 0; i<ingredientList.size(); i++){
-			if(ingredientList.get(i).getType().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getUnity().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH))){
-				matchingIngredients.add(ingredientList.get(i));
+		
+		for(int n = 0; n<keywords.length; n++){
+			for(int i = 0; i<ingredientList.size(); i++){
+				if(ingredientList.get(i).getType().toLowerCase(Locale.ENGLISH).contains(keywords[n].toLowerCase(Locale.ENGLISH)) || ingredientList.get(i).getUnity().toLowerCase(Locale.ENGLISH).contains(keywords[n].toLowerCase(Locale.ENGLISH))){
+					matchingIngredients.add(ingredientList.get(i));
+				}
 			}
 		}
 		   	   
