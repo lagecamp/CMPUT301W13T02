@@ -39,8 +39,10 @@ public class RecipeModel extends Model<View>
 	public RecipeModel(){
 		// gets the folder where we should put the files
 		// created by the application (and appends filename)
-		path = RecipeFinderApplication.getAppContext()
-				.getFilesDir() + "/" + filename;
+		path = filename;
+				
+				//RecipeFinderApplication.getAppContext()
+				//.getFilesDir() + "/" + filename;
 		
 		this.recipes = load();
 	}	
