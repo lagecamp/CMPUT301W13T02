@@ -27,7 +27,7 @@ import java.util.Locale;
  */
 public class RecipeModel
 {
-	private static final String filename = "file.sav";
+	private static final String filename = "file11.sav";
 	private String path;
 	private ArrayList<Recipe> recipes; 
 	

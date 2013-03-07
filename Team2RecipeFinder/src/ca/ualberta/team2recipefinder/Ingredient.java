@@ -18,7 +18,7 @@ public class Ingredient implements Serializable{
 	private Double amount;// the amount of the ingredient
 	private String unit;// the unit to measure the ingredient
 
-	public Ingredient(String type, Double amount, String unity){
+	public Ingredient(String type, Double amount, String unit){
 		this.type=type;
 		this.amount=amount;
 		this.unit=unit;

@@ -21,7 +21,7 @@ import java.util.Locale;
  */
 
 public class IngredientList extends Model<View>{
-	private String filename="IngredientList.sav";// the name of the file where the ingredient list will be stored
+	private String filename="IngredientList11.sav";// the name of the file where the ingredient list will be stored
 	private String path;// the path to the file
 	
 	ArrayList<Ingredient> ingredientList;// the list of the ingredients
