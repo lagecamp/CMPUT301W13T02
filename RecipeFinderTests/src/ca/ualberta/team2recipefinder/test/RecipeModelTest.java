@@ -9,9 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ualberta.team2recipefinder.Ingredient;
-import ca.ualberta.team2recipefinder.Recipe;
-import ca.ualberta.team2recipefinder.RecipeModel;
+import ca.ualberta.team2recipefinder.*;
 
 
 public class RecipeModelTest
