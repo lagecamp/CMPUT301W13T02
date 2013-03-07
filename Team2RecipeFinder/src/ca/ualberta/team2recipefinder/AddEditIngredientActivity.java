@@ -81,7 +81,7 @@ public class AddEditIngredientActivity extends Activity {
 					Integer.parseInt(txtAmount.getText().toString()) > 0) {
 					
 					Ingredient ingredient = new Ingredient(txtType.getText().toString(),
-							Integer.parseInt(txtAmount.getText().toString()), txtUnit.getText().toString());
+							Double.parseDouble(txtAmount.getText().toString()), txtUnit.getText().toString());
 					
 					Intent intent = new Intent();
 					intent.putExtra("result", ingredient);
