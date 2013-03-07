@@ -4,6 +4,9 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -50,28 +53,57 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		doneButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				String newName = nameEdit.getText().toString();
-				String newProcedure = procedureEdit.getText().toString();
 				
-				currentRecipe.setName(newName);
-				currentRecipe.setProcedure(newProcedure);
+				boolean goodEntry = true;
 				
-				Controller c = RecipeFinderApplication.getController();
-				if (recipeID == -1) {
-					c.addRecipe(currentRecipe);
+				if (nameEdit.getText().toString().isEmpty() || procedureEdit.getText().toString().isEmpty()
+						|| currentRecipe.getIngredients().isEmpty()) {
+					AlertDialog.Builder adb = new AlertDialog.Builder(view.getContext());
+					adb.setTitle("Error");
+					adb.setMessage("A recipe can not have an empty name or procedure, or contain no ingredients.");
+					adb.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					
+					AlertDialog ad = adb.create();
+					ad.show();
+					goodEntry = false;
 				}
-				else {
-					c.replaceRecipe(currentRecipe, recipeID);
-				}
 				
-				finish();
-			}		
+				if (goodEntry) {
+				
+					String newName = nameEdit.getText().toString();
+					String newProcedure = procedureEdit.getText().toString();
+				
+					currentRecipe.setName(newName);
+					currentRecipe.setProcedure(newProcedure);
+				
+					Controller c = RecipeFinderApplication.getController();
+					if (recipeID == -1) {
+						c.addRecipe(currentRecipe);
+					}
+					else {
+						c.replaceRecipe(currentRecipe, recipeID);
+					}
+					
+					finish();
+				}
+			}	
 		});
 		
 		Button addIngredient = (Button) findViewById(R.id.button_add_ingredient);
 		addIngredient.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				String newName = nameEdit.getText().toString();
+				String newProcedure = procedureEdit.getText().toString();
+			
+				currentRecipe.setName(newName);
+				currentRecipe.setProcedure(newProcedure);
+				
 				Intent intent = new Intent(EditRecipeActivity.this, AddEditIngredientActivity.class);
 				intent.putExtra("mode", "add");
 				startActivityForResult(intent, ADD_INGR_CODE);
