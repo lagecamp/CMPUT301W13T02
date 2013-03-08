@@ -141,15 +141,16 @@ public class Recipe extends Model<View> implements Serializable
 	}
 	
 	/**
-	 * 
+	 * Add ingredient to recipe
 	 * @param ingredient Ingredient to be added
+	 * @throws DuplicateIngredientException 
 	 */
-	public void addIngredient(Ingredient ingredient) {
+	public void addIngredient(Ingredient ingredient) throws DuplicateIngredientException {
 		boolean alreadyThere = false;
 		for (int n = 0; n < ingredients.size(); n++) {
 			if (ingredients.get(n).getType().equalsIgnoreCase(ingredient.getType())) {
 				alreadyThere = true;
-				break;
+				throw new DuplicateIngredientException(ingredient.getType());
 			}
 		}
 		if (!alreadyThere){

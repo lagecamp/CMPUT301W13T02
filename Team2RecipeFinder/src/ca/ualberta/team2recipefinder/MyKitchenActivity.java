@@ -42,13 +42,13 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	
 	private final int ADD_INGR_CODE = 0;
 	private final int EDIT_INGR_CODE = 1;
-		
-	@Override
+			
 	/**
 	 * Sets up all listeners for this activity.
 	 * 
 	 * @param	savedInstanceState Bundle containing the activity's previously frozen state, if there was one. 
 	 */
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kitchen);
@@ -116,34 +116,35 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 		RecipeFinderApplication.getMyKitchen().addView(this);
 		this.update(RecipeFinderApplication.getMyKitchen());
 	}
-		
-    @Override
+		    
 	/**
 	 * Makes sure that the memory will be managed correctly
 	 */
+	@Override
     public void onDestroy() {
         super.onDestroy();
         RecipeFinderApplication.getMyKitchen().removeView(this);
     }
     
-	 @Override
+	
 	/**
 	 * Display the search options when the user clicks
 	 * the magnifying glass button on the phone
 	 */
-	 public boolean onSearchRequested() {
-		 // show the search if the user presses the "search" button of the phone
-		 sldSearch.animateOpen();
+    @Override
+	public boolean onSearchRequested() {
+    	// show the search if the user presses the "search" button of the phone
+		sldSearch.animateOpen();
 		 
-	     return false;  // don't go ahead and show the search box
-	 }
+	    return false;  // don't go ahead and show the search box
+	}	
 	
-	@Override
 	/**
 	 * Called by the model, updates the view
 	 * 
-	 * @param	the model
+	 * @param	model the model
 	 */
+    @Override
 	public void update(MyKitchen model) {
 		List<Ingredient> ingredients = RecipeFinderApplication.getController().getIngredients();
 		this.displayResults(ingredients);
@@ -156,20 +157,34 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 		listResults.setAdapter(adapter); 
 	}
 	
+	/**
+	 * Takes the result from AddEditIngredientActivity and adds it to, or 
+	 * replaces an item from MyKitchen
+	 */
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
             Intent data) {
         if (requestCode == ADD_INGR_CODE) {
             if (resultCode == RESULT_OK) {
+            	// add new ingredient
             	Ingredient ingredient = (Ingredient) data.getSerializableExtra("result");
-            	RecipeFinderApplication.getController().addIngredient(ingredient);
+            	
+            	try {
+					RecipeFinderApplication.getController().addIngredient(ingredient);
+				} catch (DuplicateIngredientException e) {
+					Toast.makeText(MyKitchenActivity.this, getString(R.string.have_ingredient_already_kitchen), 
+							   Toast.LENGTH_LONG).show();
+				}
             }
         }
         else if (requestCode == EDIT_INGR_CODE) {
             if (resultCode == RESULT_OK) {
             	if (data.getStringExtra("deleted") != null) {
+            		// deletes ingredient
             		RecipeFinderApplication.getController().deleteIngredient(oldIngredient);
             	}
             	else {
+            		// edit ingredient
 	            	Ingredient ingredient = (Ingredient) data.getSerializableExtra("result");
 	            	RecipeFinderApplication.getController().replaceIngredient(oldIngredient, ingredient);
             	}

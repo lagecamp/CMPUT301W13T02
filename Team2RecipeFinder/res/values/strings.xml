@@ -39,5 +39,7 @@
     <string name="show_all">Show All</string>
     <string name="my_kitchen">My Kitchen</string>
     <string name="missing_fields">Some fields are missing!</string>
+    <string name="have_ingredient_already_kitchen">The new ingredient could not be added because you already have it in MyKitchen</string>
+    <string name="have_ingredient_already_recipe">The new ingredient could not be added because you already have it in this recipe</string>
 
 </resources>

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Only the amount attribute is allowed to be modified once it's created.
  * @author cmput-301 team 2
  * @version 1.00 07/03/13
- * @see ca.ualberta.team2recipefinder.IngredientList
+ * @see ca.ualberta.team2recipefinder.MyKitchen
  * @see ca.ualberta.team2recipefinder.Recipe
  */
 public class Ingredient implements Serializable{

@@ -86,6 +86,8 @@ public final class R {
         public static final int delete_succesful=0x7f04001d;
         public static final int done=0x7f04001b;
         public static final int edit_ingredient=0x7f04001f;
+        public static final int have_ingredient_already_kitchen=0x7f040026;
+        public static final int have_ingredient_already_recipe=0x7f040027;
         public static final int hello_world=0x7f040001;
         public static final int ingredient=0x7f040020;
         public static final int ingredients=0x7f040014;

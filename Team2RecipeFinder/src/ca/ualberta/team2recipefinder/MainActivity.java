@@ -50,12 +50,13 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 	
 	SlidingDrawer sldSearch;
 	
-	@Override
+	
 	/**
 	 * Sets up all listeners for this activity.
 	 * 
 	 * @param	savedInstanceState Bundle containing the activity's previously frozen state, if there was one. 
 	 */
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -168,13 +169,13 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
         
         c.getModel().addView(this);
 	}
-
-	@Override
+	
 	/**
 	 * Called by the model, updates the view
 	 * 
 	 * @param	the model
 	 */
+	@Override
 	public void update(RecipeModel model) {
 		ListView recipes = (ListView) findViewById(R.id.recipeList);
 		Controller c = RecipeFinderApplication.getController();
@@ -185,11 +186,11 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 	}
 	
 	
-	 @Override
 	/**
 	 * Display the search options when the user clicks
 	 * the magnifying glass button on the phone
 	 */
+	@Override
 	public boolean onSearchRequested() {
 		// show the search if the user presses the "search" button of the phone
 		sldSearch.animateOpen();
@@ -214,11 +215,11 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 				  R.layout.list_item, results);
 		recipes.setAdapter(adapter);
     }
-    
-    @Override
+        
 	/**
 	 * Makes sure that the memory will be managed correctly
 	 */
+    @Override
     public void onDestroy() {
         super.onDestroy();
         Controller c = RecipeFinderApplication.getController();

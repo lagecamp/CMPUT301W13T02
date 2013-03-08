@@ -30,13 +30,13 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 
 	long recipeID = -1;
 	Recipe currentRecipe = new Recipe();
-	
-	@Override
+		
 	/**
 	 * Sets up all button listeners for this activity.
 	 * 
 	 * @param	savedInstanceState Bundle containing the activity's previously frozen state, if there was one. 
 	 */
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);

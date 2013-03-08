@@ -1,25 +1,48 @@
 package ca.ualberta.team2recipefinder;
 import java.util.ArrayList;
 
-// class based on prof. Hindle's class FModel for FillerCreep
-public class Model<V extends View>{
+/**
+ * Class based on prof Hindles FModel for FillerCreep
+ * 
+ * @author cmput-301 team 2
+ */
+public class Model<V extends View> {
 	private ArrayList<V> views;
 	
-	public Model(){
+	/**
+	 * Default constructor
+	 */ 
+	public Model() {
 		views = new ArrayList<V>();
 	}
 	
-	public void addView(V v){
-		if(!views.contains(v))
+	/**
+	 * Adds a new observer
+	 * 
+	 * @param v the observer
+	 */ 
+	public void addView(V v) {
+		if (!views.contains(v)) {
 			views.add(v);
+		}
 	}
 	
-	public void removeView(V v){
+	/**
+	 * Removes an observer
+	 * 
+	 * @param v the observer
+	 */ 
+	public void removeView(V v) {
 		views.remove(v);
 	}
 	
-	public void notifyViews(){
-		for(V view: views)
-			view.update(this);	
+	/**
+	 * Called by the model, notifies view that something has
+	 * been changed
+	 */ 
+	protected void notifyViews() {
+		for (V view: views) {
+			view.update(this);
+		}
 	}
 }

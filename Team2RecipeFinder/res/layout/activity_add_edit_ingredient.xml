@@ -60,7 +60,7 @@
         android:ems="10"
         android:layout_marginLeft="14dp"
         android:hint="@string/amount"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/txtUnit"

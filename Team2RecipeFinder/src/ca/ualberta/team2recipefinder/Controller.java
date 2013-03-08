@@ -64,15 +64,8 @@ public class Controller {
 		return myKitchen.searchIngredient(keywords);
 	}
 	
-	public void addIngredient(Ingredient ingredient) {
-		try
-		{
-			myKitchen.add(ingredient);
-		} catch (DuplicateIngredientException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void addIngredient(Ingredient ingredient) throws DuplicateIngredientException {
+		myKitchen.add(ingredient);
 	}
 	
 	public Ingredient getIngredient(String type) {
@@ -87,7 +80,7 @@ public class Controller {
 		return recipe.getIngredient(type);
 	}
 	
-	public void addIngredient(Recipe recipe, Ingredient ingredient) {
+	public void addIngredient(Recipe recipe, Ingredient ingredient) throws DuplicateIngredientException {
 		recipe.addIngredient(ingredient);
 	}
 	

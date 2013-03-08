@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * EditRecipeActivity is an android activity for editting a single recipe, 
@@ -174,27 +175,36 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	 * Takes the result from AddEditIngredientActivity and adds it to, or 
 	 * replaces an item from this recipe's ingredient list.
 	 */
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
             Intent data) {
         if (requestCode == ADD_INGR_CODE) {
             if (resultCode == RESULT_OK) {
+            	// add ingredient
             	Ingredient ingredient = (Ingredient) data.getSerializableExtra("result");
-            	RecipeFinderApplication.getController().addIngredient(currentRecipe, ingredient);
+            	
+            	try {
+            		RecipeFinderApplication.getController().addIngredient(currentRecipe, ingredient);
+				} catch (DuplicateIngredientException e) {
+					Toast.makeText(EditRecipeActivity.this, getString(R.string.have_ingredient_already_recipe), 
+							   Toast.LENGTH_LONG).show();
+				}            	
             }
         }
         else if (requestCode == EDIT_INGR_CODE) {
             if (resultCode == RESULT_OK) {
             	if (data.getStringExtra("deleted") != null) {
+            		// delete ingredient
             		RecipeFinderApplication.getController().deleteIngredient(currentRecipe, oldIngredient);
             	}
             	else {
+            		// edit ingredient
 	            	Ingredient ingredient = (Ingredient) data.getSerializableExtra("result");
 	            	RecipeFinderApplication.getController().replaceIngredient(currentRecipe, oldIngredient, ingredient);
             	}
             }
         }
-	}
-    
+	}   
 
 
 }

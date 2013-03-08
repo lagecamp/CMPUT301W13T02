@@ -59,7 +59,7 @@ public class MyKitchen extends Model<View> {
 	 * @param the ingredient to add
 	 * @throws DuplicateIngredientException 
 	 */
-	public void add(Ingredient ingredient) throws DuplicateIngredientException{		
+	public void add(Ingredient ingredient) throws DuplicateIngredientException {		
 		for(int n = 0; n < ingredientList.size(); n++) {
 			if(ingredientList.get(n).getType().equalsIgnoreCase(ingredient.getType())) {
 				throw new DuplicateIngredientException(ingredient.getType());
