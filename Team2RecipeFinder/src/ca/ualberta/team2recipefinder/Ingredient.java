@@ -12,16 +12,16 @@ import java.io.Serializable;
  * @see ca.ualberta.team2recipefinder.MyKitchen
  * @see ca.ualberta.team2recipefinder.Recipe
  */
-public class Ingredient implements Serializable{
+public class Ingredient implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String type;// the type of the ingredient
 	private Double amount;// the amount of the ingredient
 	private String unit;// the unit to measure the ingredient
 
-	public Ingredient(String type, Double amount, String unit){
-		this.type=type;
-		this.amount=amount;
-		this.unit=unit;
+	public Ingredient(String type, Double amount, String unit) {
+		this.type = type;
+		this.amount = amount;
+		this.unit = unit;
 	}
 	
 	public Ingredient() {

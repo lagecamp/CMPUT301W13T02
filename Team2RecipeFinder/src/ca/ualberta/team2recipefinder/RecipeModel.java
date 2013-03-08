@@ -52,32 +52,31 @@ public class RecipeModel extends Model<View>
 	 * @param  recipe A recipe that the chef wants to add to his phone
 	 * @see    Recipe
 	 */
-	   public void add(Recipe recipe) {
-		   recipes.add(recipe);
-		   sortRecipes();
-		   writeFile(recipes);
-		   notifyViews();
+	public void add(Recipe recipe) {
+		recipes.add(recipe);
+		sortRecipes();
+		writeFile(recipes);
+		notifyViews();
 	}
-	   /*
-	    *
-	    */
-		/**
-		 * Remove the specified recipe from the phone's database
-		 * 
-		 * @param  recipe A recipe that the chef wants to remove from his phone
-		 * @see    Recipe
-		 */
-	   public void remove(Recipe recipe){
-		   //Searches for recipes which have equivalent attributes (name, author, procedure) as the specified recipe
-		    for(int i = 0; i<recipes.size(); i++){			   
-			   if(recipe.getRecipeID() == recipes.get(i).getRecipeID()){
-				   recipes.remove(i);
-				   break;
-			   }		   
-		   }
-		   writeFile(recipes);
-		   notifyViews();
-	   }
+	
+	/**
+	 * Remove the specified recipe from the phone's database
+	 * 
+	 * @param  recipe A recipe that the chef wants to remove from his phone
+	 * @see    Recipe
+	 */
+	public void remove(Recipe recipe){
+		//Searches for recipes which have equivalent attributes (name, author, procedure) as the specified recipe
+		recipes.remove(recipe);
+		/* for (int i = 0; i < recipes.size(); i++) {			   
+			if (recipe.getRecipeID() == recipes.get(i).getRecipeID()) {
+				recipes.remove(i);
+			    break;
+		    }		   
+		} */
+		writeFile(recipes);
+		notifyViews();
+	}
 	   
 
 	   /**
@@ -118,11 +117,9 @@ public class RecipeModel extends Model<View>
 	   /**
 	    * Searches the phone's recipes for the specific keyword.  It looks at the recipe's name, procedure, author, and ingredients
 	    * @param keywords An array of strings filled with keywords
-	    * @param searchLocally Boolean that is true or false depending on whether the search is local
-	    * @param searchFromWeb Boolean that is true or false depending on whether the search is from the web
 	    * @return Returns an ArrayList of type Recipe that match the keywords
 	    */
-	   public ArrayList<Recipe> searchRecipe(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
+	   public ArrayList<Recipe> searchRecipe(String[] keywords) {
 		   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();		   
 		  
 		   for(int k = 0; k<keywords.length; k++){							//Searches the Arrraylist and looks for any recipe name, author, procedure which contains the keywords
@@ -158,17 +155,14 @@ public class RecipeModel extends Model<View>
 	   /**
 	    * Searches the database for recipes in which the user has every ingredient
 	    * @param keywords An array of strings filled with keywords
-	    * @param searchLocally Boolean that is true or false depending on whether the search is local
-	    * @param searchFromWeb Boolean that is true or false depending on whether the search is from the web
+	    * @param kitchenIngredients Ingredients that you have in your kitchen
 	    * @return Returns an ArrayList of type Recipe that match the keywords and ingredients from My Kitchen
 	    */
-	   public ArrayList<Recipe> searchWithIngredient(String[] keywords, boolean searchLocally, boolean searchFromWeb){
+	   public ArrayList<Recipe> searchWithIngredient(String[] keywords, List<Ingredient> kitchenIngredients) {
 		   boolean ingredientIsInKitchen = true;		   
 		   ArrayList<Recipe> matchingRecipes = new ArrayList<Recipe>();			   
-		   matchingRecipes = searchRecipe(keywords, searchLocally, searchFromWeb);				//Call the local search method to find recipes that match the keywords
-		   ArrayList<Recipe> matchingIngredientRecipes = new ArrayList<Recipe>();		   
-		   
-		   List<Ingredient> kitchenIngredients = RecipeFinderApplication.getMyKitchen().getIngredients();		   
+		   matchingRecipes = searchRecipe(keywords);				//Call the local search method to find recipes that match the keywords
+		   ArrayList<Recipe> matchingIngredientRecipes = new ArrayList<Recipe>();   
 		   
 		   for (int i = 0; i<matchingRecipes.size(); i++){
 			   for (int q = 0; q<matchingRecipes.get(i).getIngredients().size(); q++){

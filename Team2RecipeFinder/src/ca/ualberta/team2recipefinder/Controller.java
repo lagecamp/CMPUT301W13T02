@@ -15,16 +15,13 @@ public class Controller {
 	
 	public List<Recipe> search(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
 		// for now, it only searches locally
-		return model.searchRecipe(keywords, searchLocally, searchFromWeb);
+		return model.searchRecipe(keywords);
 	}
 	
 	public List<Recipe> searchWithIngredients(String[] keywords, boolean searchLocally, 
 									  boolean searchFromWeb) {
-		return model.searchWithIngredient(keywords, searchLocally, searchFromWeb);
-		
-		/*// stil working in  the search with ingredients
-		// for now, it will search without considering the ingredients
-		return model.searchRecipe(keywords);*/
+		// for now, it only searches locally
+		return model.searchWithIngredient(keywords, myKitchen.getIngredients());
 	}
 	
 	public Recipe getRecipe(long id) {
