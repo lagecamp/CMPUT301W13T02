@@ -26,11 +26,11 @@ public class RecipeFinderApplication extends Application {
     }
 	
 	// Singleton
-	transient private static IngredientList myKitchen = null;
+	transient private static MyKitchen myKitchen = null;
 
-	public static IngredientList getMyKitchen() {
+	public static MyKitchen getMyKitchen() {
 		if (myKitchen == null) {
-			myKitchen = new IngredientList();
+			myKitchen = new MyKitchen();
 		}
 		return myKitchen;
     }

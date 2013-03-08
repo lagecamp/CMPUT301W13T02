@@ -16,7 +16,7 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MyKitchenActivity extends Activity implements ca.ualberta.team2recipefinder.View<IngredientList> {
+public class MyKitchenActivity extends Activity implements ca.ualberta.team2recipefinder.View<MyKitchen> {
 
 	ListView listResults;
 	
@@ -113,7 +113,7 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	 }
 	
 	@Override
-	public void update(IngredientList model) {
+	public void update(MyKitchen model) {
 		List<Ingredient> ingredients = RecipeFinderApplication.getController().getIngredients();
 		this.displayResults(ingredients);
 	}

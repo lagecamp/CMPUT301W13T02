@@ -6,9 +6,9 @@ import java.util.List;
 public class Controller {
 	
 	RecipeModel model;
-	IngredientList myKitchen;
+	MyKitchen myKitchen;
 	
-	public Controller(RecipeModel model, IngredientList myKitchen) {
+	public Controller(RecipeModel model, MyKitchen myKitchen) {
 		this.model = model;
 		this.myKitchen = myKitchen;
 	}

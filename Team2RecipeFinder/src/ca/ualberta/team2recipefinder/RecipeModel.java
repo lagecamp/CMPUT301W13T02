@@ -164,14 +164,12 @@ public class RecipeModel extends Model<View>
 	    * @return Returns an ArrayList of type Recipe that match the keywords and ingredients from My Kitchen
 	    */
 	   public ArrayList<Recipe> searchWithIngredient(String[] keywords, boolean searchLocally, boolean searchFromWeb){
-		   boolean ingredientIsInKitchen = true;
-		   IngredientList il = new IngredientList();
-		   ArrayList<Ingredient> kitchenIngredients = new ArrayList<Ingredient>();		   
+		   boolean ingredientIsInKitchen = true;		   
 		   ArrayList<Recipe> matchingRecipes = new ArrayList<Recipe>();			   
 		   matchingRecipes = searchRecipe(keywords, searchLocally, searchFromWeb);				//Call the local search method to find recipes that match the keywords
 		   ArrayList<Recipe> matchingIngredientRecipes = new ArrayList<Recipe>();		   
 		   
-		   kitchenIngredients = il.load();		   
+		   List<Ingredient> kitchenIngredients = RecipeFinderApplication.getMyKitchen().getIngredients();		   
 		   
 		   for (int i = 0; i<matchingRecipes.size(); i++){
 			   for (int q = 0; q<matchingRecipes.get(i).getIngredients().size(); q++){

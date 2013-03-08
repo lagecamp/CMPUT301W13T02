@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * IngredientList manipulates a list of ingredients. It stores the list to the file <code>filename</code>.
+ * MyKitchen manipulates a list of ingredients. It stores the list to the file <code>filename</code>.
  * It can add/remove/replace ingredients to/from the list. It can sort the list by the <code>type</code> of the <code>Ingredient</code>
  * And it also provides the functionality of searching ingredients by keywords
  * @author lxian
@@ -20,24 +20,25 @@ import java.util.Locale;
  * @see	ca.ualberta.team2recipefinder.Recipe
  */
 
-public class IngredientList extends Model<View>{
+public class MyKitchen extends Model<View> {
 	private String filename = "IngredientList.sav";// the name of the file where the ingredient list will be stored
 	private String path;// the path to the file
 	
 	ArrayList<Ingredient> ingredientList;// the list of the ingredients
 	
-	public IngredientList() {
+	public MyKitchen() {
 		// gets the folder where we should put the files
 		// created by the application (and appends filename)
 		path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + filename;
 		
 		ingredientList = load();
 	}
+	
 	/**
 	 * Loads the ingredient list from file
 	 * @return the ingredient list loaded
 	 */
-	public ArrayList<Ingredient> load() {  
+	private ArrayList<Ingredient> load() {  
 		ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 		   
 		try {  
@@ -170,7 +171,12 @@ public class IngredientList extends Model<View>{
 		   
 	}
 	
-	// Is it really needed? guess load() can already do this job.
+	
+	/**
+	 * Returns a list with all the ingredients in MyKitchen
+	 * @param keywords 
+	 * @return All the ingredients in MyKitchen
+	 */
 	public List<Ingredient> getIngredients() {
 		return ingredientList;
 	}
