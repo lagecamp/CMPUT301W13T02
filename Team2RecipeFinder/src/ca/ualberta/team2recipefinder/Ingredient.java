@@ -1,17 +1,17 @@
 package ca.ualberta.team2recipefinder;
 
 import java.io.Serializable;
+
 /**
  * Ingredient is the basic unit for storing a type of ingredient to file.
  * One ingredient contains three attributes, type, amount and unit.
  * Allow the user to get those attributes in <code>String</code>.
  * Only the amount attribute is allowed to be modified once it's created.
- * @author lxian
+ * @author cmput-301 team 2
  * @version 1.00 07/03/13
  * @see ca.ualberta.team2recipefinder.IngredientList
  * @see ca.ualberta.team2recipefinder.Recipe
  */
-
 public class Ingredient implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String type;// the type of the ingredient

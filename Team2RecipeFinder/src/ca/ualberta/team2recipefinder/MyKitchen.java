@@ -14,7 +14,7 @@ import java.util.Locale;
  * MyKitchen manipulates a list of ingredients. It stores the list to the file <code>filename</code>.
  * It can add/remove/replace ingredients to/from the list. It can sort the list by the <code>type</code> of the <code>Ingredient</code>
  * And it also provides the functionality of searching ingredients by keywords
- * @author lxian
+ * @author cmput-301 team 2
  * @version 1.0 07/03/13
  * @see	ca.ualberta.team2recipefinder.Ingredient
  * @see	ca.ualberta.team2recipefinder.Recipe

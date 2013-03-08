@@ -20,12 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/*
+/**
  * 
  * @author	CMPUT 301 Team 2
  *
  */
-
 public class RecipeModel extends Model<View>
 {
 	private static final String filename = "file11.sav";

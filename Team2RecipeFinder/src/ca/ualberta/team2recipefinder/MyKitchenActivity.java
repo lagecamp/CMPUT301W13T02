@@ -1,3 +1,10 @@
+/* MyKithcenActivity
+ * 
+ * Last Edited: March 7, 2013
+ * 
+ * 
+ */
+
 package ca.ualberta.team2recipefinder;
 
 
@@ -16,6 +23,13 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * MyKitchenActivity is an android activity for managing
+ * the ingredients the user has
+ * 
+ * @author cmput-301 team 2
+ * @see ca.ualberta.team2recipefinder.Ingredient
+ */
 public class MyKitchenActivity extends Activity implements ca.ualberta.team2recipefinder.View<MyKitchen> {
 
 	ListView listResults;
@@ -30,6 +44,11 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	private final int EDIT_INGR_CODE = 1;
 		
 	@Override
+	/**
+	 * Sets up all listeners for this activity.
+	 * 
+	 * @param	savedInstanceState Bundle containing the activity's previously frozen state, if there was one. 
+	 */
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kitchen);
@@ -99,12 +118,19 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	}
 		
     @Override
+	/**
+	 * Makes sure that the memory will be managed correctly
+	 */
     public void onDestroy() {
         super.onDestroy();
         RecipeFinderApplication.getMyKitchen().removeView(this);
     }
     
 	 @Override
+	/**
+	 * Display the search options when the user clicks
+	 * the magnifying glass button on the phone
+	 */
 	 public boolean onSearchRequested() {
 		 // show the search if the user presses the "search" button of the phone
 		 sldSearch.animateOpen();
@@ -113,6 +139,11 @@ public class MyKitchenActivity extends Activity implements ca.ualberta.team2reci
 	 }
 	
 	@Override
+	/**
+	 * Called by the model, updates the view
+	 * 
+	 * @param	the model
+	 */
 	public void update(MyKitchen model) {
 		List<Ingredient> ingredients = RecipeFinderApplication.getController().getIngredients();
 		this.displayResults(ingredients);
