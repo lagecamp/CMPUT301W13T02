@@ -37,7 +37,7 @@ public class RecipeModelTest
 		assertEquals(model.getAllRecipes().size(), 1);
 		
 		// make sure it is the recipe we just added
-		assertEquals(model.searchRecipe(new String[] { "spaghetti" }, true, false).size(), 1);
+		assertEquals(model.searchRecipe(new String[] { "spaghetti" }).size(), 1);
 		
 		// make sure it is the recipe we just added
 		assertEquals(model.getRecipe(0).getName(), "spaghetti");
@@ -61,7 +61,7 @@ public class RecipeModelTest
 		assertEquals(model.getAllRecipes().size(), 1);
 		
 		// make sure the recipe that is the list is the "rice"
-		assertEquals(model.searchRecipe(new String[] { "rice" }, true, false).size(), 1);
+		assertEquals(model.searchRecipe(new String[] { "rice" }).size(), 1);
 		
 		// make sure the recipe that is the list is the "rice"
 		assertEquals(model.getRecipe(0).getName(), "rice");
@@ -80,7 +80,7 @@ public class RecipeModelTest
 		assertEquals(model.getAllRecipes().size(), 2);
 		
 		// make sure there are two spaghetti's in the list
-		assertEquals(model.searchRecipe(new String[] { "spaghetti" }, true, false).size(), 2);
+		assertEquals(model.searchRecipe(new String[] { "spaghetti" }).size(), 2);
 		
 		// make sure both sppaghetti's are in the list
 		if (model.getRecipe(0).equals(recipe1)) {
@@ -107,8 +107,8 @@ public class RecipeModelTest
 		model.add(recipe4);
 		model.add(recipe5);
 						
-		List<Recipe> spaghettis = model.searchRecipe(new String[] { "spaghetti" }, true, false);
-		List<Recipe> tomatos = model.searchRecipe(new String[] { "tomato" }, true, false);
+		List<Recipe> spaghettis = model.searchRecipe(new String[] { "spaghetti" });
+		List<Recipe> tomatos = model.searchRecipe(new String[] { "tomato" });
 		
 		// if you search for "spaghetti", there must be three results
 		assertEquals(spaghettis.size(), 3);
