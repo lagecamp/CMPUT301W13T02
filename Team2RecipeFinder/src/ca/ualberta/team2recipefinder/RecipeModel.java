@@ -1,12 +1,8 @@
 /*
-*
-*RecipeModel
-*
-*
-*Version 1
-*
-*
-*/
+ * @RecipeModel.java        1.0 13/03/01
+ *
+ * The following source is protected by a GNU Public License
+ */
 
 package ca.ualberta.team2recipefinder;
 
@@ -21,6 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
+ * RecipeModel Class:  It's main duty is to manage recipes.  It adds, removes, searches, and sorts recipes.
  * 
  * @author	CMPUT 301 Team 2
  *
