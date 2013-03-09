@@ -1,10 +1,21 @@
+/*
+* @RecipeModel.java 1.0 13/03/01
+*
+* The following source is protected by a GNU Public License
+*/
 package ca.ualberta.team2recipefinder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+* Recipe Class: This class represents our recipe objects. All recipes have a Name, Procedure, Ingredient List, and Author.
+* The class is able to set and get any of these attributes.
+*
+* @author CMPUT 301 Team 2
+*
+*/
 public class Recipe extends Model<View> implements Serializable
 {
 
