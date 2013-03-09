@@ -199,7 +199,12 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 	}
 	
 	
-    // make sure that at least one check box (cbxSearchLocally or cbxSearchFromWeb) is checked
+    /**
+     * Checks to ensure at least one checkbox is currently checked upon clicking a checkbox.
+     * If clicking the checkbox would cause neither checkboxes to be clicked, it does not
+     * allow that to happen and displays a pop-up informing the user.
+     * @param the checkBox that was just clicked
+     */
     private void validateCheckBoxes(CheckBox checkBox) {
     	if (!cbxSearchFromWeb.isChecked() && !cbxSearchLocally.isChecked()) {
     		Toast.makeText(MainActivity.this, getString(R.string.no_source_search), 
@@ -209,6 +214,10 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
     	}
     }
     
+    /**
+     * Displays the given results of a search in this view's ListView
+     * @param the results to be displayed
+     */
     private void displayResults(List<Recipe> results) {						
 		// uses an ArrayAdapter and displays the items
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this,

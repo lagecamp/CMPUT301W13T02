@@ -171,6 +171,10 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		ingredients.setText(ingredientText);
 	}
 
+	
+	/**
+	 * Removes this view from the model
+	 */
     @Override
     public void onDestroy() {
         super.onDestroy();
