@@ -185,7 +185,7 @@ public class MyKitchenTest {
 		Ingredient i1 = new Ingredient("Sugar", 300d, "g");
 		Ingredient i2 = new Ingredient("Salt", 300d, "g");
 		Ingredient i3 = new Ingredient("Soy Bean", 250d, "g");
-		Ingredient i4 = new Ingredient("Cocoa", 250d, "g");
+		Ingredient i4 = new Ingredient("Blueberries", 250d, "g");
 		Ingredient i5 = new Ingredient("Carrot", 3d, "unit");
 		
 		try {
@@ -200,9 +200,9 @@ public class MyKitchenTest {
 		
 		List<Ingredient> all = model.getIngredients();
 		
-		// ensure returned list contains all ingredients in  alphabetical order
-		assertEquals(all.get(0), i5);
-		assertEquals(all.get(1), i4);
+		// ensure returned list contains all ingredients in alphabetical order
+		assertEquals(all.get(0), i4);
+		assertEquals(all.get(1), i5);
 		assertEquals(all.get(2), i2);
 		assertEquals(all.get(3), i3);
 		assertEquals(all.get(4), i1);
