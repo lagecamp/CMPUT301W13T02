@@ -12,31 +12,37 @@ public class IngredientTest{
 	@Test
 	public void testGetType() {
 		Ingredient ingredient = new Ingredient("test", 0.0, "gram");
-		assertEquals("Type", "test", ingredient.getType());
+		assertEquals("test", ingredient.getType());
 	}
 	
 	@Test
 	public void testGetAmount() {
 		Ingredient ingredient = new Ingredient("test", 0.0, "gram");
-		assertEquals("Amount", Double.valueOf(0.0), ingredient.getAmount());
+		assertEquals(Double.valueOf(0.0), ingredient.getAmount());
 	}
 	
 	@Test
 	public void testGetUnit() {
 		Ingredient ingredient = new Ingredient("test", 0.0, "gram");
-		assertEquals("Amount", "gram", ingredient.getUnit());
+		assertEquals("gram", ingredient.getUnit());
 	}
 	
 	@Test
 	public void testModifyAmount() {
 		Ingredient ingredient = new Ingredient("test", 0.0, "gram");
 		ingredient.modifyAmount(Double.valueOf(0.0));
-		assertEquals("Amount", Double.valueOf(0.0), ingredient.getAmount());
+		assertEquals(Double.valueOf(0.0), ingredient.getAmount());
 	}
 	
 	@Test
 	public void testToString() {
 		Ingredient ingredient = new Ingredient("test", 0.0, "gram");
-		assertEquals("Amount", Double.valueOf(0.0).toString() + " gram test", ingredient.toString());
+		assertEquals(Double.valueOf(0.0).toString() + " gram test", ingredient.toString());
+	}
+	
+	@Test
+	public void testDefaultConstructor() {
+		Ingredient ingredient = new Ingredient();
+		assertEquals(Double.valueOf(0.0).toString() + " Unknown Unknown", ingredient.toString());
 	}
 }

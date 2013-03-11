@@ -2,6 +2,7 @@ package ca.ualberta.team2recipefinder.test;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,16 +39,16 @@ public class RecipeModelTest
 		model.add(recipe);
 		
 		// make sure there is at least one recipe
-		assertEquals(model.getAllRecipes().size(), 1);
+		assertEquals(1, model.getAllRecipes().size());
 		
 		// make sure it is the recipe we just added
-		assertEquals(model.searchRecipe(new String[] { "spaghetti" }).size(), 1);
+		assertEquals(1, model.searchRecipe(new String[] { "spaghetti" }).size());
 		
 		// make sure it is the recipe we just added
-		assertEquals(model.getRecipe(0).getName(), "spaghetti");
+		assertEquals("spaghetti", model.getRecipe(0).getName());
 		
 		// make sure it is the recipe we just added
-		assertEquals(model.getRecipeById(recipe.getRecipeID()).getRecipeID(), recipe.getRecipeID());
+		assertEquals(recipe.getRecipeID(), model.getRecipeById(recipe.getRecipeID()).getRecipeID());
 	}
 	
 	@Test
@@ -62,13 +63,13 @@ public class RecipeModelTest
 		model.remove(recipe1);
 		
 		// make sure there is one recipe
-		assertEquals(model.getAllRecipes().size(), 1);
+		assertEquals(1, model.getAllRecipes().size());
 		
 		// make sure the recipe that is in the list is the "rice"
-		assertEquals(model.searchRecipe(new String[] { "rice" }).size(), 1);
+		assertEquals(1, model.searchRecipe(new String[] { "rice" }).size());
 		
 		// make sure the recipe that is the list is the "rice"
-		assertEquals(model.getRecipe(0).getName(), "rice");
+		assertEquals("rice", model.getRecipe(0).getName());
 	}
 	
 	@Test
@@ -81,18 +82,18 @@ public class RecipeModelTest
 		model.add(recipe2);
 				
 		// make sure there is one recipe
-		assertEquals(model.getAllRecipes().size(), 2);
+		assertEquals(2, model.getAllRecipes().size());
 		
 		// make sure there are two spaghetti's in the list
-		assertEquals(model.searchRecipe(new String[] { "spaghetti" }).size(), 2);
+		assertEquals(2, model.searchRecipe(new String[] { "spaghetti" }).size());
 		
 		// make sure both sppaghetti's are in the list
 		if (model.getRecipe(0).equals(recipe1)) {
-			assertEquals(model.getRecipe(1), recipe2);
+			assertEquals(recipe2, model.getRecipe(1));
 		}
 		else {
-			assertEquals(model.getRecipe(0), recipe2);
-			assertEquals(model.getRecipe(1), recipe1);
+			assertEquals(recipe2, model.getRecipe(0));
+			assertEquals(recipe1, model.getRecipe(1));
 		}
 	}
 	
@@ -115,7 +116,7 @@ public class RecipeModelTest
 		List<Recipe> tomatos = model.searchRecipe(new String[] { "tomato" });
 		
 		// if you search for "spaghetti", there must be three results
-		assertEquals(spaghettis.size(), 3);
+		assertEquals(3, spaghettis.size());
 		
 		// and they should be recipes 1, 2 and 3
 		List<Recipe> expectedResults = new LinkedList<Recipe>();
@@ -125,7 +126,7 @@ public class RecipeModelTest
 		checkExpectedResults(spaghettis, expectedResults);
 		
 		// if you search for "tomato", there must be two results
-		assertEquals(tomatos.size(), 2);
+		assertEquals(2, tomatos.size());
 		
 		// and they should be recipes 3 and 4
 		expectedResults.add(recipe3);
@@ -151,7 +152,7 @@ public class RecipeModelTest
 		// there is no rice and no toma's in the kitchen
 		ArrayList<Ingredient> kitchen = new ArrayList<Ingredient>();
 		kitchen.add(ingredient1); // there are 12 tomatos in the kitchen
-		kitchen.add(ingredient3);
+		kitchen.add(ingredient3); // there is 1 bacon (even though no recipe needs bacon)
 		
 		try {
 			// recipe1 ==> a spaghetti with 12 tomato's and 12 toma's
@@ -187,24 +188,79 @@ public class RecipeModelTest
 		model.add(recipe5);
 						
 		List<Recipe> spaghettis = model.searchWithIngredient(new String[] { "spaghetti" }, kitchen);
-		List<Recipe> rice = model.searchRecipe(new String[] { "rice" });
+		List<Recipe> rice = model.searchWithIngredient(new String[] { "rice" }, kitchen);
 		
 		// if you search for "spaghetti", there must be two results
-		assertEquals(spaghettis.size(), 2);
+		assertEquals(2, spaghettis.size());
 		
-		// and they should be recipes 1, 2 and 3
+		// and they should be recipes 3 and 5
 		List<Recipe> expectedResults = new LinkedList<Recipe>();
 		expectedResults.add(recipe3);
 		expectedResults.add(recipe5);
 		checkExpectedResults(spaghettis, expectedResults);
 		
 		// if you search for "rice", there must be one result
-		assertEquals(rice.size(), 1);
+		assertEquals(1, rice.size());
 		
 		// and it should be recipe 4
 		expectedResults.add(recipe4);
 		checkExpectedResults(rice, expectedResults);
 	}
+	
+	@Test
+	public void testReplace()
+	{
+		Recipe recipe1 = new Recipe("spaghetti", "test", "test", new ArrayList<Ingredient>(), false);
+		Recipe recipe2 = new Recipe("rice", "test", "test", new ArrayList<Ingredient>(), false);
+		
+		model.add(recipe1);
+		
+		model.replaceRecipe(recipe2, recipe1.getRecipeID());
+		
+		// make sure there is one recipe
+		assertEquals(1, model.getAllRecipes().size());
+		
+		// make sure the recipe that is in the list is the "rice"
+		assertEquals(1, model.searchRecipe(new String[] { "rice" }).size());
+		
+		// make sure the recipe that is in the list is the "rice"
+		assertEquals("rice", model.getRecipe(0).getName());
+	}
+	
+	@Test
+	public void getNextOrPrevRecipeById() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException
+	{
+		Recipe recipe1 = new Recipe("id1", "test", "test", new ArrayList<Ingredient>(), false);
+		Recipe recipe2 = new Recipe("id2", "test", "test", new ArrayList<Ingredient>(), false);
+		Recipe recipe3 = new Recipe("id3", "test", "test", new ArrayList<Ingredient>(), false);
+				
+		Field id = recipe1.getClass().getDeclaredField("id");
+		id.setAccessible(true);
+		
+		// uses reflection to force id's
+		id.setLong(recipe1, 1);
+		id.setLong(recipe2, 2);
+		id.setLong(recipe3, 3);
+				
+		// adds them in reverse order, so that we can test
+		// if it'll use the id or the position in the list
+		model.add(recipe3);
+		model.add(recipe2);
+		model.add(recipe1);
+		
+		// after recipe 2, recipe 3
+		assertEquals(recipe3, model.getNextRecipeById(recipe2.getRecipeID()));
+		
+		// after recipe 3, recipe 1
+		assertEquals(recipe1, model.getNextRecipeById(recipe3.getRecipeID()));
+		
+		// before recipe 2, recipe 1
+		assertEquals(recipe1, model.getPreviousRecipeById(recipe2.getRecipeID()));
+		
+		// before recipe 1, recipe 3
+		assertEquals(recipe3, model.getPreviousRecipeById(recipe1.getRecipeID()));
+	}
+	
 	
 	private void checkExpectedResults(List<Recipe> results, List<Recipe> expectedResults) {
 		for (Recipe recipe : results) {
