@@ -1,7 +1,6 @@
 package ca.ualberta.team2recipefinder.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import java.lang.Double;
@@ -19,7 +18,7 @@ public class IngredientTest{
 	@Test
 	public void testGetAmount() {
 		Ingredient ingredient = new Ingredient("test", 0.0, "gram");
-		assertEquals("Amount", new Double(0.0), ingredient.getAmount());
+		assertEquals("Amount", Double.valueOf(0.0), ingredient.getAmount());
 	}
 	
 	@Test
@@ -31,13 +30,13 @@ public class IngredientTest{
 	@Test
 	public void testModifyAmount() {
 		Ingredient ingredient = new Ingredient("test", 0.0, "gram");
-		ingredient.modifyAmount(new Double(100.0));
-		assertEquals("Amount", new Double(100.0), ingredient.getAmount());
+		ingredient.modifyAmount(Double.valueOf(0.0));
+		assertEquals("Amount", Double.valueOf(0.0), ingredient.getAmount());
 	}
 	
 	@Test
 	public void testToString() {
 		Ingredient ingredient = new Ingredient("test", 0.0, "gram");
-		assertEquals("Amount", "test 0.0 gram", ingredient.toString());
+		assertEquals("Amount", Double.valueOf(0.0).toString() + " gram test", ingredient.toString());
 	}
 }
