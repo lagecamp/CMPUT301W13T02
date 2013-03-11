@@ -25,9 +25,9 @@ public class Ingredient implements Serializable {
 	}
 	
 	public Ingredient() {
-		type = "Unknow";
+		type = "Unknown";
 		amount = 0.0;
-		unit = "Unkonw";
+		unit = "Unknown";
 	}
 	/**
 	 * Returns the type of the ingredient in <code>String</code>
