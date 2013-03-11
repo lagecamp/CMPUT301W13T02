@@ -64,11 +64,7 @@ public class RecipeModelTest
 		// make sure there is one recipe
 		assertEquals(model.getAllRecipes().size(), 1);
 		
-<<<<<<< HEAD
-		// make sure the recipe that is in the list is "rice"
-=======
-		// make sure the recipe that is the list is the "rice"
->>>>>>> branch 'master' of ssh://git@github.com/lagecamp/CMPUT301W13T02.git
+		// make sure the recipe that is in the list is the "rice"
 		assertEquals(model.searchRecipe(new String[] { "rice" }).size(), 1);
 		
 		// make sure the recipe that is the list is the "rice"
@@ -117,7 +113,6 @@ public class RecipeModelTest
 						
 		List<Recipe> spaghettis = model.searchRecipe(new String[] { "spaghetti" });
 		List<Recipe> tomatos = model.searchRecipe(new String[] { "tomato" });
-<<<<<<< HEAD
 		
 		// if you search for "spaghetti", there must be three results
 		assertEquals(spaghettis.size(), 3);
@@ -175,8 +170,6 @@ public class RecipeModelTest
 						
 		List<Recipe> spaghettis = model.searchRecipe(new String[] { "spaghetti" });
 		List<Recipe> tomatos = model.searchRecipe(new String[] { "tomato" });
-=======
->>>>>>> branch 'master' of ssh://git@github.com/lagecamp/CMPUT301W13T02.git
 		
 		// if you search for "spaghetti", there must be three results
 		assertEquals(spaghettis.size(), 3);
