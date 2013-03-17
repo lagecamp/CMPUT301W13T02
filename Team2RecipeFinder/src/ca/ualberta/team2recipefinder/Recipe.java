@@ -42,7 +42,7 @@ public class Recipe extends Model<View> implements Serializable
 	
 	/**
 	 * 
-	 * @param name Name of the Recipe
+	 * @param name Name of the Recipe being added
 	 * @param procedure Procedure of the Recipe
 	 * @param author Author of the Recipe
 	 * @param ingredients A list of Ingredient objects
