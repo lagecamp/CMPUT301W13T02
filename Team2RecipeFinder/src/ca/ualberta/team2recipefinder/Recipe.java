@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.drawable.Drawable;
+
 /**
 * Recipe Class: This class represents our recipe objects. All recipes have a Name, Procedure, Ingredient List, and Author.
 * The class is able to set and get any of these attributes.
@@ -24,8 +26,10 @@ public class Recipe extends Model<View> implements Serializable
 	private String procedure;
 	private String author;
 	private List<Ingredient> ingredients;
+	private List<String> comments;
 	private boolean onServer;
 	private long id;
+	private List<Drawable> images; 
 	
 	/**
 	 * Default Recipe Constructor
@@ -38,6 +42,8 @@ public class Recipe extends Model<View> implements Serializable
 		ingredients = new ArrayList<Ingredient>();
 		onServer = false;
 		id = System.currentTimeMillis();
+		comments = new ArrayList<String>();
+		images = new ArrayList<Drawable>();
 	}
 	
 	/**
@@ -48,13 +54,15 @@ public class Recipe extends Model<View> implements Serializable
 	 * @param ingredients A list of Ingredient objects
 	 * @param onServer Whether the recipe is on the server
 	 */
-	public Recipe(String name, String procedure, String author, List<Ingredient> ingredients, boolean onServer){
+	public Recipe(String name, String procedure, String author, List<Ingredient> ingredients, boolean onServer, List<String> comments, List<Drawable> images){
 		this.name = name;
 		this.procedure = procedure;
 		this.author = author;
 		this.ingredients = ingredients;
 		this.onServer = onServer;
 	 	this.id = System.currentTimeMillis();
+	 	this.comments = comments;
+	 	this.images = images;
 	}
 	
 	/**
@@ -199,5 +207,23 @@ public class Recipe extends Model<View> implements Serializable
 	public void setOnServer(boolean onServer){
 		this.onServer = onServer;
 		notifyViews();
-	}	
+	}
+	
+	public List<Drawable> getAllPhotos() {
+		return images;
+	}
+	
+	public void addPhotos(Drawable image) {
+		images.add(image);
+	}
+	
+	public Drawable getPhoto(int index) {
+		Drawable photo;
+		try {
+			photo = images.get(index);
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+		return photo;	
+	}
 }
