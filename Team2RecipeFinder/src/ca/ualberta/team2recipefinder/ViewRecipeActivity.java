@@ -7,15 +7,21 @@
 
 package ca.ualberta.team2recipefinder;
 
+import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -30,6 +36,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 
 	long recipeID = -1;
 	Recipe currentRecipe = new Recipe();
+	int imageIndex = 0;
 		
 	/**
 	 * Sets up all button listeners for this activity.
@@ -122,23 +129,33 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 			}
 		});
 		
-		Button rightButton = (Button) findViewById(R.id.button5);
+		Button rightButton = (Button) findViewById(R.id.button_forward);
 		rightButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				currentRecipe = c.getNextRecipe(recipeID);
-				recipeID = currentRecipe.getRecipeID();
+				if (imageIndex < currentRecipe.getPhotos().size()) {
+					imageIndex++;
+				}
 				update(currentRecipe);
 			}
 		});
 		
-		Button leftButton = (Button) findViewById(R.id.button6);
+		Button leftButton = (Button) findViewById(R.id.button_back);
 		leftButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				currentRecipe = c.getPreviousRecipe(recipeID);
-				recipeID = currentRecipe.getRecipeID();
+				if (imageIndex > 0) {
+					imageIndex--;
+				}
 				update(currentRecipe);
+			}
+		});
+		
+		Button addPhoto = (Button) findViewById(R.id.button_add_photo);
+		addPhoto.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				addPhoto();
 			}
 		});
 		
@@ -169,7 +186,47 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 			ingredientText += ingredientTextArray.get(i).toString() + nl;
 		}
 		ingredients.setText(ingredientText);
+		
+		ImageView pictureBox = (ImageView) findViewById(R.id.recipe_images);
+		Drawable image = currentRecipe.getPhoto(imageIndex);
+		if (image != null) {
+			pictureBox.setImageDrawable(image);
+		}
+		
+		TextView imageInfo = (TextView) findViewById(R.id.image_numbers);
+		String info = (imageIndex+1)+"/"+currentRecipe.getPhotos().size();
+		imageInfo.setText(info);
 	}
+	
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	Uri imageFileUri;
+	
+	public void addPhoto() {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		
+        String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
+        File folderF = new File(folder);
+        if (!folderF.exists()) {
+            folderF.mkdir();
+        }
+        
+        String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + "jpg";
+        File imageFile = new File(imageFilePath);
+        imageFileUri = Uri.fromFile(imageFile);
+        
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+	
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                ImageView picture = (ImageView) findViewById(R.id.recipe_images);
+                Drawable image = Drawable.createFromPath(imageFileUri.getPath());
+                currentRecipe.addPhoto(image);
+            } 
+        }
+    }
 
 	
 	/**

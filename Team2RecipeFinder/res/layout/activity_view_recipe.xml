@@ -68,13 +68,21 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/recipe_images"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/picture_description"
             android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/image_numbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/recipe_images"
+            android:layout_toRightOf="@+id/recipe_images"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 
@@ -83,7 +91,7 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/button_back"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,7 +101,7 @@
             android:text="@string/arrow_backward" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/button_forward"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,6 +109,15 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="55dp"
             android:text="@string/arrow_forward" />
+
+        <Button
+            android:id="@+id/button_add_photo"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/add_photo" />
 
     </RelativeLayout>
 
