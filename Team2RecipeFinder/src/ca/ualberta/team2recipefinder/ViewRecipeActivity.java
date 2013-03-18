@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -178,16 +177,13 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 	 */
 	public void update(Recipe model) {
 		TextView recipeName = (TextView) findViewById(R.id.recipe_name);
-		recipeName.setMovementMethod(new ScrollingMovementMethod());
 		recipeName.setText(currentRecipe.getName());
 		
 		TextView procedure = (TextView) findViewById(R.id.procedure_text);
-		procedure.setMovementMethod(new ScrollingMovementMethod());
 		String procedureText = currentRecipe.getProcedure();
 		procedure.setText(procedureText);
 		
 		TextView ingredients = (TextView) findViewById(R.id.ingredients_text);
-		ingredients.setMovementMethod(new ScrollingMovementMethod());
 		List<Ingredient> ingredientTextArray = currentRecipe.getIngredients();
 		
 		String ingredientText = new String();
