@@ -226,4 +226,22 @@ public class Recipe extends Model<View> implements Serializable
 		}
 		return photo;	
 	}
+	
+	public void addComment(String comment) {
+		comments.add(comment);
+	}
+	
+	public List<String> getAllComments() {
+		return comments;
+	}
+	
+	public String getComment(int index) {
+		String comment;
+		try {
+			comment = comments.get(index);
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+		return comment;
+	}
 }
