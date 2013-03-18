@@ -133,7 +133,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		rightButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				if (imageIndex < currentRecipe.getPhotos().size()) {
+				if (imageIndex < currentRecipe.getAllPhotos().size()) {
 					imageIndex++;
 				}
 				update(currentRecipe);
@@ -194,7 +194,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		}
 		
 		TextView imageInfo = (TextView) findViewById(R.id.image_numbers);
-		String info = (imageIndex+1)+"/"+currentRecipe.getPhotos().size();
+		String info = (imageIndex+1)+"/"+currentRecipe.getAllPhotos().size();
 		imageInfo.setText(info);
 	}
 	
@@ -223,7 +223,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
             if (resultCode == RESULT_OK) {
                 ImageView picture = (ImageView) findViewById(R.id.recipe_images);
                 Drawable image = Drawable.createFromPath(imageFileUri.getPath());
-                currentRecipe.addPhoto(image);
+                currentRecipe.addPhotos(image);
             } 
         }
     }

@@ -18,10 +18,11 @@ public final class R {
         public static final int btnDelete=0x7f070002;
         public static final int btnOk=0x7f070001;
         public static final int btnShowAll=0x7f070014;
-        public static final int button5=0x7f070029;
-        public static final int button6=0x7f070028;
         public static final int button_add_ingredient=0x7f07000b;
+        public static final int button_add_photo=0x7f07002b;
+        public static final int button_back=0x7f070029;
         public static final int button_done=0x7f070012;
+        public static final int button_forward=0x7f07002a;
         public static final int button_main_add=0x7f07001b;
         public static final int button_main_mykitchen=0x7f07001d;
         public static final int button_main_show_all=0x7f07001c;
@@ -35,17 +36,18 @@ public final class R {
         public static final int edit_name=0x7f07000a;
         public static final int edit_procedure=0x7f070011;
         public static final int handle=0x7f070019;
-        public static final int imageView1=0x7f070027;
+        public static final int image_numbers=0x7f070028;
         public static final int ingredient_list=0x7f07000e;
-        public static final int ingredient_title=0x7f07002a;
-        public static final int ingredients_text=0x7f07002b;
+        public static final int ingredient_title=0x7f07002c;
+        public static final int ingredients_text=0x7f07002d;
         public static final int lblAddEdit=0x7f070003;
         public static final int listResults=0x7f070016;
-        public static final int menu_settings=0x7f07002e;
-        public static final int procedure_text=0x7f07002d;
-        public static final int procedure_title=0x7f07002c;
+        public static final int menu_settings=0x7f070030;
+        public static final int procedure_text=0x7f07002f;
+        public static final int procedure_title=0x7f07002e;
         public static final int publish_download_button=0x7f070022;
         public static final int recipeList=0x7f07001e;
+        public static final int recipe_images=0x7f070027;
         public static final int recipe_name=0x7f070026;
         public static final int results_label=0x7f070015;
         public static final int separator=0x7f070004;
@@ -78,6 +80,7 @@ public final class R {
     public static final class string {
         public static final int add=0x7f040016;
         public static final int add_ingredient=0x7f04001e;
+        public static final int add_photo=0x7f040028;
         public static final int amount=0x7f040021;
         public static final int app_name=0x7f040000;
         public static final int arrow_backward=0x7f040012;
