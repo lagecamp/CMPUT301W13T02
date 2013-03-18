@@ -135,9 +135,7 @@
    	<TextView
         android:id="@+id/ingredients_text"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:maxLines = "4"
-		android:scrollbars = "vertical"/>
+        android:layout_height="wrap_content" />
     
     
     <TextView
@@ -150,9 +148,7 @@
     <TextView
         android:id="@+id/procedure_text"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:maxLines = "4"
-		android:scrollbars = "vertical"/>
+        android:layout_height="fill_parent"/>
 
 	</LinearLayout>
 </ScrollView>
