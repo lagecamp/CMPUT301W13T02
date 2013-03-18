@@ -217,6 +217,10 @@ public class Recipe extends Model<View> implements Serializable
 		images.add(image);
 	}
 	
+	public void removePhoto(int index) {
+		images.remove(index);
+	}
+	
 	public Drawable getPhoto(int index) {
 		Drawable photo;
 		try {
@@ -243,5 +247,14 @@ public class Recipe extends Model<View> implements Serializable
 			return null;
 		}
 		return comment;
+	}
+	
+	public boolean hasPhotos() {
+		if (images.size() == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 }

@@ -26,6 +26,7 @@ public final class R {
         public static final int button_main_add=0x7f07001b;
         public static final int button_main_mykitchen=0x7f07001d;
         public static final int button_main_show_all=0x7f07001c;
+        public static final int button_remove_photo=0x7f07002c;
         public static final int buttons=0x7f070000;
         public static final int cbxIngredientsKitchen=0x7f070021;
         public static final int cbxSearchFromWeb=0x7f070020;
@@ -38,13 +39,13 @@ public final class R {
         public static final int handle=0x7f070019;
         public static final int image_numbers=0x7f070028;
         public static final int ingredient_list=0x7f07000e;
-        public static final int ingredient_title=0x7f07002c;
-        public static final int ingredients_text=0x7f07002d;
+        public static final int ingredient_title=0x7f07002d;
+        public static final int ingredients_text=0x7f07002e;
         public static final int lblAddEdit=0x7f070003;
         public static final int listResults=0x7f070016;
-        public static final int menu_settings=0x7f070030;
-        public static final int procedure_text=0x7f07002f;
-        public static final int procedure_title=0x7f07002e;
+        public static final int menu_settings=0x7f070031;
+        public static final int procedure_text=0x7f070030;
+        public static final int procedure_title=0x7f07002f;
         public static final int publish_download_button=0x7f070022;
         public static final int recipeList=0x7f07001e;
         public static final int recipe_images=0x7f070027;
@@ -109,6 +110,7 @@ public final class R {
         public static final int picture_description=0x7f040010;
         public static final int procedure=0x7f040013;
         public static final int recipe_name_hint=0x7f04001a;
+        public static final int remove_photo=0x7f040029;
         public static final int search=0x7f04000a;
         public static final int search_criteria=0x7f040004;
         public static final int search_from_web=0x7f040007;
