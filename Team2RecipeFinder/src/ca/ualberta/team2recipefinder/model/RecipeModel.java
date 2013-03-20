@@ -232,7 +232,7 @@ public class RecipeModel extends Model<View>
     * @return Returns a Recipe object specified by the recipe ID
     */
    public Recipe getRecipeById(long id) {
-	   Recipe r = new Recipe();
+	   Recipe r = null;
 	   
 	   for (int i = 0; i < recipes.size(); i++) {			   
 		   if (id == recipes.get(i).getRecipeID()) {

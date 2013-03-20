@@ -10,6 +10,7 @@ package ca.ualberta.team2recipefinder.views;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import ca.ualberta.team2recipefinder.R;
 import ca.ualberta.team2recipefinder.R.id;
@@ -48,8 +49,10 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 
 	long recipeID = -1;
 	Recipe currentRecipe = new Recipe();
+	String serverID = "";
 	int imageIndex = 0;
-		
+	boolean isLocal;
+	
 	/**
 	 * Sets up all button listeners for this activity.
 	 * 
@@ -59,57 +62,85 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
-		
+
 		final Controller c = RecipeFinderApplication.getController();
-		boolean isLocal;
-		
+
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
 				recipeID = extras.getLong("recipeID");
+				serverID = extras.getString("serverID");
 				currentRecipe = c.getRecipe(recipeID);
 			}
 		}
-		
-		
-		if (currentRecipe.getOnServer()) {
-			isLocal = false;
-		}
-		else {
-			isLocal = true;
-		}
+
+
+		isLocal = currentRecipe != null && !currentRecipe.getOnServer();
+
 		Button publishDownloadButton = (Button) findViewById(R.id.publish_download_button);
 		if (isLocal) {
 			publishDownloadButton.setText("Publish");
-			
+
 			if (!c.canPublish(currentRecipe)) {
 				publishDownloadButton.setEnabled(false);
 			}
 		}
 		else {
 			publishDownloadButton.setText("Download");
+
+			if (currentRecipe == null) {
+				AsyncTask<Void, Void, Recipe> task = (new AsyncTask<Void, Void, Recipe>() {
+					@Override
+					protected Recipe doInBackground(Void... arg0) {
+						try {
+							return c.downloadRecipe(serverID);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+
+						return null;
+					}
+				}).execute();
+
+				try {
+					currentRecipe = task.get();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
-		
+
 		publishDownloadButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				new AsyncTask<Void, Void, Void>() {
-					@Override
-					protected Void doInBackground(Void... arg0) {
-						try {
-							c.publishRecipe(currentRecipe);
-						} catch (IOException e) {
-							e.printStackTrace();
-							//Toast.makeText(ViewRecipeActivity.this, getString(R.string.no_connection), 
+				// if local, then publish
+				if (isLocal) {
+					new AsyncTask<Void, Void, Void>() {
+						@Override
+						protected Void doInBackground(Void... arg0) {
+							try {
+								c.publishRecipe(currentRecipe);
+							} catch (IOException e) {
+								e.printStackTrace();
+								//Toast.makeText(ViewRecipeActivity.this, getString(R.string.no_connection), 
 								//	   Toast.LENGTH_LONG).show();
+							}
+	
+							return null;
 						}
-						
-						return null;
-					}
-				}.execute();
+					}.execute();
+				}
+				// otherwise, save it locally
+				else {
+					c.addRecipe(currentRecipe);
+				}
 			}		
 		});
-		
+
 		Button shareButton = (Button) findViewById(R.id.share_button);
 		shareButton.setText("Share");
 		shareButton.setOnClickListener(new OnClickListener() {
@@ -118,15 +149,15 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				/* ADD SHARING METHOD OR ACTIVITY HERE */
 			}
 		});
-		
+
 		Button editButton = (Button) findViewById(R.id.edit_button);
 		if (isLocal) {
 			editButton.setText("Edit");
 		}
 		else {
-			editButton.setMaxHeight(0);
+			editButton.setVisibility(View.GONE);
 		}
-		
+
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -135,15 +166,15 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				startActivity(intent);
 			}
 		});
-		
+
 		Button deleteButton = (Button) findViewById(R.id.delete_button);
 		if (isLocal) {
 			deleteButton.setText("Delete");
 		}
 		else {
-			deleteButton.setMaxHeight(0);
+			deleteButton.setVisibility(View.GONE);
 		}
-		
+
 		deleteButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -152,7 +183,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				finish();
 			}
 		});
-		
+
 		Button rightButton = (Button) findViewById(R.id.button_forward);
 		rightButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -163,7 +194,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				update(currentRecipe);
 			}
 		});
-		
+
 		Button leftButton = (Button) findViewById(R.id.button_back);
 		leftButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -174,7 +205,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				update(currentRecipe);
 			}
 		});
-		
+
 		Button addPhoto = (Button) findViewById(R.id.button_add_photo);
 		addPhoto.setOnClickListener(new OnClickListener() {
 			@Override
@@ -182,7 +213,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				addPhoto();
 			}
 		});
-		
+
 		Button removePhoto = (Button) findViewById(R.id.button_remove_photo);
 		removePhoto.setOnClickListener(new OnClickListener() {
 			@Override
@@ -190,38 +221,38 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				removePhoto();
 			}
 		});
-		
+
 		update(currentRecipe);
 		currentRecipe.addView(this);
 	}
-	
+
 	/**
 	 * Updates the current info being displayed. Use if the recipe is changed.
 	 */
 	public void update(Recipe model) {
 		TextView recipeName = (TextView) findViewById(R.id.recipe_name);
 		recipeName.setText(currentRecipe.getName());
-		
+
 		TextView procedure = (TextView) findViewById(R.id.procedure_text);
 		String procedureText = currentRecipe.getProcedure();
 		procedure.setText(procedureText);
-		
+
 		TextView ingredients = (TextView) findViewById(R.id.ingredients_text);
 		List<Ingredient> ingredientTextArray = currentRecipe.getIngredients();
-		
+
 		String ingredientText = new String();
 		String nl = System.getProperty("line.separator");
 		for (int i = 0; i < ingredientTextArray.size(); i++) {
 			ingredientText += ingredientTextArray.get(i).toString() + nl;
 		}
 		ingredients.setText(ingredientText);
-		
+
 		ImageView pictureBox = (ImageView) findViewById(R.id.recipe_images);
 		Drawable image = currentRecipe.getPhoto(imageIndex);
 		if (image != null) {
 			pictureBox.setImageDrawable(image);
 		}
-		
+
 		TextView imageInfo = (TextView) findViewById(R.id.image_numbers);
 		String info;
 		if (currentRecipe.hasPhotos()) {
@@ -231,27 +262,27 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		}
 		imageInfo.setText(info);
 	}
-	
+
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	Uri imageFileUri;
-	
+
 	public void addPhoto() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		
-        String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
-        File folderF = new File(folder);
-        if (!folderF.exists()) {
-            folderF.mkdir();
-        }
-        
-        String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + "jpg";
-        File imageFile = new File(imageFilePath);
-        imageFileUri = Uri.fromFile(imageFile);
-        
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
-        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+
+		String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
+		File folderF = new File(folder);
+		if (!folderF.exists()) {
+			folderF.mkdir();
+		}
+
+		String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + "jpg";
+		File imageFile = new File(imageFilePath);
+		imageFileUri = Uri.fromFile(imageFile);
+
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
-	
+
 	public void removePhoto() {
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		adb.setTitle("Confirm");
@@ -269,30 +300,30 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				dialog.cancel();
 			}
 		});
-		
+
 		AlertDialog ad = adb.create();
 		ad.show();
 		update(currentRecipe);
 	}
-	
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                ImageView picture = (ImageView) findViewById(R.id.recipe_images);
-                Drawable image = Drawable.createFromPath(imageFileUri.getPath());
-                currentRecipe.addPhotos(image);
-                update(currentRecipe);
-            } 
-        }
-    }
 
-	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+			if (resultCode == RESULT_OK) {
+				ImageView picture = (ImageView) findViewById(R.id.recipe_images);
+				Drawable image = Drawable.createFromPath(imageFileUri.getPath());
+				currentRecipe.addPhotos(image);
+				update(currentRecipe);
+			} 
+		}
+	}
+
+
 	/**
 	 * Removes this view from the model
 	 */
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        currentRecipe.removeView(this);
-    }
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		currentRecipe.removeView(this);
+	}
 }

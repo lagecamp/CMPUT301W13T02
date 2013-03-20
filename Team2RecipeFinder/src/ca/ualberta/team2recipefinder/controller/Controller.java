@@ -259,4 +259,12 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
+	
+	public Recipe downloadRecipe(String serverId) throws IOException {
+		return server.download(serverId);
+	}
+	
+	public void postComment(String recipeId, String comment) throws IOException {
+		server.postComment(recipeId, comment);
+	}
 }

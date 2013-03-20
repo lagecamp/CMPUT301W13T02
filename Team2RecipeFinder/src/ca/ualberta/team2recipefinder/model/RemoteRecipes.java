@@ -210,8 +210,29 @@ public class RemoteRecipes {
 		}
 	}
 
-	public void postComment(String recipeId, String comment) {
+	public void postComment(String recipeId, String comment) throws IOException {		
+		HttpPost searchRequest = new HttpPost(REMOTE_DB_LINK + RECIPES + recipeId + "/_update");
+		String query = 	"{\"script\" : \"ctx._source.comments += comment\",\"params\" : {\"comment\" : \"" + comment + "\"}}";
 		
+		StringEntity stringentity = null;		
+		try {
+			stringentity = new StringEntity(query);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		searchRequest.setHeader("Accept","application/json");
+		searchRequest.setEntity(stringentity);
+		
+		HttpResponse response = null;
+		try {
+			response = httpclient.execute(searchRequest);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		}
+		
+		String status = response.getStatusLine().toString();
+		Log.d("server", status);
 	}
 
 	public List<Recipe> search(String[] keywords) throws IOException {
@@ -245,6 +266,7 @@ public class RemoteRecipes {
 		}
 		
 		String status = response.getStatusLine().toString();
+		Log.d("server", status);
 
 		String json = getEntityContent(response);
 
@@ -275,7 +297,7 @@ public class RemoteRecipes {
 		HttpResponse response = httpclient.execute(getRequest);
 
 		String status = response.getStatusLine().toString();
-		System.out.println(status);
+		Log.d("server", status);
 
 		String json = getEntityContent(response);
 

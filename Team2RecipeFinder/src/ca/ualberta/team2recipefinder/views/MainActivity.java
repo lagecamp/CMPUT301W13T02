@@ -117,6 +117,7 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 				Intent intent = new Intent(MainActivity.this, ViewRecipeActivity.class);
 				Recipe r = (Recipe) recipes.getItemAtPosition(position);
 				intent.putExtra("recipeID", r.getRecipeID());
+				intent.putExtra("serverID", r.getServerId());
 				startActivity(intent);
 			}
 		});

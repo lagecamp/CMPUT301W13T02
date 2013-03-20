@@ -79,6 +79,9 @@ public class Recipe extends Model<View> implements Serializable
 		this.id = id;
 	 	this.userId = "";
 	 	this.serverId = "";
+	 	this.ingredients = ingredients;
+	 	this.comments = comments;
+	 	this.images = images;
 	}
 	
 	/**
