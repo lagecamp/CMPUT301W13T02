@@ -7,8 +7,11 @@
  */
 
 
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.controller;
 
+import ca.ualberta.team2recipefinder.model.MyKitchen;
+import ca.ualberta.team2recipefinder.model.RecipeModel;
+import ca.ualberta.team2recipefinder.model.RemoteRecipes;
 import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -17,9 +20,9 @@ import android.os.AsyncTask;
  * Application, where the singletons are, as suggested by prof Hindle
  * 
  * @author cmput-301 team 2
- * @see ca.ualberta.team2recipefinder.RecipeModel
- * @see ca.ualberta.team2recipefinder.MyKitchen
- * @see ca.ualberta.team2recipefinder.Controller
+ * @see ca.ualberta.team2recipefinder.model.RecipeModel
+ * @see ca.ualberta.team2recipefinder.model.MyKitchen
+ * @see ca.ualberta.team2recipefinder.controller.Controller
  */
 public class RecipeFinderApplication extends Application {
 	// Singleton
@@ -29,7 +32,7 @@ public class RecipeFinderApplication extends Application {
 	 * Returns the singleton of the Controller
 	 * 
 	 * @return the Controller
-	 * @see ca.ualberta.team2recipefinder.Controller
+	 * @see ca.ualberta.team2recipefinder.controller.Controller
 	 */
 	public static Controller getController() {
 		if (controller == null) {			
@@ -45,7 +48,7 @@ public class RecipeFinderApplication extends Application {
 	 * Returns the singleton of the Model
 	 * 
 	 * @return the RecipeModel
-	 * @see ca.ualberta.team2recipefinder.RecipeModel
+	 * @see ca.ualberta.team2recipefinder.model.RecipeModel
 	 */
 	public static RecipeModel getModel() {
 		if (model == null) {
@@ -61,7 +64,7 @@ public class RecipeFinderApplication extends Application {
 	 * Returns the singleton of MyKitchen
 	 * 
 	 * @return MyKitchen
-	 * @see ca.ualberta.team2recipefinder.MyKitchen
+	 * @see ca.ualberta.team2recipefinder.model.MyKitchen
 	 */
 	public static MyKitchen getMyKitchen() {
 		if (myKitchen == null) {
@@ -77,7 +80,7 @@ public class RecipeFinderApplication extends Application {
 	 * Returns the singleton of the server
 	 * 
 	 * @return RemoteRecipes
-	 * @see ca.ualberta.team2recipefinder.RemoteRecipes
+	 * @see ca.ualberta.team2recipefinder.model.RemoteRecipes
 	 */
 	public static RemoteRecipes getServer() {
 		if (server == null) {

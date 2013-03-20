@@ -3,11 +3,13 @@
 *
 * The following source is protected by a GNU Public License
 */
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.ualberta.team2recipefinder.views.View;
 
 import android.graphics.drawable.Drawable;
 

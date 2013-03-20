@@ -1,4 +1,4 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,14 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.views.View;
+
 /**
  * MyKitchen manipulates a list of ingredients. It stores the list to the file <code>filename</code>.
  * It can add/remove/replace ingredients to/from the list. It can sort the list by the <code>type</code> of the <code>Ingredient</code>
  * And it also provides the functionality of searching ingredients by keywords
  * @author cmput-301 team 2
  * @version 1.0 07/03/13
- * @see	ca.ualberta.team2recipefinder.Ingredient
- * @see	ca.ualberta.team2recipefinder.Recipe
+ * @see	ca.ualberta.team2recipefinder.model.Ingredient
+ * @see	ca.ualberta.team2recipefinder.model.Recipe
  */
 public class MyKitchen extends Model<View> {
 	private String filename = "IngredientList1.sav";// the name of the file where the ingredient list will be stored

@@ -5,10 +5,19 @@
  * 
  */
 
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.views;
 
 
 import java.util.List;
+
+import ca.ualberta.team2recipefinder.R;
+import ca.ualberta.team2recipefinder.R.id;
+import ca.ualberta.team2recipefinder.R.layout;
+import ca.ualberta.team2recipefinder.R.string;
+import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
+import ca.ualberta.team2recipefinder.model.Ingredient;
+import ca.ualberta.team2recipefinder.model.MyKitchen;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,9 +37,9 @@ import android.widget.Toast;
  * the ingredients the user has
  * 
  * @author cmput-301 team 2
- * @see ca.ualberta.team2recipefinder.Ingredient
+ * @see ca.ualberta.team2recipefinder.model.Ingredient
  */
-public class MyKitchenActivity extends Activity implements ca.ualberta.team2recipefinder.View<MyKitchen> {
+public class MyKitchenActivity extends Activity implements ca.ualberta.team2recipefinder.views.View<MyKitchen> {
 
 	ListView listResults;
 	

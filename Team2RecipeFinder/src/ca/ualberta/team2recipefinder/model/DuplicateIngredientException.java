@@ -1,11 +1,11 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 
 import java.lang.Exception;
 
 /**
  * The exception to throw when adding an ingredient of which the type already exists in the ingredient list
  * @author cmput-301 team 2
- * @see	ca.ualberta.team2recipefinder.Ingredient
+ * @see	ca.ualberta.team2recipefinder.model.Ingredient
  * @see	ca.ualberta.team2recipefinder.IngredientList
  * @version	1.00 07/03/13
  */

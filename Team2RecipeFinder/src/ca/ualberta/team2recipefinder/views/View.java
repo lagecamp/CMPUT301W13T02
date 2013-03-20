@@ -1,4 +1,6 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.views;
+
+import ca.ualberta.team2recipefinder.model.Model;
 
 /**
  * Interface based on prof Hindles interface FView for FillerCreep

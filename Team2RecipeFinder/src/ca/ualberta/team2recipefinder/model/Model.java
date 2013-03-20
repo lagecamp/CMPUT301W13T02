@@ -1,5 +1,7 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 import java.util.ArrayList;
+
+import ca.ualberta.team2recipefinder.views.View;
 
 /**
  * Class based on prof Hindles FModel for FillerCreep

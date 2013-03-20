@@ -1,4 +1,4 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 
 import java.io.Serializable;
 
@@ -9,8 +9,8 @@ import java.io.Serializable;
  * Only the amount attribute is allowed to be modified once it's created.
  * @author cmput-301 team 2
  * @version 1.00 07/03/13
- * @see ca.ualberta.team2recipefinder.MyKitchen
- * @see ca.ualberta.team2recipefinder.Recipe
+ * @see ca.ualberta.team2recipefinder.model.MyKitchen
+ * @see ca.ualberta.team2recipefinder.model.Recipe
  */
 public class Ingredient implements Serializable {
 	private static final long serialVersionUID = 1L;

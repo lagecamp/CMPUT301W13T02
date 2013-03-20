@@ -12,12 +12,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
-        android:name="RecipeFinderApplication"
+        android:name="ca.ualberta.team2recipefinder.controller.RecipeFinderApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="ca.ualberta.team2recipefinder.MainActivity"
+            android:name="ca.ualberta.team2recipefinder.views.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,15 +25,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="ca.ualberta.team2recipefinder.MyKitchenActivity" >
+        <activity android:name="ca.ualberta.team2recipefinder.views.MyKitchenActivity" >
         </activity>
-        <activity android:name="ca.ualberta.team2recipefinder.AddEditIngredientActivity" >
+        <activity android:name="ca.ualberta.team2recipefinder.views.AddEditIngredientActivity" >
         </activity>
         <activity
-            android:name="ca.ualberta.team2recipefinder.EditRecipeActivity"
+            android:name="ca.ualberta.team2recipefinder.views.EditRecipeActivity"
             android:label="@string/title_activity_edit_recipe" >
         </activity>
-        <activity android:name="ca.ualberta.team2recipefinder.ViewRecipeActivity" >
+        <activity android:name="ca.ualberta.team2recipefinder.views.ViewRecipeActivity" >
         </activity>
     </application>
 

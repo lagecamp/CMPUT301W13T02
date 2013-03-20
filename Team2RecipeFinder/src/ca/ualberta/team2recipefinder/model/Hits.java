@@ -1,4 +1,4 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 
 import java.util.Collection;
 

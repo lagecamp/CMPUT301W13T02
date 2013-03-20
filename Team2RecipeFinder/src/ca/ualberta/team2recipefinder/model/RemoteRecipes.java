@@ -1,4 +1,4 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,6 +30,8 @@ import org.apache.http.util.EntityUtils;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+
+import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

@@ -5,11 +5,19 @@
  * 
  */
 
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.views;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import ca.ualberta.team2recipefinder.R;
+import ca.ualberta.team2recipefinder.R.id;
+import ca.ualberta.team2recipefinder.R.layout;
+import ca.ualberta.team2recipefinder.controller.Controller;
+import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.model.Ingredient;
+import ca.ualberta.team2recipefinder.model.Recipe;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,9 +42,9 @@ import android.widget.Toast;
  * a single recipe.
  * 
  * @author cmput-301 team 2
- * @see ca.ualberta.team2recipefinder.Recipe
+ * @see ca.ualberta.team2recipefinder.model.Recipe
  */
-public class ViewRecipeActivity extends Activity implements ca.ualberta.team2recipefinder.View<Recipe> {
+public class ViewRecipeActivity extends Activity implements ca.ualberta.team2recipefinder.views.View<Recipe> {
 
 	long recipeID = -1;
 	Recipe currentRecipe = new Recipe();

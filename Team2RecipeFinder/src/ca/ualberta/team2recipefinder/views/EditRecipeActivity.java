@@ -5,9 +5,19 @@
  * 
  */
 
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.views;
 
 import java.util.List;
+
+import ca.ualberta.team2recipefinder.R;
+import ca.ualberta.team2recipefinder.R.id;
+import ca.ualberta.team2recipefinder.R.layout;
+import ca.ualberta.team2recipefinder.R.string;
+import ca.ualberta.team2recipefinder.controller.Controller;
+import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
+import ca.ualberta.team2recipefinder.model.Ingredient;
+import ca.ualberta.team2recipefinder.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,9 +39,9 @@ import android.widget.Toast;
  * or creating a new one.
  * 
  * @author cmput-301 team 2
- * @see ca.ualberta.team2recipefinder.Recipe
+ * @see ca.ualberta.team2recipefinder.model.Recipe
  */
-public class EditRecipeActivity extends Activity implements ca.ualberta.team2recipefinder.View<Recipe> {
+public class EditRecipeActivity extends Activity implements ca.ualberta.team2recipefinder.views.View<Recipe> {
 
 	EditText nameEdit;
 	EditText procedureEdit;

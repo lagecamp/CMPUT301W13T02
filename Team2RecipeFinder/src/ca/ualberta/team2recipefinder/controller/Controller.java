@@ -1,8 +1,16 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
+import ca.ualberta.team2recipefinder.model.Ingredient;
+import ca.ualberta.team2recipefinder.model.MyKitchen;
+import ca.ualberta.team2recipefinder.model.Recipe;
+import ca.ualberta.team2recipefinder.model.RecipeModel;
+import ca.ualberta.team2recipefinder.model.RemoteRecipes;
+import ca.ualberta.team2recipefinder.model.ServerPermissionException;
 /**
  * Controller provides an interface for the Views and Model to communicate for one another. Uses two
  * singleton objects, one representing the applications model for recipes and the other representing

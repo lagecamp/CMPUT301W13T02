@@ -1,4 +1,4 @@
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 
 /**
  * This class, based on Chenlei's similar class,

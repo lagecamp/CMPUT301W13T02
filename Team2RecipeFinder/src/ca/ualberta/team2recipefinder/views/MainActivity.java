@@ -5,12 +5,21 @@
  * 
  */
 
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.views;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import ca.ualberta.team2recipefinder.R;
+import ca.ualberta.team2recipefinder.R.id;
+import ca.ualberta.team2recipefinder.R.layout;
+import ca.ualberta.team2recipefinder.R.string;
+import ca.ualberta.team2recipefinder.controller.Controller;
+import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.model.Recipe;
+import ca.ualberta.team2recipefinder.model.RecipeModel;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,9 +47,9 @@ import android.widget.Toast;
  * areas of the application.
  * 
  * @author cmput-301 team 2
- * @see ca.ualberta.team2recipefinder.Recipe
+ * @see ca.ualberta.team2recipefinder.model.Recipe
  */
-public class MainActivity extends Activity implements ca.ualberta.team2recipefinder.View<RecipeModel> {
+public class MainActivity extends Activity implements ca.ualberta.team2recipefinder.views.View<RecipeModel> {
 
 	ListView recipes;
 		

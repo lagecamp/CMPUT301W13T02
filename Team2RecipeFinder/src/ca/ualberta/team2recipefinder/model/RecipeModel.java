@@ -4,7 +4,7 @@
  * The following source is protected by a GNU Public License
  */
 
-package ca.ualberta.team2recipefinder;
+package ca.ualberta.team2recipefinder.model;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +15,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.views.View;
 
 /**
  * RecipeModel Class:  It's main duty is to manage recipes.  It adds, removes, searches, and sorts recipes.
