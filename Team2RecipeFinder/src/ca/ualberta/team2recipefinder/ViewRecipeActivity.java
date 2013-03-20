@@ -8,6 +8,7 @@
 package ca.ualberta.team2recipefinder;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
@@ -16,6 +17,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -24,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -70,6 +73,10 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		Button publishDownloadButton = (Button) findViewById(R.id.publish_download_button);
 		if (isLocal) {
 			publishDownloadButton.setText("Publish");
+			
+			if (!c.canPublish(currentRecipe)) {
+				publishDownloadButton.setEnabled(false);
+			}
 		}
 		else {
 			publishDownloadButton.setText("Download");
@@ -78,12 +85,20 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		publishDownloadButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				//if (isLocal) {
-				//	c.publishToServer(currentRecipe);
-				//}
-				//else {
-				//	c.addToLocalList(currentRecipe);
-				//}
+				new AsyncTask<Void, Void, Void>() {
+					@Override
+					protected Void doInBackground(Void... arg0) {
+						try {
+							c.publishRecipe(currentRecipe);
+						} catch (IOException e) {
+							e.printStackTrace();
+							//Toast.makeText(ViewRecipeActivity.this, getString(R.string.no_connection), 
+								//	   Toast.LENGTH_LONG).show();
+						}
+						
+						return null;
+					}
+				}.execute();
 			}		
 		});
 		

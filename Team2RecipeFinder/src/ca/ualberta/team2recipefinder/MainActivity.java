@@ -7,8 +7,12 @@
 
 package ca.ualberta.team2recipefinder;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -146,20 +150,48 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
         		}
         		// input ok
         		else {
-        			List<Recipe> results;
+        			List<Recipe> results = new ArrayList<Recipe>();
         			
         			// use ingredients from kitchen
         			if (cbxIngredientsKitchen.isChecked()) {
-        				results = RecipeFinderApplication.getController().
-        					searchWithIngredients(keywords, 
-        										  cbxSearchLocally.isChecked(),
-        										  cbxSearchFromWeb.isChecked());
+        				AsyncTask<String[], Void, List<Recipe>> task = (new AsyncTask<String[], Void, List<Recipe>>() {
+        					@Override
+        					protected List<Recipe> doInBackground(String[]... arg0) {
+        						return RecipeFinderApplication.getController().
+        								searchWithIngredients(arg0[0], cbxSearchLocally.isChecked(),
+										   cbxSearchFromWeb.isChecked());
+        					}
+        				}).execute(keywords);
+        				
+        				try {
+							results = task.get();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ExecutionException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
         			}
         			// do the search without considering the ingredients
-        			else {
-        				results = RecipeFinderApplication.getController().
-    						search(keywords, cbxSearchLocally.isChecked(),
-    							   cbxSearchFromWeb.isChecked());
+        			else {   						
+        				AsyncTask<String[], Void, List<Recipe>> task = (new AsyncTask<String[], Void, List<Recipe>>() {
+        					@Override
+        					protected List<Recipe> doInBackground(String[]... arg0) {
+        						return RecipeFinderApplication.getController().search(arg0[0], cbxSearchLocally.isChecked(),
+										   cbxSearchFromWeb.isChecked());
+        					}
+        				}).execute(keywords);
+        				
+        				try {
+							results = task.get();
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (ExecutionException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
         			}
         			
         			displayResults(results);

@@ -1,5 +1,6 @@
 package ca.ualberta.team2recipefinder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -12,16 +13,19 @@ public class Controller {
 	
 	RecipeModel model;
 	MyKitchen myKitchen;
+	RemoteRecipes server;
 	
 	/**
 	 * Constructor for controller. The models for ingredients and recipes must be
 	 * explicitly provided.
 	 * @param model the RecipeModel object
 	 * @param myKitchen the MyKitchen object
+	 * @param server the RemoteRecipes object
 	 */
-	public Controller(RecipeModel model, MyKitchen myKitchen) {
+	public Controller(RecipeModel model, MyKitchen myKitchen, RemoteRecipes server) {
 		this.model = model;
 		this.myKitchen = myKitchen;
+		this.server = server;
 	}
 	
 	/**
@@ -33,8 +37,21 @@ public class Controller {
 	 * @return a list of recipes that resulted from the search
 	 */
 	public List<Recipe> search(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
-		// for now, it only searches locally
-		return model.searchRecipe(keywords);
+		ArrayList<Recipe> results = new ArrayList<Recipe>();
+		
+		if (searchLocally) {
+			results = model.searchRecipe(keywords);
+		}
+		
+		if (searchFromWeb) {
+			try {
+				results.addAll(server.search(keywords));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return results;
 	}
 	
 	/**
@@ -47,8 +64,22 @@ public class Controller {
 	 */
 	public List<Recipe> searchWithIngredients(String[] keywords, boolean searchLocally, 
 									  boolean searchFromWeb) {
-		// for now, it only searches locally
-		return model.searchWithIngredient(keywords, myKitchen.getIngredients());
+		ArrayList<Recipe> results = new ArrayList<Recipe>();
+		
+		if (searchLocally) {
+			results = model.searchWithIngredient(keywords, myKitchen.getIngredients());
+		}
+		
+		if (searchFromWeb) {
+			try {
+				// for know, it does not consider the ingredients
+				results.addAll(server.search(keywords));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return results;
 	}
 	
 	/**
@@ -207,5 +238,17 @@ public class Controller {
 	 */
 	public RecipeModel getModel() {
 		return this.model;
+	}
+	
+	public boolean canPublish(Recipe recipe) {
+		return server.canPublish(recipe);
+	}
+	
+	public void publishRecipe(Recipe recipe) throws IOException {
+		try {
+			server.publishRecipe(recipe);
+		} catch (ServerPermissionException e) {
+			e.printStackTrace();
+		}
 	}
 }

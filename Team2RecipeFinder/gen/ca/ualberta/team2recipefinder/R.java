@@ -103,6 +103,7 @@ public final class R {
         public static final int missing_fields=0x7f040025;
         public static final int my_kitchen=0x7f040024;
         public static final int name=0x7f040019;
+        public static final int no_connection=0x7f04002a;
         public static final int no_keyword=0x7f04000b;
         public static final int no_record_selected=0x7f04001c;
         public static final int no_source_search=0x7f040015;

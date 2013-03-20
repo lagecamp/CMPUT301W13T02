@@ -28,7 +28,7 @@ public class MyKitchen extends Model<View> {
 	public MyKitchen() {
 		// gets the folder where we should put the files
 		// created by the application (and appends filename)
-		path = filename;//RecipeFinderApplication.getAppContext().getFilesDir() + "/" + filename;
+		path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + filename;
 		
 		ingredientList = load();
 	}

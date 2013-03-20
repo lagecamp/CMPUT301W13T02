@@ -43,5 +43,6 @@
     <string name="have_ingredient_already_recipe">The new ingredient could not be added because you already have it in this recipe</string>
     <string name="add_photo">+</string>
     <string name="remove_photo">-</string>
+    <string name="no_connection">The application was not able to connect to the server</string>
 
 </resources>

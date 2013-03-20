@@ -11,6 +11,7 @@ package ca.ualberta.team2recipefinder;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.AsyncTask;
 
 /**
  * Application, where the singletons are, as suggested by prof Hindle
@@ -31,8 +32,8 @@ public class RecipeFinderApplication extends Application {
 	 * @see ca.ualberta.team2recipefinder.Controller
 	 */
 	public static Controller getController() {
-		if (controller == null) {
-			controller = new Controller(getModel(), getMyKitchen());
+		if (controller == null) {			
+			controller = new Controller(getModel(), getMyKitchen(), getServer());
 		}
 		return controller;
     }
@@ -68,6 +69,23 @@ public class RecipeFinderApplication extends Application {
 		}
 		return myKitchen;
     }
+			
+	// Singleton
+	transient private static RemoteRecipes server = null;
+
+	/**
+	 * Returns the singleton of the server
+	 * 
+	 * @return RemoteRecipes
+	 * @see ca.ualberta.team2recipefinder.RemoteRecipes
+	 */
+	public static RemoteRecipes getServer() {
+		if (server == null) {
+			server = new RemoteRecipes();
+		}
+		return server;
+    }
+	
 	
     transient private static Context context = null;
     

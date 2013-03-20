@@ -29,7 +29,9 @@ public class Recipe extends Model<View> implements Serializable
 	private List<String> comments;
 	private boolean onServer;
 	private long id;
-	private List<Drawable> images; 
+	private List<Drawable> images;
+	private String userId;
+	private String serverId;
 	
 	/**
 	 * Default Recipe Constructor
@@ -44,6 +46,8 @@ public class Recipe extends Model<View> implements Serializable
 		id = System.currentTimeMillis();
 		comments = new ArrayList<String>();
 		images = new ArrayList<Drawable>();
+	 	this.userId = "";
+	 	this.serverId = "";
 	}
 	
 	/**
@@ -54,15 +58,25 @@ public class Recipe extends Model<View> implements Serializable
 	 * @param ingredients A list of Ingredient objects
 	 * @param onServer Whether the recipe is on the server
 	 */
-	public Recipe(String name, String procedure, String author, List<Ingredient> ingredients, boolean onServer, List<String> comments, List<Drawable> images){
+	public Recipe(String name, String procedure, String author, List<Ingredient> ingredients, boolean onServer){
 		this.name = name;
 		this.procedure = procedure;
 		this.author = author;
 		this.ingredients = ingredients;
 		this.onServer = onServer;
 	 	this.id = System.currentTimeMillis();
-	 	this.comments = comments;
-	 	this.images = images;
+	 	this.userId = "";
+	 	this.serverId = "";
+	}
+	
+	/**
+	 * Creates a recipe with a specific id
+	 * @param id
+	 */
+	public Recipe(long id, List<Ingredient> ingredients, List<String> comments, List<Drawable> images) {
+		this.id = id;
+	 	this.userId = "";
+	 	this.serverId = "";
 	}
 	
 	/**
@@ -256,5 +270,21 @@ public class Recipe extends Model<View> implements Serializable
 		else {
 			return true;
 		}
+	}
+	
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setServerId(String serverId) {
+		this.serverId = serverId;
+	}
+	
+	public String getServerId() {
+		return this.serverId;
 	}
 }
