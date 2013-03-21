@@ -81,6 +81,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				localRecipe = c.getRecipe(recipeID);
 			}
 		}
+		
 
 		isLocal = localRecipe != null;
 		
