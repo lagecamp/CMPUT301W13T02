@@ -13,14 +13,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ShareRecipeActivity extends Activity {
 
 	TextView preview_text;
+	ImageView preview_image;
 	Button button_ok;
 	String email_text;
 	Recipe currentRecipe;
+	
 	long recipeID;
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +41,14 @@ public class ShareRecipeActivity extends Activity {
 		}
 		
 		email_text = getEmailText();
-		preview_text = (TextView) findViewById(R.id.preview);
+		preview_text = (TextView) findViewById(R.id.preview_text);
+		preview_image = (ImageView) findViewById(R.id.preview_image);
 		
+		/*
 		if(currentRecipe.hasPhotos() == true) {
-			
+			preview_image.setImageDrawable(currentRecipe.getPhoto(0));
 		}
+		*/
 		
 		
 		preview_text.setText(email_text);
