@@ -76,10 +76,108 @@
         android:layout_width="match_parent"
         android:layout_height="128dp" >
     </ListView>
-    
-    
-    
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/procedure"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
+
+    <EditText
+        android:id="@+id/edit_procedure"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.87"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/photos"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dip"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageView_editscreen"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:contentDescription="@string/picture_description"
+            android:src="@drawable/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1" >
+
+                <Button
+                    android:id="@+id/button_edit_prevphoto"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="80dip"
+                    android:layout_height="wrap_content"
+                    android:text="@string/arrow_backward" />
+
+                <Button
+                    android:id="@+id/button_edit_nextphoto"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="80dip"
+                    android:layout_height="wrap_content"
+                    android:text="@string/arrow_forward" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_edit_addphoto"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="@string/add_photo" />
+
+            <Button
+                android:id="@+id/button_edit_removephoto"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:text="@string/remove_photo" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -126,6 +224,15 @@
             android:layout_centerVertical="true"
             android:text="@string/comments"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/photo_number_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/textView3"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
         </RelativeLayout>
         
     <View
