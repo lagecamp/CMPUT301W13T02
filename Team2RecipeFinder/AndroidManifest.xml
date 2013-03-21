@@ -41,7 +41,7 @@
             android:name="ca.ualberta.team2recipefinder.views.AddEditCommentsActivity"
             android:label="@string/title_activity_add_edit_comments" >
         </activity>
-		<activity android:name="ca.ualberta.team2recipefinder.views.ActivityShareRecipe" >
+		<activity android:name="ca.ualberta.team2recipefinder.views.ShareRecipeActivity" >
 		</activity>
     </application>
 
