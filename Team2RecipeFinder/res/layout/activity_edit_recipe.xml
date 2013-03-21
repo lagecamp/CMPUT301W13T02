@@ -1,5 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:android1="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -21,38 +26,38 @@
         android:background="#000000" />
 
     <EditText
-        android1:id="@+id/edit_name"
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content"
-        android1:ems="10"
-        android1:hint="@string/recipe_name_hint" >
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/recipe_name_hint" >
 
         <requestFocus />
     </EditText>
 
     <RelativeLayout
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <Button
-            android1:id="@+id/button_add_ingredient"
+            android:id="@+id/button_add_ingredient"
             style="?android:attr/buttonStyleSmall"
-            android1:layout_width="wrap_content"
-            android1:layout_height="wrap_content"
-            android1:layout_alignParentRight="true"
-            android1:layout_alignParentTop="true"
-            android1:text="@string/main_add_button" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/main_add_button" />
         
 
 
         <TextView
-            android1:id="@+id/textView2"
-            android1:layout_width="wrap_content"
-            android1:layout_height="wrap_content"
-            android1:layout_alignParentLeft="true"
-            android1:layout_centerVertical="true"
-            android1:text="@string/ingredients"
-            android1:textAppearance="?android:attr/textAppearanceLarge" />
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/ingredients"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
         
 
     </RelativeLayout>
@@ -67,33 +72,60 @@
         android:background="#000000" />
 
     <ListView
-        android1:id="@+id/ingredient_list"
-        android1:layout_width="match_parent"
-        android1:layout_height="128dp" >
+        android:id="@+id/ingredient_list"
+        android:layout_width="match_parent"
+        android:layout_height="128dp" >
     </ListView>
+    
+    
+    
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/procedure"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
+
+    <EditText
+        android:id="@+id/edit_procedure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.87"
+        android:ems="10"
+        android:inputType="textMultiLine" />
     
     <RelativeLayout
         
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
         
         <Button
-            android1:id="@+id/button_add_comments"
+            android:id="@+id/button_add_comments"
             style="?android:attr/buttonStyleSmall"
-            android1:layout_width="wrap_content"
-            android1:layout_height="wrap_content"
-            android1:layout_alignParentRight="true"
-            android1:layout_alignParentTop="true"
-            android1:text="@string/comments_add_button" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/comments_add_button" />
                 
         <TextView
-            android1:id="@+id/textView3"
-            android1:layout_width="wrap_content"
-            android1:layout_height="wrap_content"
-            android1:layout_alignParentLeft="true"
-            android1:layout_centerVertical="true"
-            android1:text="@string/comments"
-            android1:textAppearance="?android:attr/textAppearanceLarge" />
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/comments"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
         </RelativeLayout>
         
     <View
@@ -106,40 +138,16 @@
         android:background="#000000" />
 
     <ListView
-        android1:id="@+id/comments_list"
-        android1:layout_width="match_parent"
-        android1:layout_height="128dp" >
+        android:id="@+id/comments_list"
+        android:layout_width="match_parent"
+        android:layout_height="128dp" >
     </ListView>
-    
-
-    <TextView
-        android1:id="@+id/textView4"
-        android1:layout_width="wrap_content"
-        android1:layout_height="wrap_content"
-        android1:text="@string/procedure"
-        android1:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:background="#000000" />
-
-    <EditText
-        android1:id="@+id/edit_procedure"
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content"
-        android1:layout_weight="0.87"
-        android1:ems="10"
-        android1:inputType="textMultiLine" />
 
     <Button
-        android1:id="@+id/button_done"
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content"
-        android1:text="@string/done" />
+        android:id="@+id/button_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/done" />
 
 </LinearLayout>
+</ScrollView>
