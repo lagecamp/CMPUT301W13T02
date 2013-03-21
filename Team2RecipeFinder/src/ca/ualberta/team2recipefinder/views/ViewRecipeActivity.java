@@ -147,6 +147,9 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 			@Override
 			public void onClick(View view) {
 				/* ADD SHARING METHOD OR ACTIVITY HERE */
+				Intent intent = new Intent(ViewRecipeActivity.this, ShareRecipeActivity.class);
+				intent.putExtra("recipeID", recipeID);
+				startActivity(intent);
 			}
 		});
 
