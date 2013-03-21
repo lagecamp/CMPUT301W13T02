@@ -42,8 +42,8 @@
     <string name="missing_fields">Some fields are missing!</string>
     <string name="have_ingredient_already_kitchen">The new ingredient could not be added because you already have it in MyKitchen</string>
     <string name="have_ingredient_already_recipe">The new ingredient could not be added because you already have it in this recipe</string>
-    <string name="add_photo">+</string>
-    <string name="remove_photo">-</string>
+    <string name="add_photo">Add a Photo</string>
+    <string name="remove_photo">Delete Current Photo</string>
     <string name="no_connection">The application was not able to connect to the server</string>
     <string name="comments">Comments</string>
     <string name="title_activity_edit_comments">EditCommentsActivity</string>
@@ -52,6 +52,7 @@
     <string name="title_activity_add_edit_comments">AddEditCommentsActivity</string>
     <string name="add_comment">Add Comment</string>
     <string name="edit_comment">Edit Comment</string>
+    <string name="photos">Photos</string>
     
     
 
