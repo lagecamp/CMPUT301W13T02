@@ -7,12 +7,14 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="15" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:allowBackup="true"
         android:name="ca.ualberta.team2recipefinder.controller.RecipeFinderApplication"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -34,6 +36,14 @@
             android:label="@string/title_activity_edit_recipe" >
         </activity>
         <activity android:name="ca.ualberta.team2recipefinder.views.ViewRecipeActivity" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.team2recipefinder.EditCommentsActivity"
+            android:label="@string/title_activity_edit_comments" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.team2recipefinder.AddEditCommentActivity"
+            android:label="@string/title_activity_add_edit_comment" >
         </activity>
     </application>
 

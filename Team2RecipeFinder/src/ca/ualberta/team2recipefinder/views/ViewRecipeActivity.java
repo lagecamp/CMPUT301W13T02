@@ -253,7 +253,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		String commentsText = new String();
 		String cl = System.getProperty("line.separator");
 		for (int i = 0; i < commentsTextArray.size(); i++) {
-			commentsText += commentsTextArray.get(i) + nl;
+			commentsText += commentsTextArray.get(i) + cl;
 		}
 		comments.setText(commentsText);
 

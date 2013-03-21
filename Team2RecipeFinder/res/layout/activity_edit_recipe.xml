@@ -42,6 +42,8 @@
             android1:layout_alignParentRight="true"
             android1:layout_alignParentTop="true"
             android1:text="@string/main_add_button" />
+        
+
 
         <TextView
             android1:id="@+id/textView2"
@@ -51,6 +53,8 @@
             android1:layout_centerVertical="true"
             android1:text="@string/ingredients"
             android1:textAppearance="?android:attr/textAppearanceLarge" />
+        
+
     </RelativeLayout>
 
     <View
@@ -67,9 +71,49 @@
         android1:layout_width="match_parent"
         android1:layout_height="128dp" >
     </ListView>
+    
+    <RelativeLayout
+        
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content" >
+        
+        <Button
+            android1:id="@+id/button_add_comments"
+            style="?android:attr/buttonStyleSmall"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_alignParentRight="true"
+            android1:layout_alignParentTop="true"
+            android1:text="@string/comments_add_button" />
+                
+        <TextView
+            android1:id="@+id/textView3"
+            android1:layout_width="wrap_content"
+            android1:layout_height="wrap_content"
+            android1:layout_alignParentLeft="true"
+            android1:layout_centerVertical="true"
+            android1:text="@string/comments"
+            android1:textAppearance="?android:attr/textAppearanceLarge" />
+        </RelativeLayout>
+        
+    <View
+        android:id="@+id/view4"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
+
+    <ListView
+        android1:id="@+id/comments_list"
+        android1:layout_width="match_parent"
+        android1:layout_height="128dp" >
+    </ListView>
+    
 
     <TextView
-        android1:id="@+id/textView3"
+        android1:id="@+id/textView4"
         android1:layout_width="wrap_content"
         android1:layout_height="wrap_content"
         android1:text="@string/procedure"

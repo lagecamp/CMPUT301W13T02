@@ -47,7 +47,7 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	EditText procedureEdit;
 	Recipe currentRecipe = new Recipe();
 	long recipeID = -1;
-	ListView ingredientList;
+	ListView ingredientList, commentList;
 	
 	Ingredient oldIngredient;
 	
@@ -68,6 +68,7 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		nameEdit = (EditText) findViewById(R.id.edit_name);
 		procedureEdit = (EditText) findViewById(R.id.edit_procedure);
 		ingredientList = (ListView) findViewById(R.id.ingredient_list);
+		commentList = (ListView) findViewById(R.id.comments_list);
 		Controller c = RecipeFinderApplication.getController();
 		
 		
@@ -154,6 +155,38 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				startActivityForResult(intent, EDIT_INGR_CODE);
             }
         });
+		
+		Button addComments = (Button) findViewById(R.id.button_add_comments);
+		addComments.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				String newName = nameEdit.getText().toString();
+				String newProcedure = procedureEdit.getText().toString();
+			
+				currentRecipe.setName(newName);
+				currentRecipe.setProcedure(newProcedure);
+				
+				Intent intent = new Intent(EditRecipeActivity.this, AddEditIngredientActivity.class);
+				intent.putExtra("mode", "add");
+				startActivityForResult(intent, ADD_INGR_CODE);
+			}
+		});
+		
+		commentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                Ingredient ingredient = (Ingredient)ingredientList.getItemAtPosition(position);
+                
+                oldIngredient = ingredient;
+                
+				Intent intent = new Intent(EditRecipeActivity.this, AddEditIngredientActivity.class);
+				intent.putExtra("mode", "edit");
+				intent.putExtra("type", ingredient.getType());
+				intent.putExtra("amount", ingredient.getAmount().toString());
+				intent.putExtra("unit", ingredient.getUnit());
+				startActivityForResult(intent, EDIT_INGR_CODE);
+            }
+        });
+		
 		
 		currentRecipe.addView(this);
 		this.update(currentRecipe);
