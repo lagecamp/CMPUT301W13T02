@@ -24,135 +24,71 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-<<<<<<< HEAD
-        public static final int action_settings=0x7f080043;
-        public static final int btnAdd=0x7f080021;
-=======
-        public static final int action_settings=0x7f080045;
-        public static final int btnAdd=0x7f080023;
->>>>>>> branch 'master' of ssh://git@github.com/lagecamp/CMPUT301W13T02.git
+        public static final int action_settings=0x7f080048;
+        public static final int btnAdd=0x7f080025;
         public static final int btnDelete=0x7f080002;
         public static final int btnOk=0x7f080001;
-<<<<<<< HEAD
-        public static final int btnShowAll=0x7f080022;
-        public static final int button_add_comments=0x7f08001b;
-        public static final int button_add_ingredient=0x7f08000d;
-        public static final int button_back=0x7f08003a;
-        public static final int button_done=0x7f080020;
-        public static final int button_edit_addphoto=0x7f080019;
-        public static final int button_edit_nextphoto=0x7f080018;
-        public static final int button_edit_prevphoto=0x7f080017;
-        public static final int button_edit_removephoto=0x7f08001a;
-        public static final int button_forward=0x7f08003b;
-        public static final int button_main_add=0x7f080029;
-        public static final int button_main_mykitchen=0x7f08002b;
-        public static final int button_main_show_all=0x7f08002a;
-=======
-        public static final int btnShowAll=0x7f080024;
+        public static final int btnShowAll=0x7f080026;
         public static final int button_add_comments=0x7f08001f;
         public static final int button_add_ingredient=0x7f080010;
-        public static final int button_back=0x7f08003c;
+        public static final int button_back=0x7f08003f;
         public static final int button_done=0x7f08000a;
         public static final int button_edit_addphoto=0x7f08001c;
         public static final int button_edit_nextphoto=0x7f08001b;
         public static final int button_edit_prevphoto=0x7f08001a;
         public static final int button_edit_removephoto=0x7f08001d;
-        public static final int button_forward=0x7f08003d;
-        public static final int button_main_add=0x7f08002b;
-        public static final int button_main_mykitchen=0x7f08002d;
-        public static final int button_main_show_all=0x7f08002c;
->>>>>>> branch 'master' of ssh://git@github.com/lagecamp/CMPUT301W13T02.git
+        public static final int button_forward=0x7f080040;
+        public static final int button_main_add=0x7f08002d;
+        public static final int button_main_mykitchen=0x7f08002f;
+        public static final int button_main_show_all=0x7f08002e;
         public static final int buttons=0x7f080000;
-<<<<<<< HEAD
-        public static final int cbxIngredientsKitchen=0x7f08002f;
-        public static final int cbxSearchFromWeb=0x7f08002e;
-        public static final int cbxSearchLocally=0x7f08002d;
-        public static final int comment_text=0x7f080041;
-        public static final int comment_title=0x7f080040;
-        public static final int comments_list=0x7f08001f;
-        public static final int content=0x7f080026;
-        public static final int delete_button=0x7f080036;
-        public static final int edit_button=0x7f080035;
-        public static final int edit_name=0x7f08000c;
-        public static final int edit_procedure=0x7f080013;
-        public static final int handle=0x7f080027;
-        public static final int imageView_editscreen=0x7f080016;
-        public static final int image_numbers=0x7f080039;
-        public static final int ingredient_list=0x7f080010;
-        public static final int ingredient_title=0x7f08003c;
-        public static final int ingredients_text=0x7f08003d;
-=======
-        public static final int cbxIngredientsKitchen=0x7f080032;
-        public static final int cbxSearchFromWeb=0x7f080031;
-        public static final int cbxSearchLocally=0x7f080030;
-        public static final int comment_text=0x7f080043;
-        public static final int comment_title=0x7f080042;
+        public static final int cbxIngredientsKitchen=0x7f080034;
+        public static final int cbxSearchFromWeb=0x7f080033;
+        public static final int cbxSearchLocally=0x7f080032;
+        public static final int comment_text=0x7f080046;
+        public static final int comment_title=0x7f080045;
         public static final int comments_list=0x7f080022;
-        public static final int content=0x7f080028;
-        public static final int delete_button=0x7f080038;
-        public static final int edit_button=0x7f080037;
+        public static final int content=0x7f08002a;
+        public static final int delete_button=0x7f08003b;
+        public static final int edit_button=0x7f08003a;
         public static final int edit_name=0x7f08000f;
         public static final int edit_procedure=0x7f080016;
-        public static final int handle=0x7f080029;
+        public static final int gallery=0x7f080023;
+        public static final int handle=0x7f08002b;
         public static final int imageView_editscreen=0x7f080019;
-        public static final int image_numbers=0x7f08003b;
+        public static final int image_numbers=0x7f08003e;
+        public static final int img=0x7f080024;
         public static final int ingredient_list=0x7f080013;
-        public static final int ingredient_title=0x7f08003e;
-        public static final int ingredients_text=0x7f08003f;
->>>>>>> branch 'master' of ssh://git@github.com/lagecamp/CMPUT301W13T02.git
+        public static final int ingredient_title=0x7f080041;
+        public static final int ingredients_text=0x7f080042;
         public static final int lblAddComment=0x7f080003;
         public static final int lblAddEdit=0x7f080006;
-<<<<<<< HEAD
-        public static final int listResults=0x7f080024;
-        public static final int menu_settings=0x7f080042;
-        public static final int ok=0x7f080030;
-        public static final int photo_number_text=0x7f08001d;
-        public static final int preview_image=0x7f080031;
-        public static final int preview_text=0x7f080032;
-        public static final int procedure_text=0x7f08003f;
-        public static final int procedure_title=0x7f08003e;
-        public static final int publish_download_button=0x7f080033;
-        public static final int recipeList=0x7f08002c;
-        public static final int recipe_images=0x7f080038;
-        public static final int recipe_name=0x7f080037;
-        public static final int results_label=0x7f080023;
-=======
-        public static final int listResults=0x7f080026;
-        public static final int menu_settings=0x7f080044;
-        public static final int ok=0x7f080033;
+        public static final int listResults=0x7f080028;
+        public static final int menu_settings=0x7f080047;
+        public static final int ok=0x7f080035;
         public static final int photo_number_text=0x7f08001e;
-        public static final int preview=0x7f080034;
-        public static final int procedure_text=0x7f080041;
-        public static final int procedure_title=0x7f080040;
-        public static final int publish_download_button=0x7f080035;
-        public static final int recipeList=0x7f08002f;
-        public static final int recipe_images=0x7f08003a;
-        public static final int recipe_name=0x7f080039;
-        public static final int results_label=0x7f080025;
->>>>>>> branch 'master' of ssh://git@github.com/lagecamp/CMPUT301W13T02.git
+        public static final int preview_image=0x7f080036;
+        public static final int preview_text=0x7f080037;
+        public static final int procedure_text=0x7f080044;
+        public static final int procedure_title=0x7f080043;
+        public static final int publish_download_button=0x7f080038;
+        public static final int recipeList=0x7f080031;
+        public static final int recipe_images=0x7f08003d;
+        public static final int recipe_name=0x7f08003c;
+        public static final int results_label=0x7f080027;
         public static final int separator=0x7f080004;
-<<<<<<< HEAD
-        public static final int share_button=0x7f080034;
-        public static final int sldSearch=0x7f080025;
-        public static final int textView1=0x7f08000a;
-        public static final int textView2=0x7f08000e;
-        public static final int textView3=0x7f08001c;
-        public static final int textView4=0x7f080011;
-        public static final int textView5=0x7f080014;
-=======
-        public static final int share_button=0x7f080036;
-        public static final int sldSearch=0x7f080027;
+        public static final int share_button=0x7f080039;
+        public static final int sldSearch=0x7f080029;
         public static final int textView1=0x7f08000d;
         public static final int textView2=0x7f080011;
         public static final int textView3=0x7f080020;
         public static final int textView4=0x7f080014;
         public static final int textView5=0x7f080017;
         public static final int textView6=0x7f08000b;
-        public static final int text_myrecipes=0x7f08002e;
->>>>>>> branch 'master' of ssh://git@github.com/lagecamp/CMPUT301W13T02.git
+        public static final int text_myrecipes=0x7f080030;
         public static final int txtAmount=0x7f080008;
         public static final int txtComment=0x7f080005;
-        public static final int txtKeywords=0x7f08002a;
+        public static final int txtKeywords=0x7f08002c;
         public static final int txtType=0x7f080007;
         public static final int txtUnit=0x7f080009;
         public static final int view1=0x7f08000e;
@@ -166,11 +102,12 @@ public final class R {
         public static final int activity_add_edit_comments=0x7f030000;
         public static final int activity_add_edit_ingredient=0x7f030001;
         public static final int activity_edit_recipe=0x7f030002;
-        public static final int activity_kitchen=0x7f030003;
-        public static final int activity_main=0x7f030004;
-        public static final int activity_share=0x7f030005;
-        public static final int activity_view_recipe=0x7f030006;
-        public static final int list_item=0x7f030007;
+        public static final int activity_gallery=0x7f030003;
+        public static final int activity_kitchen=0x7f030004;
+        public static final int activity_main=0x7f030005;
+        public static final int activity_share=0x7f030006;
+        public static final int activity_view_recipe=0x7f030007;
+        public static final int list_item=0x7f030008;
     }
     public static final class menu {
         public static final int activity_edit_recipe=0x7f070000;

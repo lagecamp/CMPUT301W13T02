@@ -43,6 +43,8 @@
         </activity>
 		<activity android:name="ca.ualberta.team2recipefinder.views.ShareRecipeActivity" >
 		</activity>
+		<activity android:name="ca.ualberta.team2recipefinder.views.RecipeGalleryActivity" >
+		</activity>
     </application>
 
 </manifest>

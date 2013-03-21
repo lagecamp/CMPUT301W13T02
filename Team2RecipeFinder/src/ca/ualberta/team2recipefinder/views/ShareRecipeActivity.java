@@ -44,11 +44,28 @@ public class ShareRecipeActivity extends Activity {
 		preview_text = (TextView) findViewById(R.id.preview_text);
 		preview_image = (ImageView) findViewById(R.id.preview_image);
 		
-		/*
-		if(currentRecipe.hasPhotos() == true) {
+		//if(currentRecipe.hasPhotos() == true) {
 			preview_image.setImageDrawable(currentRecipe.getPhoto(0));
-		}
-		*/
+			
+			/*
+			preview_image.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView parent, View v, int position, long id) {
+				Intent intent1 = new Intent(this, RecipeGallaryActivity.class);
+				intent1.putExtra("photos", currentRecipe.getAllPhotos());
+				startActivityForResult(intent1, position);
+             }
+
+         });
+         */
+			preview_image.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					Intent intent1 = new Intent(ShareRecipeActivity.this, RecipeGalleryActivity.class);
+					intent1.putExtra("photos", recipeID);
+					startActivity(intent1);
+				}
+			});
+		//}
 		
 		
 		preview_text.setText(email_text);
