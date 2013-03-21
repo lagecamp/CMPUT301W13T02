@@ -2,6 +2,7 @@ package ca.ualberta.team2recipefinder.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
@@ -10,6 +11,7 @@ import ca.ualberta.team2recipefinder.model.MyKitchen;
 import ca.ualberta.team2recipefinder.model.Recipe;
 import ca.ualberta.team2recipefinder.model.RecipeModel;
 import ca.ualberta.team2recipefinder.model.RemoteRecipes;
+import ca.ualberta.team2recipefinder.model.SearchResult;
 import ca.ualberta.team2recipefinder.model.ServerPermissionException;
 /**
  * Controller provides an interface for the Views and Model to communicate for one another. Uses two
@@ -44,22 +46,25 @@ public class Controller {
 	 * @param searchFromWeb set to true if the search is to be conducted on the web
 	 * @return a list of recipes that resulted from the search
 	 */
-	public List<Recipe> search(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
+	public List<SearchResult> search(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
 		ArrayList<Recipe> results = new ArrayList<Recipe>();
 		
+		List<Recipe> localResults = new ArrayList<Recipe>();
+		List<Recipe> remoteResults = new ArrayList<Recipe>();
+		
 		if (searchLocally) {
-			results = model.searchRecipe(keywords);
+			localResults = model.searchRecipe(keywords);
 		}
 		
 		if (searchFromWeb) {
 			try {
-				results.addAll(server.search(keywords));
+				remoteResults = server.search(keywords);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		}	
 		
-		return results;
+		return this.mergeResults(localResults, remoteResults);
 	}
 	
 	/**
@@ -70,20 +75,40 @@ public class Controller {
 	 * @param searchFromWeb set to true if the search is to be conducted on the web
 	 * @return a list of recipes that resulted from the search
 	 */
-	public List<Recipe> searchWithIngredients(String[] keywords, boolean searchLocally, 
+	public List<SearchResult> searchWithIngredients(String[] keywords, boolean searchLocally, 
 									  boolean searchFromWeb) {
-		ArrayList<Recipe> results = new ArrayList<Recipe>();
+		List<Recipe> localResults = new ArrayList<Recipe>();
+		List<Recipe> remoteResults = new ArrayList<Recipe>();
 		
 		if (searchLocally) {
-			results = model.searchWithIngredient(keywords, myKitchen.getIngredients());
+			localResults = model.searchWithIngredient(keywords, myKitchen.getIngredients());
 		}
 		
 		if (searchFromWeb) {
 			try {
-				results.addAll(server.searchWithIngredient(keywords, myKitchen.getIngredients()));
+				remoteResults = server.searchWithIngredient(keywords, myKitchen.getIngredients());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}	
+		
+		return this.mergeResults(localResults, remoteResults);
+	}
+	
+	/**
+	 * Merge tow lists and encapsulates the results using the SearchResult class
+	 * @param list1 the list of local results
+	 * @param list2 the list of results from the server
+	 */
+	private List<SearchResult> mergeResults(List<Recipe> list1, List<Recipe> list2) {
+		ArrayList<SearchResult> results = new ArrayList<SearchResult>();
+		
+		for (Recipe recipe : list1) {
+			results.add(new SearchResult(recipe.getName(), recipe.getRecipeID(), recipe.getServerId(), SearchResult.SOURCE_LOCAL));
+		}
+		
+		for (Recipe recipe : list2) {
+			results.add(new SearchResult(recipe.getName(), recipe.getRecipeID(), recipe.getServerId(), SearchResult.SOURCE_REMOTE));
 		}
 		
 		return results;

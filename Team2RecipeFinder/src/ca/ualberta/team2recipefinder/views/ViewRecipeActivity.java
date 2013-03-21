@@ -19,6 +19,7 @@ import ca.ualberta.team2recipefinder.controller.Controller;
 import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
 import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.Recipe;
+import ca.ualberta.team2recipefinder.model.SearchResult;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -51,7 +52,11 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 	Recipe currentRecipe = new Recipe();
 	String serverID = "";
 	int imageIndex = 0;
+	
 	boolean isLocal;
+	int source = -1;
+	
+	Controller c;
 	
 	/**
 	 * Sets up all button listeners for this activity.
@@ -63,79 +68,61 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 
-		final Controller c = RecipeFinderApplication.getController();
+		c = RecipeFinderApplication.getController();
+		
+		Recipe localRecipe = null;
 
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
+				source = extras.getInt("source");				
 				recipeID = extras.getLong("recipeID");
 				serverID = extras.getString("serverID");
-				currentRecipe = c.getRecipe(recipeID);
+				localRecipe = c.getRecipe(recipeID);
 			}
 		}
 
-
-		isLocal = currentRecipe != null && !currentRecipe.getOnServer();
-
+		isLocal = localRecipe != null;
+		
+		if (source == SearchResult.SOURCE_LOCAL) {
+			currentRecipe = localRecipe;
+		}
+		
 		Button publishDownloadButton = (Button) findViewById(R.id.publish_download_button);
-		if (isLocal) {
-			publishDownloadButton.setText("Publish");
-
-			if (!c.canPublish(currentRecipe)) {
-				publishDownloadButton.setEnabled(false);
-			}
-		}
-		else {
-			publishDownloadButton.setText("Download");
-
-			if (currentRecipe == null) {
-				AsyncTask<Void, Void, Recipe> task = (new AsyncTask<Void, Void, Recipe>() {
-					@Override
-					protected Recipe doInBackground(Void... arg0) {
-						try {
-							return c.downloadRecipe(serverID);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-
-						return null;
-					}
-				}).execute();
-
-				try {
-					currentRecipe = task.get();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-
 		publishDownloadButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				// if local, then publish
-				if (isLocal) {
-					new AsyncTask<Void, Void, Void>() {
+				if (source == SearchResult.SOURCE_LOCAL) {
+					AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
 						@Override
 						protected Void doInBackground(Void... arg0) {
 							try {
 								c.publishRecipe(currentRecipe);
 							} catch (IOException e) {
-								e.printStackTrace();
-								//Toast.makeText(ViewRecipeActivity.this, getString(R.string.no_connection), 
-								//	   Toast.LENGTH_LONG).show();
+								e.printStackTrace();								
 							}
 	
 							return null;
 						}
-					}.execute();
+					}.execute();					
+
+					try {
+						task.get();
+						// if successful, mark the recipe as on the server
+						currentRecipe.setOnServer(true);
+						c.replaceRecipe(currentRecipe, currentRecipe.getRecipeID());
+						update(currentRecipe);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						e.printStackTrace();
+						Toast.makeText(ViewRecipeActivity.this, getString(R.string.no_connection), 
+							   Toast.LENGTH_LONG).show();
+					}
 				}
 				// otherwise, save it locally
-				else {
+				else if (source == SearchResult.SOURCE_REMOTE) {
 					c.addRecipe(currentRecipe);
 				}
 			}		
@@ -151,13 +138,6 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		});
 
 		Button editButton = (Button) findViewById(R.id.edit_button);
-		if (isLocal) {
-			editButton.setText("Edit");
-		}
-		else {
-			editButton.setVisibility(View.GONE);
-		}
-
 		editButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -166,15 +146,8 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				startActivity(intent);
 			}
 		});
-
+		
 		Button deleteButton = (Button) findViewById(R.id.delete_button);
-		if (isLocal) {
-			deleteButton.setText("Delete");
-		}
-		else {
-			deleteButton.setVisibility(View.GONE);
-		}
-
 		deleteButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -230,6 +203,63 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 	 * Updates the current info being displayed. Use if the recipe is changed.
 	 */
 	public void update(Recipe model) {
+		Button publishDownloadButton = (Button) findViewById(R.id.publish_download_button);
+		if (source == SearchResult.SOURCE_LOCAL) {
+			publishDownloadButton.setText("Publish");
+
+			// if already on server, user can not publish the recipe
+			if (!c.canPublish(currentRecipe) || currentRecipe.getOnServer()) {
+				publishDownloadButton.setEnabled(false);
+			}
+		}
+		else {
+			publishDownloadButton.setText("Download");
+			
+			// you cannot download a recipe that you downloaded already
+			if (isLocal) {
+				publishDownloadButton.setEnabled(false);
+			}
+
+			AsyncTask<Void, Void, Recipe> task = (new AsyncTask<Void, Void, Recipe>() {
+				@Override
+				protected Recipe doInBackground(Void... arg0) {
+					try {
+						return c.downloadRecipe(serverID);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+					return null;
+				}
+			}).execute();
+
+			try {
+				currentRecipe = task.get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+				Toast.makeText(ViewRecipeActivity.this, getString(R.string.no_connection), 
+					   Toast.LENGTH_LONG).show();
+			}
+		}
+		
+		Button editButton = (Button) findViewById(R.id.edit_button);
+		if (source == SearchResult.SOURCE_LOCAL) {
+			editButton.setText("Edit");
+		}
+		else {
+			editButton.setVisibility(View.GONE);
+		}
+
+		Button deleteButton = (Button) findViewById(R.id.delete_button);
+		if (source == SearchResult.SOURCE_LOCAL) {
+			deleteButton.setText("Delete");
+		}
+		else {
+			deleteButton.setVisibility(View.GONE);
+		}
+		
 		TextView recipeName = (TextView) findViewById(R.id.recipe_name);
 		recipeName.setText(currentRecipe.getName());
 

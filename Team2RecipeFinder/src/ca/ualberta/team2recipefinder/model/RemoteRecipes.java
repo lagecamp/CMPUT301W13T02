@@ -40,6 +40,13 @@ import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * This class encapsulates all the requests to/from the server that stores
+ * recipes remotely. Some of the code was based upon chenlei's code
+ * showed in the lab
+ * @author cmput-301 team 2
+ *
+ */
 public class RemoteRecipes {
 	/**
 	 * The link to the remote database
@@ -180,7 +187,6 @@ public class RemoteRecipes {
 			ElasticSearchResponse<Object> esResponse = gson.fromJson(json, elasticSearchResponseType);
 	
 			recipe.setServerId(esResponse._id);
-			recipe.setOnServer(true);
 		}
 		// if it is on the server already, update it
 		else {

@@ -20,6 +20,7 @@ import ca.ualberta.team2recipefinder.controller.Controller;
 import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
 import ca.ualberta.team2recipefinder.model.Recipe;
 import ca.ualberta.team2recipefinder.model.RecipeModel;
+import ca.ualberta.team2recipefinder.model.SearchResult;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -63,6 +64,8 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 	
 	SlidingDrawer sldSearch;
 	
+	boolean displayingSearchResults = false;
+	
 	
 	/**
 	 * Sets up all listeners for this activity.
@@ -93,6 +96,7 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 		showAllButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				displayingSearchResults = false;
 				Controller c = RecipeFinderApplication.getController();
 				update(c.getModel());
 			}		
@@ -115,9 +119,20 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(MainActivity.this, ViewRecipeActivity.class);
-				Recipe r = (Recipe) recipes.getItemAtPosition(position);
-				intent.putExtra("recipeID", r.getRecipeID());
-				intent.putExtra("serverID", r.getServerId());
+				
+				if (!displayingSearchResults) {
+					Recipe r = (Recipe) recipes.getItemAtPosition(position);
+					intent.putExtra("source", SearchResult.SOURCE_LOCAL);
+					intent.putExtra("recipeID", r.getRecipeID());
+					intent.putExtra("serverID", r.getServerId());
+				}
+				else {
+					SearchResult r = (SearchResult) recipes.getItemAtPosition(position);
+					intent.putExtra("source", r.getSource());
+					intent.putExtra("recipeID", r.getLocalId());
+					intent.putExtra("serverID", r.getServerId());
+				}
+				
 				startActivity(intent);
 			}
 		});
@@ -160,13 +175,13 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
         		}
         		// input ok
         		else {
-        			List<Recipe> results = new ArrayList<Recipe>();
+        			List<SearchResult> results = new ArrayList<SearchResult>();
         			
         			// use ingredients from kitchen
         			if (cbxIngredientsKitchen.isChecked()) {
-        				AsyncTask<String[], Void, List<Recipe>> task = (new AsyncTask<String[], Void, List<Recipe>>() {
+        				AsyncTask<String[], Void, List<SearchResult>> task = (new AsyncTask<String[], Void, List<SearchResult>>() {
         					@Override
-        					protected List<Recipe> doInBackground(String[]... arg0) {
+        					protected List<SearchResult> doInBackground(String[]... arg0) {
         						return RecipeFinderApplication.getController().
         								searchWithIngredients(arg0[0], cbxSearchLocally.isChecked(),
 										   cbxSearchFromWeb.isChecked());
@@ -185,9 +200,9 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
         			}
         			// do the search without considering the ingredients
         			else {   						
-        				AsyncTask<String[], Void, List<Recipe>> task = (new AsyncTask<String[], Void, List<Recipe>>() {
+        				AsyncTask<String[], Void, List<SearchResult>> task = (new AsyncTask<String[], Void, List<SearchResult>>() {
         					@Override
-        					protected List<Recipe> doInBackground(String[]... arg0) {
+        					protected List<SearchResult> doInBackground(String[]... arg0) {
         						return RecipeFinderApplication.getController().search(arg0[0], cbxSearchLocally.isChecked(),
 										   cbxSearchFromWeb.isChecked());
         					}
@@ -219,12 +234,14 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 	 */
 	@Override
 	public void update(RecipeModel model) {
-		ListView recipes = (ListView) findViewById(R.id.recipeList);
-		Controller c = RecipeFinderApplication.getController();
-		List<Recipe> recipeList = c.getRecipes();
-		final ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, R.layout.list_item, recipeList);
-		recipes.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
+		if (!displayingSearchResults) {
+			ListView recipes = (ListView) findViewById(R.id.recipeList);
+			Controller c = RecipeFinderApplication.getController();
+			List<Recipe> recipeList = c.getRecipes();
+			final ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, R.layout.list_item, recipeList);
+			recipes.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+		}
 	}
 	
 	
@@ -260,11 +277,12 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
      * Displays the given results of a search in this view's ListView
      * @param the results to be displayed
      */
-    private void displayResults(List<Recipe> results) {						
+    private void displayResults(List<SearchResult> results) {						
 		// uses an ArrayAdapter and displays the items
-		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this,
+		ArrayAdapter<SearchResult> adapter = new ArrayAdapter<SearchResult>(this,
 				  R.layout.list_item, results);
 		recipes.setAdapter(adapter);
+		displayingSearchResults = true;
     }
         
 	/**
