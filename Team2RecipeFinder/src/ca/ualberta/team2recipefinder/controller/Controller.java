@@ -80,8 +80,7 @@ public class Controller {
 		
 		if (searchFromWeb) {
 			try {
-				// for know, it does not consider the ingredients
-				results.addAll(server.search(keywords));
+				results.addAll(server.searchWithIngredient(keywords, myKitchen.getIngredients()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

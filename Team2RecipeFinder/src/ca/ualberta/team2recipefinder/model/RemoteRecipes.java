@@ -2,6 +2,7 @@ package ca.ualberta.team2recipefinder.model;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -28,7 +29,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Base64;
 import android.util.Log;
 
 import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
@@ -243,10 +247,10 @@ public class RemoteRecipes {
 			query_str = keywords[i] + " OR ";
 		}
 		
-		query_str = query_str.substring(0, query_str.length() - 4);		
+		query_str = query_str.substring(0, query_str.length() - 4);	
 		
 		HttpPost searchRequest = new HttpPost(REMOTE_DB_LINK + RECIPES + "/_search");
-		String query = 	"{\"query\" : {\"query_string\" : {\"fields\" : [ \"name\", \"procedure\", \"ingredients\"],\"query\" : \"" + query_str + "\"}}}";
+		String query = 	"{\"query\" : {\"query_string\" : {\"fields\" : [ \"name\", \"procedure\", \"ingredients.type\"],\"query\" : \"" + query_str + "\"}}}";
 		
 		StringEntity stringentity = null;		
 		try {
@@ -283,12 +287,93 @@ public class RemoteRecipes {
 	}
 
 	public List<Recipe> searchWithIngredient(String[] keywords,
-			List<Ingredient> kitchenIngredients) {
-		return new LinkedList<Recipe>();
+			List<Ingredient> kitchenIngredients) throws IOException {
+		String query_str = "(";
+		
+		// create query string (for keywords)
+		for (int i = 0; i < keywords.length; i++) {
+			query_str = keywords[i] + " OR ";
+		}						
+		
+		query_str = query_str.substring(0, query_str.length() - 4);	
+		query_str += ")";
+		
+		if (kitchenIngredients.size() > 0) {
+			query_str += " AND (";
+		}
+		
+		// create query string (for ingredients)
+		for (Ingredient ingredient : kitchenIngredients) {
+			query_str += "\"ingredients.type\":" + ingredient.getType() + " OR ";
+		}
+		
+		if (kitchenIngredients.size() > 0) {
+			query_str = query_str.substring(0, query_str.length() - 4);	
+			query_str += ")";
+		}
+				
+		HttpPost searchRequest = new HttpPost(REMOTE_DB_LINK + RECIPES + "/_search");
+		String query = 	"{\"query\" : {\"query_string\" : {\"fields\" : [ \"name\", \"procedure\"], \"query\" : \"" + query_str + "\"}}}";
+		
+		StringEntity stringentity = null;		
+		try {
+			stringentity = new StringEntity(query);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		searchRequest.setHeader("Accept","application/json");
+		searchRequest.setEntity(stringentity);
+		
+		HttpResponse response = null;
+		try {
+			response = httpclient.execute(searchRequest);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		}
+		
+		String status = response.getStatusLine().toString();
+		Log.d("server", status);
+
+		String json = getEntityContent(response);
+
+		Type elasticSearchSearchResponseType = new TypeToken<ElasticSearchSearchResponse<ElasticSearchRecipe>>(){}.getType();
+		ElasticSearchSearchResponse<ElasticSearchRecipe> esResponse = gson.fromJson(json, elasticSearchSearchResponseType);
+		
+		// return recipes
+		LinkedList<Recipe> results = new LinkedList<Recipe>();
+		for (ElasticSearchResponse<ElasticSearchRecipe> r : esResponse.getHits()) {
+			results.add(r.getSource().toRecipe(r._id));
+		}
+		
+		return results;		
 	}
 
-	public void postPicture(String recipeId, Drawable image) {
-
+	public void postPicture(String recipeId, Drawable image) throws IOException {
+		String image_str = ElasticSearchRecipe.convertImageToBase64(image);
+		
+		HttpPost searchRequest = new HttpPost(REMOTE_DB_LINK + RECIPES + recipeId + "/_update");
+		String query = 	"{\"script\" : \"ctx._source.images += image\",\"params\" : {\"image\" : \"" + image_str + "\"}}";
+		
+		StringEntity stringentity = null;		
+		try {
+			stringentity = new StringEntity(query);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		searchRequest.setHeader("Accept","application/json");
+		searchRequest.setEntity(stringentity);
+		
+		HttpResponse response = null;
+		try {
+			response = httpclient.execute(searchRequest);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		}
+		
+		String status = response.getStatusLine().toString();
+		Log.d("server", status);
 	}
 
 	public Recipe download(String recipeId) throws IOException {
@@ -318,5 +403,6 @@ public class RemoteRecipes {
 		}
 		return json;
 	}
+
 
 }
