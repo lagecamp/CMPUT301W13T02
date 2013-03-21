@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+
     <Button
         android:id="@+id/button_done"
         android:layout_width="match_parent"
@@ -18,6 +19,8 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:text="@string/edit_recipes"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -34,6 +37,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
         android:text="@string/name"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -68,18 +72,16 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="@string/main_add_button" />
-        
-
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:text="@string/ingredients"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-        
 
     </RelativeLayout>
 
@@ -102,6 +104,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:text="@string/procedure"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -126,6 +129,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:text="@string/photos"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -217,13 +221,14 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="@string/comments_add_button" />
-                
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:text="@string/comments"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 

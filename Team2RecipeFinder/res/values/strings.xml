@@ -55,6 +55,7 @@
     <string name="photos">Photos</string>
     <string name="my_recipes">My Recipes</string>
     <string name="edit_recipes">Add/Edit Recipes</string>
+    <string name="missing_fields_edit">Some fields are missing! A name, procedure and a least one ingredient must be included!</string>
     
     
 

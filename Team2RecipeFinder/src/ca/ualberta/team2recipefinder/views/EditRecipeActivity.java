@@ -99,20 +99,8 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				
 				if (nameEdit.getText().toString().isEmpty() || procedureEdit.getText().toString().isEmpty()
 						|| currentRecipe.getIngredients().isEmpty()) {
-					/*AlertDialog.Builder adb = new AlertDialog.Builder(view.getContext());
-					adb.setTitle("Error");
-					adb.setMessage("A recipe can not have an empty name or procedure, or contain no ingredients.");
-					adb.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.cancel();
-						}
-					});
-					
-					AlertDialog ad = adb.create();
-					ad.show();*/
-					
-					Toast.makeText(EditRecipeActivity.this, getString(R.string.missing_fields), 
+			
+					Toast.makeText(EditRecipeActivity.this, getString(R.string.missing_fields_edit), 
 							   Toast.LENGTH_LONG).show();
 					goodEntry = false;
 				}
@@ -201,6 +189,12 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		addPhoto.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				String newName = nameEdit.getText().toString();
+				String newProcedure = procedureEdit.getText().toString();
+			
+				currentRecipe.setName(newName);
+				currentRecipe.setProcedure(newProcedure);
+				
 				addPhoto();
 			}
 		});
