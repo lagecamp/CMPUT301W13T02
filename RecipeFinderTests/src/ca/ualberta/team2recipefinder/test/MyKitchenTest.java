@@ -8,10 +8,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import ca.ualberta.team2recipefinder.DuplicateIngredientException;
-import ca.ualberta.team2recipefinder.Ingredient;
-import ca.ualberta.team2recipefinder.MyKitchen;
-import ca.ualberta.team2recipefinder.Recipe;
+import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
+import ca.ualberta.team2recipefinder.model.Ingredient;
+import ca.ualberta.team2recipefinder.model.MyKitchen;
+import ca.ualberta.team2recipefinder.model.Recipe;
 
 public class MyKitchenTest {
 
