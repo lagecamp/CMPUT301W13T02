@@ -38,12 +38,8 @@
         <activity android:name="ca.ualberta.team2recipefinder.views.ViewRecipeActivity" >
         </activity>
         <activity
-            android:name="ca.ualberta.team2recipefinder.EditCommentsActivity"
-            android:label="@string/title_activity_edit_comments" >
-        </activity>
-        <activity
-            android:name="ca.ualberta.team2recipefinder.AddEditCommentActivity"
-            android:label="@string/title_activity_add_edit_comment" >
+            android:name="ca.ualberta.team2recipefinder.views.AddEditCommentsActivity"
+            android:label="@string/title_activity_add_edit_comments" >
         </activity>
     </application>
 

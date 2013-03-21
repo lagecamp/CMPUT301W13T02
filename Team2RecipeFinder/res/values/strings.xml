@@ -49,5 +49,10 @@
     <string name="title_activity_edit_comments">EditCommentsActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_edit_comment">AddEditCommentActivity</string>
+    <string name="title_activity_add_edit_comments">AddEditCommentsActivity</string>
+    <string name="add_comment">Add Comment</string>
+    <string name="edit_comment">Edit Comment</string>
+    
+    
 
 </resources>
