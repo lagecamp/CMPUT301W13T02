@@ -204,30 +204,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall" />
     
-    <TextView
-        android:id="@+id/textView_procedure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/procedure"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:background="#000000" />
-
-    <EditText
-        android:id="@+id/edit_procedure"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.87"
-        android:ems="10"
-        android:inputType="textMultiLine" />
-    
     <RelativeLayout
         
         android:layout_width="match_parent"
