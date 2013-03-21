@@ -239,6 +239,9 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 
 		TextView ingredients = (TextView) findViewById(R.id.ingredients_text);
 		List<Ingredient> ingredientTextArray = currentRecipe.getIngredients();
+		
+		TextView comments = (TextView) findViewById(R.id.comment_text);
+		List<String> commentsTextArray = currentRecipe.getAllComments();
 
 		String ingredientText = new String();
 		String nl = System.getProperty("line.separator");
@@ -246,6 +249,13 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 			ingredientText += ingredientTextArray.get(i).toString() + nl;
 		}
 		ingredients.setText(ingredientText);
+		
+		String commentsText = new String();
+		String cl = System.getProperty("line.separator");
+		for (int i = 0; i < commentsTextArray.size(); i++) {
+			commentsText += commentsTextArray.get(i) + nl;
+		}
+		comments.setText(commentsText);
 
 		ImageView pictureBox = (ImageView) findViewById(R.id.recipe_images);
 		Drawable image = currentRecipe.getPhoto(imageIndex);
