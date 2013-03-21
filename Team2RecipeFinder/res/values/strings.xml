@@ -44,5 +44,6 @@
     <string name="add_photo">+</string>
     <string name="remove_photo">-</string>
     <string name="no_connection">The application was not able to connect to the server</string>
+    <string name="comments">Comments</string>
 
 </resources>

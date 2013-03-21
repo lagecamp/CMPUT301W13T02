@@ -31,6 +31,8 @@ public final class R {
         public static final int cbxIngredientsKitchen=0x7f070021;
         public static final int cbxSearchFromWeb=0x7f070020;
         public static final int cbxSearchLocally=0x7f07001f;
+        public static final int comment_text=0x7f070032;
+        public static final int comment_title=0x7f070031;
         public static final int content=0x7f070018;
         public static final int delete_button=0x7f070025;
         public static final int edit_button=0x7f070024;
@@ -43,7 +45,7 @@ public final class R {
         public static final int ingredients_text=0x7f07002e;
         public static final int lblAddEdit=0x7f070003;
         public static final int listResults=0x7f070016;
-        public static final int menu_settings=0x7f070031;
+        public static final int menu_settings=0x7f070033;
         public static final int procedure_text=0x7f070030;
         public static final int procedure_title=0x7f07002f;
         public static final int publish_download_button=0x7f070022;
@@ -86,6 +88,7 @@ public final class R {
         public static final int app_name=0x7f040000;
         public static final int arrow_backward=0x7f040012;
         public static final int arrow_forward=0x7f040011;
+        public static final int comments=0x7f04002b;
         public static final int delete=0x7f040017;
         public static final int delete_succesful=0x7f04001d;
         public static final int done=0x7f04001b;
