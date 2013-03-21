@@ -140,6 +140,7 @@ public final class R {
         public static final int main_search_button=0x7f05000f;
         public static final int menu_settings=0x7f050002;
         public static final int missing_fields=0x7f050026;
+        public static final int missing_fields_edit=0x7f050036;
         public static final int my_kitchen=0x7f050025;
         public static final int my_recipes=0x7f050034;
         public static final int name=0x7f05001a;
