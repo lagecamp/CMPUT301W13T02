@@ -32,7 +32,7 @@
     <string name="done">Done</string>
     <string name="no_record_selected">You haven\'t selected any records!</string>
     <string name="delete_succesful">The records have been successfully deleted!</string>
-    <string name="add_ingredient">Add Ingredient</string>
+    <string name="add_ingredient">Add/Edit Ingredient</string>
     <string name="edit_ingredient">Edit Ingredient</string>
     <string name="ingredient">Ingredient</string>
     <string name="amount">Amount</string>
@@ -53,6 +53,8 @@
     <string name="add_comment">Add Comment</string>
     <string name="edit_comment">Edit Comment</string>
     <string name="photos">Photos</string>
+    <string name="my_recipes">My Recipes</string>
+    <string name="edit_recipes">Add/Edit Recipes</string>
     
     
 
