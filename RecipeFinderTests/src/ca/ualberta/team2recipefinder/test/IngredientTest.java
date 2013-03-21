@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import java.lang.Double;
 
-import ca.ualberta.team2recipefinder.Ingredient;
+import ca.ualberta.team2recipefinder.model.Ingredient;
 
 public class IngredientTest{
 	
