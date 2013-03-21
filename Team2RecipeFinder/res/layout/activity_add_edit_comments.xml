@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">    
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    
+	    <Button
+	        android:id="@+id/btnOk"
+	        android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+	        android:text="@string/ok" />
+	    
+	    
+	    <Button
+	        android:id="@+id/btnDelete"
+	        android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+	        android:text="@string/delete" />
+        
+    </LinearLayout>
+        
+    <TextView
+        android:id="@+id/lblAddComment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/add_comment"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:background="#000000" />
+
+    <EditText
+        android:id="@+id/txtComment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="14dp"
+        android:ems="10"
+        android:hint="@string/comments" />
+
+
+
+</LinearLayout>
