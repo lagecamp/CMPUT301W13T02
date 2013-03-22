@@ -31,9 +31,20 @@
             android:text="@string/main_mykitchen_button" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/text_myrecipes"
+        android:layout_below="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/my_recipes"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
     <View
         android:id="@+id/view1"
-        android:layout_below="@+id/buttons"
+        android:layout_below="@+id/text_myrecipes"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="10dp"

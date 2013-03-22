@@ -7,6 +7,7 @@
 
 package ca.ualberta.team2recipefinder.views;
 
+import java.io.File;
 import java.util.List;
 
 import ca.ualberta.team2recipefinder.R;
@@ -18,12 +19,16 @@ import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
 import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.Recipe;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,7 +36,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -48,6 +55,9 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	Recipe currentRecipe = new Recipe();
 	long recipeID = -1;
 	ListView ingredientList, commentList;
+	int imageIndex = 0;
+	Uri imageFileUri;
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	
 	Ingredient oldIngredient;
 	
@@ -89,18 +99,9 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				
 				if (nameEdit.getText().toString().isEmpty() || procedureEdit.getText().toString().isEmpty()
 						|| currentRecipe.getIngredients().isEmpty()) {
-					AlertDialog.Builder adb = new AlertDialog.Builder(view.getContext());
-					adb.setTitle("Error");
-					adb.setMessage("A recipe can not have an empty name or procedure, or contain no ingredients.");
-					adb.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.cancel();
-						}
-					});
-					
-					AlertDialog ad = adb.create();
-					ad.show();
+			
+					Toast.makeText(EditRecipeActivity.this, getString(R.string.missing_fields_edit), 
+							   Toast.LENGTH_LONG).show();
 					goodEntry = false;
 				}
 				
@@ -155,6 +156,56 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				startActivityForResult(intent, EDIT_INGR_CODE);
             }
         });
+		
+		Button prevPhoto = (Button) findViewById(R.id.button_edit_prevphoto);
+		prevPhoto.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (imageIndex > 0) {
+					imageIndex--;
+				}
+				else {
+					imageIndex = 0;
+				}
+				update(currentRecipe);
+			}
+		});
+		
+		Button nextPhoto = (Button) findViewById(R.id.button_edit_nextphoto);
+		nextPhoto.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (imageIndex < (currentRecipe.getAllPhotos().size()-1)) {
+					imageIndex++;
+				}
+				else {
+					imageIndex = currentRecipe.getAllPhotos().size()-1;
+				}
+				update(currentRecipe);
+			}
+		});
+		
+		Button addPhoto = (Button) findViewById(R.id.button_edit_addphoto);
+		addPhoto.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				String newName = nameEdit.getText().toString();
+				String newProcedure = procedureEdit.getText().toString();
+			
+				currentRecipe.setName(newName);
+				currentRecipe.setProcedure(newProcedure);
+				
+				addPhoto();
+			}
+		});
+		
+		Button removePhoto = (Button) findViewById(R.id.button_edit_removephoto);
+		removePhoto.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				removePhoto();
+			}
+		});
 		
 		Button addComments = (Button) findViewById(R.id.button_add_comments);
 		addComments.setOnClickListener(new OnClickListener() {
@@ -212,6 +263,21 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		List<Ingredient> ingredients = currentRecipe.getIngredients();
 		final ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, R.layout.list_item, ingredients);
 		ingredientList.setAdapter(adapter);
+		
+		ImageView pictureBox = (ImageView) findViewById(R.id.imageView_editscreen);
+		Drawable image = currentRecipe.getPhoto(imageIndex);
+		if (image != null) {
+			pictureBox.setImageDrawable(image);
+		}
+		
+		TextView imageInfo = (TextView) findViewById(R.id.photo_number_text);
+		String info;
+		if (currentRecipe.hasPhotos()) {
+			info = (imageIndex+1)+"/"+currentRecipe.getAllPhotos().size();
+		} else {
+			info = "No photos";
+		}
+		imageInfo.setText(info);
 	}
 	
 	/**
@@ -247,7 +313,52 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
             	}
             }
         }
+		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+			if (resultCode == RESULT_OK) {
+				Drawable image = Drawable.createFromPath(imageFileUri.getPath());
+				currentRecipe.addPhotos(image);
+				update(currentRecipe);
+			} 
+		}
 	}   
 
+	public void addPhoto() {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+		String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
+		File folderF = new File(folder);
+		if (!folderF.exists()) {
+			folderF.mkdir();
+		}
+
+		String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + "jpg";
+		File imageFile = new File(imageFilePath);
+		imageFileUri = Uri.fromFile(imageFile);
+
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
+		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+	}
+	
+	public void removePhoto() {
+		AlertDialog.Builder adb = new AlertDialog.Builder(this);
+		adb.setTitle("Confirm");
+		adb.setMessage("Are you sure you want to delete the currently displayed photo?");
+		adb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				currentRecipe.removePhoto(imageIndex);
+				dialog.cancel();
+				update(currentRecipe);
+			}
+		});
+		adb.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.cancel();
+			}
+		});
+
+		AlertDialog ad = adb.create();
+		ad.show();
+	}
 }

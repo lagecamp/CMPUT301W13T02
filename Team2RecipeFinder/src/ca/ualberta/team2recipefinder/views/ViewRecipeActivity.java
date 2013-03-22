@@ -135,6 +135,9 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 			@Override
 			public void onClick(View view) {
 				/* ADD SHARING METHOD OR ACTIVITY HERE */
+				Intent intent = new Intent(ViewRecipeActivity.this, ShareRecipeActivity.class);
+				intent.putExtra("recipeID", recipeID);
+				startActivity(intent);
 			}
 		});
 
@@ -180,21 +183,6 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 			}
 		});
 
-		Button addPhoto = (Button) findViewById(R.id.button_add_photo);
-		addPhoto.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				addPhoto();
-			}
-		});
-
-		Button removePhoto = (Button) findViewById(R.id.button_remove_photo);
-		removePhoto.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				removePhoto();
-			}
-		});
 
 		update(currentRecipe);
 		currentRecipe.addView(this);
@@ -304,59 +292,6 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		imageInfo.setText(info);
 	}
 
-	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-	Uri imageFileUri;
-
-	public void addPhoto() {
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-		String folder = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp";
-		File folderF = new File(folder);
-		if (!folderF.exists()) {
-			folderF.mkdir();
-		}
-
-		String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + "jpg";
-		File imageFile = new File(imageFilePath);
-		imageFileUri = Uri.fromFile(imageFile);
-
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFileUri);
-		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-	}
-
-	public void removePhoto() {
-		AlertDialog.Builder adb = new AlertDialog.Builder(this);
-		adb.setTitle("Confirm");
-		adb.setMessage("Are you sure you want to delete the currently displayed photo?");
-		adb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				currentRecipe.removePhoto(imageIndex);
-				dialog.cancel();
-			}
-		});
-		adb.setNegativeButton("No", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.cancel();
-			}
-		});
-
-		AlertDialog ad = adb.create();
-		ad.show();
-		update(currentRecipe);
-	}
-
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-			if (resultCode == RESULT_OK) {
-				ImageView picture = (ImageView) findViewById(R.id.recipe_images);
-				Drawable image = Drawable.createFromPath(imageFileUri.getPath());
-				currentRecipe.addPhotos(image);
-				update(currentRecipe);
-			} 
-		}
-	}
 
 
 	/**
