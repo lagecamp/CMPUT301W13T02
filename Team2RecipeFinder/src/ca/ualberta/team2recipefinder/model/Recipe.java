@@ -11,6 +11,7 @@ import java.util.List;
 
 import ca.ualberta.team2recipefinder.views.View;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -31,7 +32,7 @@ public class Recipe extends Model<View> implements Serializable
 	private List<String> comments;
 	private boolean onServer;
 	private long id;
-	private List<Drawable> images;
+	private List<SerializableImage> images;
 	private String userId;
 	private String serverId;
 	
@@ -47,7 +48,7 @@ public class Recipe extends Model<View> implements Serializable
 		onServer = false;
 		id = System.currentTimeMillis();
 		comments = new ArrayList<String>();
-		images = new ArrayList<Drawable>();
+		images = new ArrayList<SerializableImage>();
 	 	this.userId = "";
 	 	this.serverId = "";
 	}
@@ -75,13 +76,13 @@ public class Recipe extends Model<View> implements Serializable
 	 * Creates a recipe with a specific id
 	 * @param id
 	 */
-	public Recipe(long id, List<Ingredient> ingredients, List<String> comments, List<Drawable> images) {
+	public Recipe(long id, List<Ingredient> ingredients, List<String> comments, List<Bitmap> images) {
 		this.id = id;
 	 	this.userId = "";
 	 	this.serverId = "";
 	 	this.ingredients = ingredients;
 	 	this.comments = comments;
-	 	this.images = images;
+	 	this.images = toSerializableImage(images);
 	}
 	
 	/**
@@ -228,22 +229,24 @@ public class Recipe extends Model<View> implements Serializable
 		notifyViews();
 	}
 	
-	public List<Drawable> getAllPhotos() {
-		return images;
+	public List<Bitmap> getAllPhotos() {
+		return fromSerializableImage(images);
 	}
 	
-	public void addPhotos(Drawable image) {
-		images.add(image);
+	public void addPhoto(Bitmap image) {
+		SerializableImage s_image = new SerializableImage();
+		s_image.setImage(image);
+		images.add(s_image);
 	}
 	
 	public void removePhoto(int index) {
 		images.remove(index);
 	}
 	
-	public Drawable getPhoto(int index) {
-		Drawable photo;
+	public Bitmap getPhoto(int index) {
+		Bitmap photo;
 		try {
-			photo = images.get(index);
+			photo = images.get(index).getImage();
 		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
@@ -292,4 +295,28 @@ public class Recipe extends Model<View> implements Serializable
 	public String getServerId() {
 		return this.serverId;
 	}
+	
+	private List<SerializableImage> toSerializableImage(List<Bitmap> list) {
+		ArrayList<SerializableImage> result = new ArrayList<SerializableImage>();
+		
+		for (Bitmap image : list) {
+			SerializableImage s_image = new SerializableImage();
+			s_image.setImage(image);
+			result.add(s_image);
+		}
+		
+		return result;
+	}
+	
+	private List<Bitmap> fromSerializableImage(List<SerializableImage> list) {
+		ArrayList<Bitmap> result = new ArrayList<Bitmap>();
+		
+		for (SerializableImage s_image : list) {
+			Bitmap image = s_image.getImage();
+			result.add(image);
+		}
+		
+		return result;
+	}
+	
 }

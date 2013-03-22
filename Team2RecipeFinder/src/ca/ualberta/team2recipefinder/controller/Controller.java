@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
@@ -293,7 +294,7 @@ public class Controller {
 		server.postComment(recipeId, comment);
 	}
 	
-	public void postPicture(String recipeId, Drawable image) throws IOException {
+	public void postPicture(String recipeId, Bitmap image) throws IOException {
 		server.postPicture(recipeId, image);
 	}
 }

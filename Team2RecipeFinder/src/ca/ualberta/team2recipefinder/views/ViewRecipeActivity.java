@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -279,9 +280,9 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		comments.setText(commentsText);
 
 		ImageView pictureBox = (ImageView) findViewById(R.id.recipe_images);
-		Drawable image = currentRecipe.getPhoto(imageIndex);
+		Bitmap image = currentRecipe.getPhoto(imageIndex);
 		if (image != null) {
-			pictureBox.setImageDrawable(image);
+			pictureBox.setImageBitmap(image);
 		}
 
 		TextView imageInfo = (TextView) findViewById(R.id.image_numbers);

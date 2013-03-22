@@ -45,7 +45,7 @@ public class ShareRecipeActivity extends Activity {
 		preview_image = (ImageView) findViewById(R.id.preview_image);
 		
 		//if(currentRecipe.hasPhotos() == true) {
-			preview_image.setImageDrawable(currentRecipe.getPhoto(0));
+			preview_image.setImageBitmap(currentRecipe.getPhoto(0));
 			
 			/*
 			preview_image.setOnItemClickListener(new OnItemClickListener() {

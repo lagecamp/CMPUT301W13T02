@@ -32,6 +32,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.View;
@@ -329,9 +331,9 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		ingredientList.setAdapter(adapter);
 		
 		ImageView pictureBox = (ImageView) findViewById(R.id.imageView_editscreen);
-		Drawable image = currentRecipe.getPhoto(imageIndex);
+		Bitmap image = currentRecipe.getPhoto(imageIndex);
 		if (image != null) {
-			pictureBox.setImageDrawable(image);
+			pictureBox.setImageBitmap(image);
 		}
 		
 		TextView imageInfo = (TextView) findViewById(R.id.photo_number_text);
@@ -379,18 +381,18 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
         }
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				Drawable image = Drawable.createFromPath(imageFileUri.getPath());
+				Bitmap image = BitmapFactory.decodeFile(imageFileUri.getPath());
 				
 				if (source != SearchResult.SOURCE_REMOTE) {
-					currentRecipe.addPhotos(image);
+					currentRecipe.addPhoto(image);
 				}
 				else {
-					AsyncTask<Drawable, Void, Void> task = (new AsyncTask<Drawable, Void, Void>() {
+					AsyncTask<Bitmap, Void, Void> task = (new AsyncTask<Bitmap, Void, Void>() {
 						@Override
-						protected Void doInBackground(Drawable... arg0) {
+						protected Void doInBackground(Bitmap... arg0) {
 							try {
 								c.postPicture(serverId, arg0[0]);
-								currentRecipe.addPhotos(arg0[0]);
+								currentRecipe.addPhoto(arg0[0]);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -423,7 +425,7 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 			folderF.mkdir();
 		}
 
-		String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + "jpg";
+		String imageFilePath = folder + "/" + String.valueOf(System.currentTimeMillis()) + ".jpg";
 		File imageFile = new File(imageFilePath);
 		imageFileUri = Uri.fromFile(imageFile);
 

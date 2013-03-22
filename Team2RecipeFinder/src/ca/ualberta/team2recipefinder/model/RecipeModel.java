@@ -27,7 +27,7 @@ import ca.ualberta.team2recipefinder.views.View;
  */
 public class RecipeModel extends Model<View>
 {
-	private static final String filename = "file11.sav";
+	private static final String filename = "file2.sav";
 	private String path;
 	private ArrayList<Recipe> recipes; 
 	

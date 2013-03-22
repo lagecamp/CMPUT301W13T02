@@ -29,7 +29,7 @@ public class ElasticSearchRecipe {
 		this.id = recipe.getRecipeID();
 		this.images = new LinkedList<String>();
 		
-		for (Drawable image : recipe.getAllPhotos()) {
+		for (Bitmap image : recipe.getAllPhotos()) {
 		    String img_str = convertImageToBase64(image);		    
 			this.images.add(img_str);
 		}
@@ -38,10 +38,10 @@ public class ElasticSearchRecipe {
 	}
 	
 	public Recipe toRecipe(String serverId) {
-		List<Drawable> images = new LinkedList<Drawable>();
+		List<Bitmap> images = new LinkedList<Bitmap>();
 		
 		for (String image : this.images) {
-		    Drawable img_dr = getImageFromBase64(image);		    
+			Bitmap img_dr = getImageFromBase64(image);		    
 			images.add(img_dr);
 		}
 		
@@ -56,16 +56,15 @@ public class ElasticSearchRecipe {
 		return recipe;
 	}
 	
-	public static String convertImageToBase64(Drawable image) {
-		Bitmap bitmap = ((BitmapDrawable)image).getBitmap();
+	public static String convertImageToBase64(Bitmap image) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 		byte[] bitmapdata = stream.toByteArray();		
 		return Base64.encodeToString(bitmapdata, Base64.DEFAULT);
 	}
 	
-	public static Drawable getImageFromBase64(String image) {		
+	public static Bitmap getImageFromBase64(String image) {		
 		byte[] imageData = Base64.decode(image, Base64.DEFAULT);		
-		return new BitmapDrawable(BitmapFactory.decodeByteArray(imageData, 0, imageData.length));
+		return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
 	}
 }

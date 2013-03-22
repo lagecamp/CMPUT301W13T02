@@ -66,11 +66,11 @@ public class RemoteRecipes {
 	
 	private String userId = "";
 	private String path;
-
+	
 	public RemoteRecipes() {
 		this.path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + USER_ID_FILE;
 	}
-
+	
 	private String getUserId() throws IOException {
 		if (!this.userId.equals("")) {
 			return this.userId;
@@ -221,7 +221,7 @@ public class RemoteRecipes {
 	}
 
 	public void postComment(String recipeId, String comment) throws IOException {		
-		HttpPost searchRequest = new HttpPost(REMOTE_DB_LINK + RECIPES + recipeId + "/_update");
+		HttpPost request = new HttpPost(REMOTE_DB_LINK + RECIPES + recipeId + "/_update");
 		String query = 	"{\"script\" : \"ctx._source.comments += comment\",\"params\" : {\"comment\" : \"" + comment + "\"}}";
 		
 		StringEntity stringentity = null;		
@@ -231,12 +231,12 @@ public class RemoteRecipes {
 			e.printStackTrace();
 		}
 		
-		searchRequest.setHeader("Accept","application/json");
-		searchRequest.setEntity(stringentity);
+		request.setHeader("Accept","application/json");
+		request.setEntity(stringentity);
 		
 		HttpResponse response = null;
 		try {
-			response = httpclient.execute(searchRequest);
+			response = httpclient.execute(request);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		}
@@ -355,10 +355,10 @@ public class RemoteRecipes {
 		return results;		
 	}
 
-	public void postPicture(String recipeId, Drawable image) throws IOException {
+	public void postPicture(String recipeId, Bitmap image) throws IOException {
 		String image_str = ElasticSearchRecipe.convertImageToBase64(image);
 		
-		HttpPost searchRequest = new HttpPost(REMOTE_DB_LINK + RECIPES + recipeId + "/_update");
+		HttpPost request = new HttpPost(REMOTE_DB_LINK + RECIPES + recipeId + "/_update");
 		String query = 	"{\"script\" : \"ctx._source.images += image\",\"params\" : {\"image\" : \"" + image_str + "\"}}";
 		
 		StringEntity stringentity = null;		
@@ -368,12 +368,12 @@ public class RemoteRecipes {
 			e.printStackTrace();
 		}
 		
-		searchRequest.setHeader("Accept","application/json");
-		searchRequest.setEntity(stringentity);
+		request.setHeader("Accept","application/json");
+		request.setEntity(stringentity);
 		
 		HttpResponse response = null;
 		try {
-			response = httpclient.execute(searchRequest);
+			response = httpclient.execute(request);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		}
