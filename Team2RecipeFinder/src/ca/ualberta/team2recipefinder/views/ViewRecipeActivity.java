@@ -17,9 +17,9 @@ import ca.ualberta.team2recipefinder.R.id;
 import ca.ualberta.team2recipefinder.R.layout;
 import ca.ualberta.team2recipefinder.controller.Controller;
 import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.controller.SearchResult;
 import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.Recipe;
-import ca.ualberta.team2recipefinder.model.SearchResult;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -134,7 +134,6 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		shareButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				/* ADD SHARING METHOD OR ACTIVITY HERE */
 				Intent intent = new Intent(ViewRecipeActivity.this, ShareRecipeActivity.class);
 				intent.putExtra("recipeID", recipeID);
 				startActivity(intent);
@@ -146,7 +145,15 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 			@Override
 			public void onClick(View view) {
 				Intent intent = new Intent(ViewRecipeActivity.this, EditRecipeActivity.class);
-				intent.putExtra("recipeID", recipeID);
+				intent.putExtra("source", source);
+				
+				if (source == SearchResult.SOURCE_LOCAL) {
+					intent.putExtra("recipeID", recipeID);
+				}
+				else {
+					intent.putExtra("serverID", serverID);
+				}
+				
 				startActivity(intent);
 			}
 		});
@@ -234,19 +241,14 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		}
 		
 		Button editButton = (Button) findViewById(R.id.edit_button);
-		if (source == SearchResult.SOURCE_LOCAL) {
-			editButton.setText("Edit");
-		}
-		else {
-			editButton.setVisibility(View.GONE);
-		}
+		editButton.setText("Edit");
 
 		Button deleteButton = (Button) findViewById(R.id.delete_button);
 		if (source == SearchResult.SOURCE_LOCAL) {
 			deleteButton.setText("Delete");
 		}
 		else {
-			deleteButton.setVisibility(View.GONE);
+			deleteButton.setVisibility(View.INVISIBLE);
 		}
 		
 		TextView recipeName = (TextView) findViewById(R.id.recipe_name);

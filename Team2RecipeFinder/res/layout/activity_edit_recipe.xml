@@ -3,11 +3,12 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
 
+<LinearLayout
+    android:id="@+id/layout_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
 
     <Button
         android:id="@+id/button_done"
@@ -57,7 +58,10 @@
         android:ems="10"
         android:hint="@string/recipe_name_hint" >
 
-        <requestFocus />
+        <requestFocus
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </EditText>
 
     <RelativeLayout
@@ -124,6 +128,12 @@
         android:layout_weight="0.87"
         android:ems="10"
         android:inputType="textMultiLine" />
+
+    <LinearLayout
+        android:id="@+id/photos_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
     <TextView
         android:id="@+id/textView5"
@@ -199,14 +209,23 @@
                 android:text="@string/remove_photo" />
 
         </LinearLayout>
-
+        
     </LinearLayout>
-
+    
     <TextView
         android:id="@+id/photo_number_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />    
+    
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/comments_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
     
     <RelativeLayout
         
@@ -248,6 +267,8 @@
         android:layout_width="match_parent"
         android:layout_height="128dp" >
     </ListView>
-
+    
+    </LinearLayout>
+    
 </LinearLayout>
 </ScrollView>

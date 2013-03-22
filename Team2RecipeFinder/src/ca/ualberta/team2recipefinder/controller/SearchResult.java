@@ -1,4 +1,4 @@
-package ca.ualberta.team2recipefinder.model;
+package ca.ualberta.team2recipefinder.controller;
 
 public class SearchResult {	
 	public final static int SOURCE_LOCAL = 0;
@@ -34,6 +34,7 @@ public class SearchResult {
 	
 	@Override
 	public String toString() {
-		return name;
+		String origin = this.source == SOURCE_LOCAL ? "L" : "S";
+		return origin + " " + name;
 	}
 }

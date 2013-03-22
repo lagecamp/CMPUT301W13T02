@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import android.graphics.drawable.Drawable;
+
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
 import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.MyKitchen;
 import ca.ualberta.team2recipefinder.model.Recipe;
 import ca.ualberta.team2recipefinder.model.RecipeModel;
 import ca.ualberta.team2recipefinder.model.RemoteRecipes;
-import ca.ualberta.team2recipefinder.model.SearchResult;
 import ca.ualberta.team2recipefinder.model.ServerPermissionException;
 /**
  * Controller provides an interface for the Views and Model to communicate for one another. Uses two
@@ -290,5 +291,9 @@ public class Controller {
 	
 	public void postComment(String recipeId, String comment) throws IOException {
 		server.postComment(recipeId, comment);
+	}
+	
+	public void postPicture(String recipeId, Drawable image) throws IOException {
+		server.postPicture(recipeId, image);
 	}
 }

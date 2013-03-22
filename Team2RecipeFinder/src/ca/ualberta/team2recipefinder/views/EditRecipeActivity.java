@@ -8,7 +8,9 @@
 package ca.ualberta.team2recipefinder.views;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import ca.ualberta.team2recipefinder.R;
 import ca.ualberta.team2recipefinder.R.id;
@@ -16,10 +18,12 @@ import ca.ualberta.team2recipefinder.R.layout;
 import ca.ualberta.team2recipefinder.R.string;
 import ca.ualberta.team2recipefinder.controller.Controller;
 import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.controller.SearchResult;
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
 import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.Recipe;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -37,6 +41,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +64,12 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	Uri imageFileUri;
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	
+	private int source = -1;
+	private String serverId = "";
+	
 	Ingredient oldIngredient;
+	
+	Controller c;
 	
 	private final int ADD_INGR_CODE = 0;
 	private final int EDIT_INGR_CODE = 1;
@@ -79,15 +89,63 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		procedureEdit = (EditText) findViewById(R.id.edit_procedure);
 		ingredientList = (ListView) findViewById(R.id.ingredient_list);
 		commentList = (ListView) findViewById(R.id.comments_list);
-		Controller c = RecipeFinderApplication.getController();
+		c = RecipeFinderApplication.getController();
 		
 		
 		if (savedInstanceState == null) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				recipeID = extras.getLong("recipeID");
-				currentRecipe = c.getRecipe(recipeID);
+				source = extras.getInt("source");
+				
+				if (source == SearchResult.SOURCE_LOCAL) {
+					recipeID = extras.getLong("recipeID");
+					currentRecipe = c.getRecipe(recipeID);
+				}
+				else {
+					serverId = extras.getString("serverID");
+					
+					AsyncTask<Void, Void, Recipe> task = (new AsyncTask<Void, Void, Recipe>() {
+						@Override
+						protected Recipe doInBackground(Void... arg0) {
+							try {
+								return c.downloadRecipe(serverId);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
+							return null;
+						}
+					}).execute();
+
+					try {
+						currentRecipe = task.get();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						e.printStackTrace();
+						Toast.makeText(EditRecipeActivity.this, getString(R.string.no_connection), 
+							   Toast.LENGTH_LONG).show();
+						finish();
+					}
+				}
 			}
+		}
+		
+		// if the recipe is on the server, only allow comments
+		// and photos
+		if (source == SearchResult.SOURCE_REMOTE) {
+			LinearLayout root = (LinearLayout) findViewById(R.id.layout_root);
+			int childcount = root.getChildCount();
+			for (int i=0; i < childcount; i++){
+			      View v = root.getChildAt(i);
+			      v.setVisibility(View.GONE);
+			}
+			
+			LinearLayout photos_layout = (LinearLayout) findViewById(R.id.photos_layout);
+			LinearLayout comments_layout = (LinearLayout) findViewById(R.id.comments_layout);
+			
+			photos_layout.setVisibility(View.VISIBLE);
+			comments_layout.setVisibility(View.VISIBLE);
 		}
 		
 		Button doneButton = (Button) findViewById(R.id.button_done);
@@ -200,6 +258,12 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		});
 		
 		Button removePhoto = (Button) findViewById(R.id.button_edit_removephoto);
+		
+		// you can not remove recipes that are on the server
+		if (source == SearchResult.SOURCE_REMOTE) {
+			removePhoto.setEnabled(false);
+		}
+		
 		removePhoto.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -217,7 +281,7 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				currentRecipe.setName(newName);
 				currentRecipe.setProcedure(newProcedure);
 				
-				Intent intent = new Intent(EditRecipeActivity.this, AddEditIngredientActivity.class);
+				Intent intent = new Intent(EditRecipeActivity.this, AddEditCommentsActivity.class);
 				intent.putExtra("mode", "add");
 				startActivityForResult(intent, ADD_INGR_CODE);
 			}
@@ -316,7 +380,35 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				Drawable image = Drawable.createFromPath(imageFileUri.getPath());
-				currentRecipe.addPhotos(image);
+				
+				if (source != SearchResult.SOURCE_REMOTE) {
+					currentRecipe.addPhotos(image);
+				}
+				else {
+					AsyncTask<Drawable, Void, Void> task = (new AsyncTask<Drawable, Void, Void>() {
+						@Override
+						protected Void doInBackground(Drawable... arg0) {
+							try {
+								c.postPicture(serverId, arg0[0]);
+								currentRecipe.addPhotos(arg0[0]);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
+							return null;
+						}
+					}).execute(image);
+
+					try {
+						task.get();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						e.printStackTrace();
+						Toast.makeText(EditRecipeActivity.this, getString(R.string.no_connection), 
+							   Toast.LENGTH_LONG).show();
+					}
+				}
 				update(currentRecipe);
 			} 
 		}

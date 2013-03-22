@@ -18,9 +18,9 @@ import ca.ualberta.team2recipefinder.R.layout;
 import ca.ualberta.team2recipefinder.R.string;
 import ca.ualberta.team2recipefinder.controller.Controller;
 import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
+import ca.ualberta.team2recipefinder.controller.SearchResult;
 import ca.ualberta.team2recipefinder.model.Recipe;
 import ca.ualberta.team2recipefinder.model.RecipeModel;
-import ca.ualberta.team2recipefinder.model.SearchResult;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
