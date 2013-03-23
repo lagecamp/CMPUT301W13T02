@@ -58,13 +58,13 @@ public class ElasticSearchRecipe {
 	
 	public static String convertImageToBase64(Bitmap image) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		image.compress(Bitmap.CompressFormat.JPEG, 20, stream);
 		byte[] bitmapdata = stream.toByteArray();		
-		return Base64.encodeToString(bitmapdata, Base64.DEFAULT);
+		return Base64.encodeToString(bitmapdata, Base64.URL_SAFE | Base64.NO_WRAP);
 	}
 	
 	public static Bitmap getImageFromBase64(String image) {		
-		byte[] imageData = Base64.decode(image, Base64.DEFAULT);		
+		byte[] imageData = Base64.decode(image, Base64.URL_SAFE | Base64.NO_WRAP);		
 		return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
 	}
 }

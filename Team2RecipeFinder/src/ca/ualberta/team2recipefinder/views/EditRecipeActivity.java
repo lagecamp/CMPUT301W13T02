@@ -383,6 +383,10 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 			if (resultCode == RESULT_OK) {
 				Bitmap image = BitmapFactory.decodeFile(imageFileUri.getPath());
 				
+				// delete temporary file in order to save space
+				File file = new File(imageFileUri.getPath());
+				file.delete();
+				
 				if (source != SearchResult.SOURCE_REMOTE) {
 					currentRecipe.addPhoto(image);
 				}

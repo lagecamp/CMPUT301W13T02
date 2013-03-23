@@ -238,6 +238,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				e.printStackTrace();
 				Toast.makeText(ViewRecipeActivity.this, getString(R.string.no_connection), 
 					   Toast.LENGTH_LONG).show();
+				finish();
 			}
 		}
 		
@@ -245,11 +246,12 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		editButton.setText("Edit");
 
 		Button deleteButton = (Button) findViewById(R.id.delete_button);
+		deleteButton.setText("Delete");
 		if (source == SearchResult.SOURCE_LOCAL) {
-			deleteButton.setText("Delete");
+			deleteButton.setEnabled(true);
 		}
 		else {
-			deleteButton.setVisibility(View.INVISIBLE);
+			deleteButton.setEnabled(false);
 		}
 		
 		TextView recipeName = (TextView) findViewById(R.id.recipe_name);

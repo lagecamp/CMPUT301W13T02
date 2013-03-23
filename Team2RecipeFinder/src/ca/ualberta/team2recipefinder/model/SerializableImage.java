@@ -34,11 +34,12 @@ public class SerializableImage implements Serializable {
 	private void writeObject(ObjectOutputStream out) throws IOException {
 		if (image != null) {
 			final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			image.compress(Bitmap.CompressFormat.JPEG, 20, stream);
 			final byte[] imageByteArray = stream.toByteArray();
 			out.writeInt(imageByteArray.length);
 			out.write(imageByteArray);
-		} else {
+		}
+		else {
 			out.writeInt(NO_IMAGE);
 		}
 	}
