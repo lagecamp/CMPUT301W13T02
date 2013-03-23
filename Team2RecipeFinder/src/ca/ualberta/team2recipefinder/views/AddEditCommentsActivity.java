@@ -70,16 +70,19 @@ public class AddEditCommentsActivity extends Activity {
 		btnOK.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				// validate fields
- 
-					
-					String comment = new String(txtComment.getText().toString());
-					
+				// validate fields					
+				String comment = new String(txtComment.getText().toString());
+				
+				if (comment.length() > 0) {				
 					Intent intent = new Intent();
 					intent.putExtra("result", comment);
 					setResult(RESULT_OK, intent);
 					finish();
-				
+				}
+				else {
+					Toast.makeText(AddEditCommentsActivity.this, getString(R.string.missing_fields), 
+							   Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 		

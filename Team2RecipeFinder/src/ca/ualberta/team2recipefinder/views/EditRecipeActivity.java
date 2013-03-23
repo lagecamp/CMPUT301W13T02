@@ -76,6 +76,8 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	private final int ADD_INGR_CODE = 0;
 	private final int EDIT_INGR_CODE = 1;
 	
+	private final int ADD_COMMENT_CODE = 2;
+	
 	/**
 	 * Sets up all button listener's for this activity and gets Strings from this
 	 * activity's EditText fields.
@@ -285,25 +287,9 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				
 				Intent intent = new Intent(EditRecipeActivity.this, AddEditCommentsActivity.class);
 				intent.putExtra("mode", "add");
-				startActivityForResult(intent, ADD_INGR_CODE);
+				startActivityForResult(intent, ADD_COMMENT_CODE);
 			}
-		});
-		
-		commentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Ingredient ingredient = (Ingredient)ingredientList.getItemAtPosition(position);
-                
-                oldIngredient = ingredient;
-                
-				Intent intent = new Intent(EditRecipeActivity.this, AddEditIngredientActivity.class);
-				intent.putExtra("mode", "edit");
-				intent.putExtra("type", ingredient.getType());
-				intent.putExtra("amount", ingredient.getAmount().toString());
-				intent.putExtra("unit", ingredient.getUnit());
-				startActivityForResult(intent, EDIT_INGR_CODE);
-            }
-        });
-		
+		});		
 		
 		currentRecipe.addView(this);
 		this.update(currentRecipe);
@@ -344,6 +330,11 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 			info = "No photos";
 		}
 		imageInfo.setText(info);
+		
+		ListView commentsList = (ListView) findViewById(R.id.comments_list);
+		List<String> comments = currentRecipe.getAllComments();
+		final ArrayAdapter<String> adapter_comments = new ArrayAdapter<String>(this, R.layout.list_item, comments);
+		commentsList.setAdapter(adapter_comments);
 	}
 	
 	/**
@@ -415,6 +406,42 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 							   Toast.LENGTH_LONG).show();
 					}
 				}
+				update(currentRecipe);
+			} 
+		}
+		if (requestCode == ADD_COMMENT_CODE) {
+			if (resultCode == RESULT_OK) {
+				String comment = data.getStringExtra("result");
+				
+				if (source != SearchResult.SOURCE_REMOTE) {
+					currentRecipe.addComment(comment);
+				}
+				else {
+					AsyncTask<String, Void, Void> task = (new AsyncTask<String, Void, Void>() {
+						@Override
+						protected Void doInBackground(String... arg0) {
+							try {
+								c.postComment(serverId, arg0[0]);
+								currentRecipe.addComment(arg0[0]);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+
+							return null;
+						}
+					}).execute(comment);
+
+					try {
+						task.get();
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						e.printStackTrace();
+						Toast.makeText(EditRecipeActivity.this, getString(R.string.no_connection), 
+							   Toast.LENGTH_LONG).show();
+					}
+				}
+				
 				update(currentRecipe);
 			} 
 		}
