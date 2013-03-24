@@ -388,6 +388,8 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 							try {
 								c.postPicture(serverId, arg0[0]);
 								currentRecipe.addPhoto(arg0[0]);
+								Intent intent = new Intent();
+								setResult(RESULT_OK, intent);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -423,6 +425,8 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 							try {
 								c.postComment(serverId, arg0[0]);
 								currentRecipe.addComment(arg0[0]);
+								Intent intent = new Intent();
+								setResult(RESULT_OK, intent);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}

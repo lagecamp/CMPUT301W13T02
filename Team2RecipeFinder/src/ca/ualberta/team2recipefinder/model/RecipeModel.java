@@ -106,6 +106,7 @@ public class RecipeModel extends Model<View>
 	   try {  
 		   ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));  
 		   recipes = (ArrayList<Recipe>) in.readObject();
+		   in.close();
 	   } catch (IOException e) {  
 		   e.printStackTrace();  
 	   } catch (ClassNotFoundException e) {  

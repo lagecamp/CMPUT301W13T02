@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 /**
  * Adapted code that allow a bitmap to be serializable
@@ -17,11 +18,11 @@ import android.graphics.BitmapFactory;
  */
 public class SerializableImage implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	private static final int NO_IMAGE = -1;
 
-	private Bitmap image;
+	private transient Bitmap image;
 
 	public Bitmap getImage() {
 		return image;
@@ -33,10 +34,14 @@ public class SerializableImage implements Serializable {
 
 	private void writeObject(ObjectOutputStream out) throws IOException {
 		if (image != null) {
-			final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			image.compress(Bitmap.CompressFormat.JPEG, 20, stream);
-			final byte[] imageByteArray = stream.toByteArray();
-			out.writeInt(imageByteArray.length);
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+			byte[] imageByteArray = stream.toByteArray();
+			Log.d("str_image", stream.size() + " ");
+			stream.close();
+			int length = imageByteArray.length;
+			out.writeInt(length);
+			Log.d("s_image", length + " ");
 			out.write(imageByteArray);
 		}
 		else {
@@ -45,11 +50,13 @@ public class SerializableImage implements Serializable {
 	}
 
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		final int length = in.readInt();
+		int length = in.readInt();
 
 		if (length != NO_IMAGE) {
-			final byte[] imageByteArray = new byte[length];
-			image = BitmapFactory.decodeByteArray(imageByteArray, 0, length);
+			byte[] imageByteArray = new byte[length];
+			in.read(imageByteArray);
+			Log.d("s_image", length + " ");
+			this.image = BitmapFactory.decodeByteArray(imageByteArray, 0, length);
 		}
 	}
 }

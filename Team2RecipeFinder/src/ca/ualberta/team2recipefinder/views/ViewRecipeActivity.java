@@ -57,6 +57,8 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 	boolean isLocal;
 	int source = -1;
 	
+	private static final int EDIT_SERVER_RECIPE = 0;
+	
 	Controller c;
 	
 	/**
@@ -150,12 +152,12 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				
 				if (source == SearchResult.SOURCE_LOCAL) {
 					intent.putExtra("recipeID", recipeID);
+					startActivity(intent);
 				}
 				else {
 					intent.putExtra("serverID", serverID);
-				}
-				
-				startActivity(intent);
+					startActivityForResult(intent, EDIT_SERVER_RECIPE);
+				}				
 			}
 		});
 		
@@ -297,7 +299,15 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		imageInfo.setText(info);
 	}
 
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode,
+            Intent data) {
+        if (requestCode == EDIT_SERVER_RECIPE) {
+            if (resultCode == RESULT_OK) {
+    			update(currentRecipe);
+            }
+        }
+	}
 
 	/**
 	 * Removes this view from the model
