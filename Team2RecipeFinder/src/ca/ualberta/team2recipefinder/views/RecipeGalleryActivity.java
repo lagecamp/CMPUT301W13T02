@@ -22,7 +22,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
-  
+/**
+ * A gallery to let the user drag to navigate and click select a recipe's photos
+ * @author cmput-301 team 2
+ *
+ */
 public class RecipeGalleryActivity extends Activity {  
 	private Gallery gallery;  
 	private List<Bitmap> bitmaps;
@@ -44,6 +48,10 @@ public class RecipeGalleryActivity extends Activity {
 			e.printStackTrace();
 		}
 		
+		/*
+		 * Once click one image, end this activity and return the position
+		 * of the image clicked in the image list
+		 */
         gallery.setOnItemClickListener(new OnItemClickListener() {  
 			@Override
 			public void onItemClick(AdapterView<?> arg0,
@@ -55,9 +63,9 @@ public class RecipeGalleryActivity extends Activity {
         });  
     }  
       
-    /* 
-     * class ImageAdapter is used to control gallery source and operation. 
-     */  
+	/*
+	 * Adapter to control the image view's source
+	 */
     private class ImageAdapter extends BaseAdapter{  
     	
         @Override  
