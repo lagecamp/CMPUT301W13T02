@@ -319,4 +319,38 @@ public class Recipe extends Model<View> implements Serializable
 		return result;
 	}
 	
+	public String getEmailText() {
+		String str;
+		str = "Recipe: " + name + "\n\n" ;
+		str += "Author: " + author + "\n\n" ;
+		str += "Ingredients: \n";
+		for(Ingredient ingredient : ingredients ) {
+			str += "\t" + ingredient.toString() + "\n";
+		}
+		str += "\nProcedure: \n";
+		String[] procedureByLine = procedure.split("\n");
+		for(String p : procedureByLine) {
+			str += "\t" + p + "\n";
+		}
+		str += "\n\n\nThis e-mail is sent from Recipe Finder.";
+		return str;
+	}
+	
+	public String getEmailHtml() {
+		String str;
+		str = "<h4><b>Recipe: </b>" + name + "</h4><br/>" ;
+		str += "<b>Author: </b>" + author + "<br/><br/>" ;
+		str += "<h5>Ingredients: </h5><ul>";
+		for(Ingredient ingredient : ingredients ) {
+			str += "<li>" + ingredient.toString() + "</li>";
+		}
+		str += "</ul><h4>Procedure: </h4>";
+		String[] procedureByLine = procedure.split("\n");
+		for(String p : procedureByLine) {
+			str += "\t" + p + "<br/>";
+		}
+		str += "<br/><br/><i>This e-mail is sent from <a href='https://github.com/lagecamp/CMPUT301W13T02'>Recipe Finder</a>.</i>";
+		return str;
+	}
+	
 }

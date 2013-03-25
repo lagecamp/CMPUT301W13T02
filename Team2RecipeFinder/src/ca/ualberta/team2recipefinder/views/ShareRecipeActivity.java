@@ -10,6 +10,7 @@ import ca.ualberta.team2recipefinder.model.Recipe;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,7 +29,11 @@ public class ShareRecipeActivity extends Activity {
 	TextView preview_text;
 	ImageView preview_image;
 	Button button_ok;
+	Button button_text;
+	Button button_html;
+	Boolean isText = true;
 	String email_text;
+	String email_html;
 	Recipe currentRecipe;
 	
 	long recipeID;
@@ -48,10 +53,15 @@ public class ShareRecipeActivity extends Activity {
 			}
 		}
 		
-		email_text = getEmailText();
+		email_text = currentRecipe.getEmailText();
+		email_html = currentRecipe.getEmailHtml();
 		preview_text = (TextView) findViewById(R.id.preview_text);
 		preview_image = (ImageView) findViewById(R.id.preview_image);
 
+		if(isText == true)
+			preview_text.setText(email_text);
+		else
+			preview_text.setText(Html.fromHtml(email_html));
 		/*
 		 * If the recipe contains photos,
 		 * assign it to ImageView previe_image
@@ -74,7 +84,6 @@ public class ShareRecipeActivity extends Activity {
 		}
 		
 		
-		preview_text.setText(email_text);
 		
 		
 		button_ok = (Button) findViewById(R.id.ok);
@@ -85,8 +94,30 @@ public class ShareRecipeActivity extends Activity {
 					intent.setType("message/rfc822");
 					intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"lxian2shell@gmail.com"});
 					intent.putExtra(Intent.EXTRA_SUBJECT,"Recipe: "+currentRecipe.getName());
-					intent.putExtra(Intent.EXTRA_TEXT,email_text); 
+					if(isText == true)
+						intent.putExtra(Intent.EXTRA_TEXT,email_text); 
+					else
+						intent.putExtra(Intent.EXTRA_TEXT,Html.fromHtml(currentRecipe.getEmailHtml())); 
+						
 					startActivity(Intent.createChooser(intent, "Select email application."));
+			}
+		});
+		
+		button_text = (Button) findViewById(R.id.text);
+		button_text.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				isText = true;
+				onResume();
+			}
+		});
+		
+		button_html = (Button) findViewById(R.id.html);
+		button_html.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				isText = false;
+				onResume();
 			}
 		});
 		
@@ -102,26 +133,14 @@ public class ShareRecipeActivity extends Activity {
     	if(currentRecipe.hasPhotos() == true) {
 			preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
     	}
+		if(isText == true)
+			preview_text.setText(email_text);
+		else
+			preview_text.setText(Html.fromHtml(email_html));
+    	
         super.onResume();
     }
 
 	
-	private String getEmailText() {
-		String str;
-		str = "Recipe: " + currentRecipe.getName() + "\n" ;
-		str += "Author: " + currentRecipe.getAuthor() + "\n" ;
-		str += "Ingredients: \n";
-		List<Ingredient> ingredientList = currentRecipe.getIngredients();
-		for(Ingredient ingredient : ingredientList ) {
-			str += ingredient.toString() + "\n";
-		}
-		str += "Procedure: \n";
-		str += currentRecipe.getProcedure();
-		List<String> comments = currentRecipe.getAllComments();
-		int idx=0;
-		for(String comment : comments) {
-			str += comments.get(idx) + "\n";
-		}
-		return str;
-	}
+
 }
