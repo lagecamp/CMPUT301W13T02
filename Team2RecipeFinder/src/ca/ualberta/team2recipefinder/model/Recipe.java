@@ -319,6 +319,10 @@ public class Recipe extends Model<View> implements Serializable
 		return result;
 	}
 	
+	/**
+	 * To parse the recipe to a text e-mail
+	 * @return the texted email content
+	 */
 	public String getEmailText() {
 		String str;
 		str = "Recipe: " + name + "\n\n" ;
@@ -336,6 +340,10 @@ public class Recipe extends Model<View> implements Serializable
 		return str;
 	}
 	
+	/**
+	 * To parse the recipe to a html e-mail
+	 * @return the html formatted e-mail content
+	 */
 	public String getEmailHtml() {
 		String str;
 		str = "<h4><b>Recipe: </b>" + name + "</h4><br/>" ;
