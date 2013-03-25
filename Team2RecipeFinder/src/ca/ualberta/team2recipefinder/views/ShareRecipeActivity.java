@@ -25,6 +25,7 @@ public class ShareRecipeActivity extends Activity {
 	Recipe currentRecipe;
 	
 	long recipeID;
+	int photoIndex = 0;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,9 +44,10 @@ public class ShareRecipeActivity extends Activity {
 		email_text = getEmailText();
 		preview_text = (TextView) findViewById(R.id.preview_text);
 		preview_image = (ImageView) findViewById(R.id.preview_image);
+
 		
 		//if(currentRecipe.hasPhotos() == true) {
-			preview_image.setImageBitmap(currentRecipe.getPhoto(0));
+		preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
 			
 			/*
 			preview_image.setOnItemClickListener(new OnItemClickListener() {
@@ -61,9 +63,10 @@ public class ShareRecipeActivity extends Activity {
 				@Override
 				public void onClick(View view) {
 					Intent intent1 = new Intent(ShareRecipeActivity.this, RecipeGalleryActivity.class);
-					intent1.putExtra("photos", recipeID);
-					startActivity(intent1);
+					intent1.putExtra("recipeID", recipeID);
+					startActivityForResult(intent1, photoIndex);
 				}
+
 			});
 		//}
 		
@@ -86,6 +89,18 @@ public class ShareRecipeActivity extends Activity {
 		
 		
 	}
+	
+	@Override 
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
+		photoIndex = resultCode;
+		System.out.println(photoIndex);
+	}
+    @Override
+    protected void onResume() {
+		preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
+        super.onResume();
+    }
+
 	
 	private String getEmailText() {
 		String str;
