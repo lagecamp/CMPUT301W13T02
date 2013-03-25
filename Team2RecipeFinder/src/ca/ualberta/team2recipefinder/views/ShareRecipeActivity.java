@@ -1,5 +1,8 @@
 package ca.ualberta.team2recipefinder.views;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import ca.ualberta.team2recipefinder.R;
@@ -9,7 +12,10 @@ import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.Recipe;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -72,14 +78,28 @@ public class ShareRecipeActivity extends Activity {
 			@Override
 			public void onClick(View view) {
 					Intent intent = new Intent(Intent.ACTION_SEND);
-					intent.setType("message/rfc822");
 					intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"lxian2shell@gmail.com"});
 					intent.putExtra(Intent.EXTRA_SUBJECT,"Recipe: "+currentRecipe.getName());
-					if(isText == true)
-						intent.putExtra(Intent.EXTRA_TEXT,email_text); 
-					else
-						intent.putExtra(Intent.EXTRA_TEXT,Html.fromHtml(currentRecipe.getEmailHtml())); 
+					
+					if(showImage == true) {
+						intent.setType("image/*");
 						
+						File img = saveBitmap(currentRecipe.getPhoto(photoIndex));
+						Uri uri = Uri.fromFile(img);
+						
+						intent.putExtra(Intent.EXTRA_STREAM, uri);
+					}
+					else {
+						intent.setType("message/rfc822");
+					}
+						
+					if(isText == true) {
+						intent.putExtra(Intent.EXTRA_TEXT,email_text); 
+					}
+					else {
+						intent.putExtra(Intent.EXTRA_TEXT,Html.fromHtml(currentRecipe.getEmailHtml())); 
+					}
+					
 					startActivity(Intent.createChooser(intent, "Select email application."));
 			}
 		});
@@ -167,6 +187,23 @@ public class ShareRecipeActivity extends Activity {
 		});
     }
 
-	
+    private File saveBitmap(Bitmap bmp){
+    	String dir = Environment.getExternalStorageDirectory().toString();
+    	FileOutputStream fileOutputStream;
+    	File file = new File(dir, "imageToSend.jpeg");
+    	
+    	try {
+    		fileOutputStream = new FileOutputStream (file);
+    		bmp.compress(Bitmap.CompressFormat.JPEG, 60, fileOutputStream);
+    		fileOutputStream.flush();
+    		fileOutputStream.close();
+    	}
+    	catch (Exception e) {
+    		e.printStackTrace();
+    		return null;
+    	}
+    	
+    	return file;
+    }
 
 }

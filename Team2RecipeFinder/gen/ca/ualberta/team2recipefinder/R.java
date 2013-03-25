@@ -71,8 +71,8 @@ public final class R {
         public static final int ok=0x7f080039;
         public static final int photo_number_text=0x7f080020;
         public static final int photos_layout=0x7f080018;
-        public static final int preview_image=0x7f08003b;
-        public static final int preview_text=0x7f08003a;
+        public static final int preview_image=0x7f08003a;
+        public static final int preview_text=0x7f08003b;
         public static final int procedure_text=0x7f080048;
         public static final int procedure_title=0x7f080047;
         public static final int publish_download_button=0x7f08003c;

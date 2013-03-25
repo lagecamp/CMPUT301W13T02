@@ -52,18 +52,18 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="2px"
 		    android:background="?android:attr/listDivider" />
-	           
+	   	
+	   	<ImageView
+	        android:id="@+id/preview_image"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_launcher" />       
+	    
 	    <TextView
 	        android:id="@+id/preview_text"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:ems="10" />
-
-	    <ImageView
-	        android:id="@+id/preview_image"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_launcher" />
 
 	    </LinearLayout>
 	</ScrollView>
