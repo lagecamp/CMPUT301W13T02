@@ -295,7 +295,7 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		
 		commentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                String comment = (String)commentList.getItemAtPosition(position);
+                String comment = (String) commentList.getItemAtPosition(position);
                 
                 oldComment = comment;
                 
@@ -346,10 +346,9 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		}
 		imageInfo.setText(info);
 		
-		ListView commentsList = (ListView) findViewById(R.id.comments_list);
 		List<String> comments = currentRecipe.getAllComments();
 		final ArrayAdapter<String> adapter_comments = new ArrayAdapter<String>(this, R.layout.list_item, comments);
-		commentsList.setAdapter(adapter_comments);
+		commentList.setAdapter(adapter_comments);
 	}
 	
 	/**
@@ -464,6 +463,20 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				update(currentRecipe);
 			} 
 		}
+        else if (requestCode == EDIT_COMMENT_CODE) {
+            if (resultCode == RESULT_OK) {
+            	if (data.getStringExtra("deleted") != null) {
+            		// delete ingredient
+            		RecipeFinderApplication.getController().deleteComment(currentRecipe, oldComment);
+            	}
+            	else {
+            		// edit ingredient
+	            	String comment = (String) data.getSerializableExtra("result");
+	            	RecipeFinderApplication.getController().replaceComment(currentRecipe, oldComment, comment);
+            	}
+            }
+            update(currentRecipe);
+        }
 	}   
 
 	public void addPhoto() {

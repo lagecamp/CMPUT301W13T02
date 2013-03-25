@@ -258,6 +258,14 @@ public class Controller {
 		recipe.replaceIngredient(oldIngredient, newIngredient);
 	}
 	
+	public void deleteComment(Recipe recipe, String oldComment) {
+		recipe.removeComment(oldComment);
+	}
+	
+	public void replaceComment(Recipe recipe, String oldComment, String newComment) {
+		recipe.replaceComment(oldComment, newComment);
+	}
+	
 	/**
 	 * Removes a recipe from the model's collection
 	 * @param r the recipe to be removed

@@ -7,11 +7,6 @@
 
 package ca.ualberta.team2recipefinder.views;
 
-import ca.ualberta.team2recipefinder.R;
-import ca.ualberta.team2recipefinder.R.id;
-import ca.ualberta.team2recipefinder.R.layout;
-import ca.ualberta.team2recipefinder.R.string;
-import ca.ualberta.team2recipefinder.model.Ingredient;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +15,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.ualberta.team2recipefinder.R;
+import ca.ualberta.team2recipefinder.model.Ingredient;
 
 /**
  * AddEditIngredientActivity is an android activity for adding or

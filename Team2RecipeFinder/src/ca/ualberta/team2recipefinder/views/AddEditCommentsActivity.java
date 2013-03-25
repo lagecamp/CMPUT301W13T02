@@ -1,18 +1,14 @@
 package ca.ualberta.team2recipefinder.views;
 
-import ca.ualberta.team2recipefinder.R;
-import ca.ualberta.team2recipefinder.R.layout;
-import ca.ualberta.team2recipefinder.R.menu;
-import ca.ualberta.team2recipefinder.model.Ingredient;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.ualberta.team2recipefinder.R;
 
 public class AddEditCommentsActivity extends Activity {
 
@@ -96,11 +92,5 @@ public class AddEditCommentsActivity extends Activity {
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.add_edit_comments, menu);
-		return true;
-	}
 
 }

@@ -220,6 +220,15 @@ public class Recipe extends Model<View> implements Serializable
 		return onServer;
 	}
 	
+	public void removeComment(String oldComment) {
+		comments.remove(oldComment);
+	}
+	
+	public void replaceComment(String oldComment, String newComment) {
+		comments.remove(oldComment);
+		comments.add(newComment);
+	}
+	
 	/**
 	 * 
 	 * @param onServer True or false depending on whether the recipe is on the server
