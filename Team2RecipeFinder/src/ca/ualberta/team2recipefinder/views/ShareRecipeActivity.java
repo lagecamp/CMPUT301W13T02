@@ -28,7 +28,8 @@ import android.widget.TextView;
  * Enable users to change the photos to send
  * and change the text format of recipe
  * @author cmput-301 team 2
- *
+ * @see ca.ualberta.team2recipefinder.model.Recipe;
+ * @see ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
  */
 public class ShareRecipeActivity extends Activity {
 
@@ -66,31 +67,27 @@ public class ShareRecipeActivity extends Activity {
 		preview_image = (ImageView) findViewById(R.id.preview_image);
 
 		preview_text.setText(email_text);
-		/*
-		 * If the recipe contains photos,
-		 * assign it to ImageView previe_image
+		manipulateImage();
+		
+		
+		/**
+		 * Click to confirm and enter the e-mail program
 		 */
-		manipulateImage(currentRecipe.hasPhotos());
-		
-		
 		button_ok = (Button) findViewById(R.id.ok);
 		button_ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 					Intent intent = new Intent(Intent.ACTION_SEND);
+					intent.setType("message/rfc822");
 					intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"lxian2shell@gmail.com"});
 					intent.putExtra(Intent.EXTRA_SUBJECT,"Recipe: "+currentRecipe.getName());
 					
 					if(showImage == true) {
-						intent.setType("image/*");
 						
 						File img = saveBitmap(currentRecipe.getPhoto(photoIndex));
 						Uri uri = Uri.fromFile(img);
 						
 						intent.putExtra(Intent.EXTRA_STREAM, uri);
-					}
-					else {
-						intent.setType("message/rfc822");
 					}
 						
 					if(isText == true) {
@@ -105,6 +102,9 @@ public class ShareRecipeActivity extends Activity {
 		});
 		
 		
+		/**
+		 * Click to swich between plain text and html
+		 */
 		button_html = (Button) findViewById(R.id.html);
 		button_html.setOnClickListener(new OnClickListener() {
 			@Override
@@ -119,6 +119,9 @@ public class ShareRecipeActivity extends Activity {
 			}
 		});
 		
+		/**
+		 * Click to show or hide the image
+		 */
 		button_img = (Button) findViewById(R.id.img);
 		button_img.setOnClickListener(new OnClickListener() {
 			@Override
@@ -135,10 +138,19 @@ public class ShareRecipeActivity extends Activity {
 		
 	}
 	
+	/**
+	 * get the posistion of image to show from the returned gallery
+	 */
 	@Override 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
 		photoIndex = resultCode;
 	}
+	
+	/**
+	 * On resume, check if photos need to be displayed
+	 * and check what format is wanted
+	 * make changes accordingly
+	 */
     @Override
     protected void onResume() {
     	if(currentRecipe.hasPhotos() == true) {
@@ -154,7 +166,7 @@ public class ShareRecipeActivity extends Activity {
 			button_html.setText("Text");
 		}
 		
-		manipulateImage(showImage);
+		manipulateImage();
 		
 		if(showImage == true) {
 			button_img.setText("Remove Image");
@@ -166,15 +178,20 @@ public class ShareRecipeActivity extends Activity {
         super.onResume();
     }
     
-    private void manipulateImage(Boolean addImage) {
-    	if(addImage == false){
+    /**
+     * To set the bitmap image on <code>previe_image</code> when <code>showImage</code> is true
+     * The bitmap setted is based on the <code>photoIndex</code>, which is setted by the gallery
+     * @see ca.ualberta.team2recipefinder.views.RecipeGalleryActivity.java
+     */
+    private void manipulateImage() {
+    	if(showImage == false){
     		preview_image.setImageBitmap(null);
     		return ;
     	}
 		preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
 		
-		/*
-		 * Enters the gallery of the photos once clicks on the image
+		/**
+		 * Click to enter the gallery of images
 		 */
 		preview_image.setOnClickListener(new OnClickListener() {
 			@Override
@@ -187,6 +204,11 @@ public class ShareRecipeActivity extends Activity {
 		});
     }
 
+    /**
+     * save the bitmap to send in a temp file allowing the intent to access it later
+     * @param bmp the bitmap to save and send via e-mail
+     * @return File the temp file storing the bitmap <code>bmp</code>
+     */
     private File saveBitmap(Bitmap bmp){
     	String dir = Environment.getExternalStorageDirectory().toString();
     	FileOutputStream fileOutputStream;
