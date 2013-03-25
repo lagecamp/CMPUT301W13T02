@@ -16,6 +16,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Provide users a preview of the shared recipe in e-mail
+ * Enable users to change the photos to send
+ * and change the text format of recipe
+ * @author cmput-301 team 2
+ *
+ */
 public class ShareRecipeActivity extends Activity {
 
 	TextView preview_text;
@@ -45,20 +52,16 @@ public class ShareRecipeActivity extends Activity {
 		preview_text = (TextView) findViewById(R.id.preview_text);
 		preview_image = (ImageView) findViewById(R.id.preview_image);
 
-		
-		//if(currentRecipe.hasPhotos() == true) {
+		/*
+		 * If the recipe contains photos,
+		 * assign it to ImageView previe_image
+		 */
+		if(currentRecipe.hasPhotos() == true) {
 		preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
 			
 			/*
-			preview_image.setOnItemClickListener(new OnItemClickListener() {
-				public void onItemClick(AdapterView parent, View v, int position, long id) {
-				Intent intent1 = new Intent(this, RecipeGallaryActivity.class);
-				intent1.putExtra("photos", currentRecipe.getAllPhotos());
-				startActivityForResult(intent1, position);
-             }
-
-         });
-         */
+			 * Enters the gallery of the photos once clicks on the image
+			 */
 			preview_image.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View view) {
@@ -68,7 +71,7 @@ public class ShareRecipeActivity extends Activity {
 				}
 
 			});
-		//}
+		}
 		
 		
 		preview_text.setText(email_text);
@@ -93,11 +96,12 @@ public class ShareRecipeActivity extends Activity {
 	@Override 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
 		photoIndex = resultCode;
-		System.out.println(photoIndex);
 	}
     @Override
     protected void onResume() {
-		preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
+    	if(currentRecipe.hasPhotos() == true) {
+			preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
+    	}
         super.onResume();
     }
 
