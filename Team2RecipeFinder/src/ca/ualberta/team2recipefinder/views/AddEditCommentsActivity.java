@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 public class AddEditCommentsActivity extends Activity {
 
-	private final int EDIT = 0;
-	private final int ADD = 1;
+	private final int EDIT = 3;
+	private final int ADD = 2;
 		
 	int mode = ADD;
 	
@@ -55,9 +55,7 @@ public class AddEditCommentsActivity extends Activity {
 			}
 		}
 		
-		if (mode == EDIT) {						
-			txtComment.setEnabled(false);
-			
+		if (mode == EDIT) {				
 			lblAddComment.setText(getString(R.string.edit_comment));
 		}
 		else {
