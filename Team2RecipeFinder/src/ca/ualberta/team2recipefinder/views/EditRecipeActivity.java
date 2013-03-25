@@ -70,6 +70,7 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	private String serverId = "";
 	
 	Ingredient oldIngredient;
+	String oldComment;
 	
 	Controller c;
 	
@@ -77,6 +78,7 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	private final int EDIT_INGR_CODE = 1;
 	
 	private final int ADD_COMMENT_CODE = 2;
+	private final int EDIT_COMMENT_CODE = 3;
 	
 	/**
 	 * Sets up all button listener's for this activity and gets Strings from this
@@ -289,7 +291,20 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 				intent.putExtra("mode", "add");
 				startActivityForResult(intent, ADD_COMMENT_CODE);
 			}
-		});		
+		});	
+		
+		commentList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
+                String comment = (String)commentList.getItemAtPosition(position);
+                
+                oldComment = comment;
+                
+				Intent intent = new Intent(EditRecipeActivity.this, AddEditCommentsActivity.class);
+				intent.putExtra("mode", "edit");
+				intent.putExtra("type", comment);
+				startActivityForResult(intent, EDIT_COMMENT_CODE);
+            }
+        });
 		
 		currentRecipe.addView(this);
 		this.update(currentRecipe);
