@@ -31,7 +31,9 @@ public class ShareRecipeActivity extends Activity {
 	Button button_ok;
 	Button button_text;
 	Button button_html;
+	Button button_img;
 	Boolean isText = true;
+	Boolean showImage = true;
 	String email_text;
 	String email_html;
 	Recipe currentRecipe;
@@ -58,32 +60,12 @@ public class ShareRecipeActivity extends Activity {
 		preview_text = (TextView) findViewById(R.id.preview_text);
 		preview_image = (ImageView) findViewById(R.id.preview_image);
 
-		if(isText == true)
-			preview_text.setText(email_text);
-		else
-			preview_text.setText(Html.fromHtml(email_html));
+		preview_text.setText(email_text);
 		/*
 		 * If the recipe contains photos,
 		 * assign it to ImageView previe_image
 		 */
-		if(currentRecipe.hasPhotos() == true) {
-		preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
-			
-			/*
-			 * Enters the gallery of the photos once clicks on the image
-			 */
-			preview_image.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					Intent intent1 = new Intent(ShareRecipeActivity.this, RecipeGalleryActivity.class);
-					intent1.putExtra("recipeID", recipeID);
-					startActivityForResult(intent1, photoIndex);
-				}
-
-			});
-		}
-		
-		
+		manipulateImage(currentRecipe.hasPhotos());
 		
 		
 		button_ok = (Button) findViewById(R.id.ok);
@@ -121,6 +103,19 @@ public class ShareRecipeActivity extends Activity {
 			}
 		});
 		
+		button_img = (Button) findViewById(R.id.img);
+		button_img.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if(showImage == true) {
+					showImage = false;
+				}
+				else {
+					showImage = true;
+				}
+				onResume();
+			}
+		});
 		
 	}
 	
@@ -133,12 +128,45 @@ public class ShareRecipeActivity extends Activity {
     	if(currentRecipe.hasPhotos() == true) {
 			preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
     	}
-		if(isText == true)
+    	
+		if(isText == true) {
 			preview_text.setText(email_text);
-		else
+		}
+		else {
 			preview_text.setText(Html.fromHtml(email_html));
+		}
+		
+		manipulateImage(showImage);
+		
+		if(showImage == true) {
+			button_img.setText("Remove Image");
+		}
+		else {
+			button_img.setText("Show Image");
+		}
     	
         super.onResume();
+    }
+    
+    private void manipulateImage(Boolean addImage) {
+    	if(addImage == false){
+    		preview_image.setImageBitmap(null);
+    		return ;
+    	}
+		preview_image.setImageBitmap(currentRecipe.getPhoto(photoIndex));
+		
+		/*
+		 * Enters the gallery of the photos once clicks on the image
+		 */
+		preview_image.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent intent1 = new Intent(ShareRecipeActivity.this, RecipeGalleryActivity.class);
+				intent1.putExtra("recipeID", recipeID);
+				startActivityForResult(intent1, photoIndex);
+			}
+
+		});
     }
 
 	

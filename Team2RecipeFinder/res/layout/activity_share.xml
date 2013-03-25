@@ -30,11 +30,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Html" />
+        
         <Button
-            android:id="@+id/ok"
+            android:id="@+id/img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ok" />
+            android:text="Remove Image" />
 
     </LinearLayout>
 	<ScrollView 
@@ -44,23 +45,30 @@
 	       	android:layout_width="fill_parent"
     		android:layout_height="fill_parent"
     		android:orientation="vertical">
-		<View  
-		    android:layout_width="fill_parent"  
-		    android:layout_height="2px"  
-		    android:background="?android:attr/listDivider"  
-		/>
-	
-		<ImageView
-		    android:id="@+id/preview_image"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/ic_launcher" />
+
+	        <Button
+	            android:id="@+id/ok"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Ok" />
+
+		<View
+		    android:layout_width="fill_parent"
+		    android:layout_height="2px"
+		    android:background="?android:attr/listDivider" />
 	           
 	    <TextView
 	        android:id="@+id/preview_text"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:ems="10" />
+
+	    <ImageView
+	        android:id="@+id/preview_image"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_launcher" />
+
 	    </LinearLayout>
 	</ScrollView>
     
