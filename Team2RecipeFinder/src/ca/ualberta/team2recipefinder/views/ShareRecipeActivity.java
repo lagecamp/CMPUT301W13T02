@@ -29,7 +29,6 @@ public class ShareRecipeActivity extends Activity {
 	TextView preview_text;
 	ImageView preview_image;
 	Button button_ok;
-	Button button_text;
 	Button button_html;
 	Button button_img;
 	Boolean isText = true;
@@ -85,20 +84,17 @@ public class ShareRecipeActivity extends Activity {
 			}
 		});
 		
-		button_text = (Button) findViewById(R.id.text);
-		button_text.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				isText = true;
-				onResume();
-			}
-		});
 		
 		button_html = (Button) findViewById(R.id.html);
 		button_html.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				isText = false;
+				if(isText == true) {
+					isText = false;
+				}
+				else {
+					isText = true;
+				}
 				onResume();
 			}
 		});
@@ -131,9 +127,11 @@ public class ShareRecipeActivity extends Activity {
     	
 		if(isText == true) {
 			preview_text.setText(email_text);
+			button_html.setText("Html");
 		}
 		else {
 			preview_text.setText(Html.fromHtml(email_html));
+			button_html.setText("Text");
 		}
 		
 		manipulateImage(showImage);
