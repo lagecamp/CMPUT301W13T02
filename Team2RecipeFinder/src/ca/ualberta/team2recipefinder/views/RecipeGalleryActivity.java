@@ -25,7 +25,8 @@ import android.widget.ImageView;
 /**
  * A gallery to let the user drag to navigate and click select a recipe's photos
  * @author cmput-301 team 2
- *
+ * @see ca.ualberta.team2recipefinder.model.Recipe;
+ * @see ca.ualberta.team2recipefinder.views.ShareRecipeActivity
  */
 public class RecipeGalleryActivity extends Activity {  
 	private Gallery gallery;  
