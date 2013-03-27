@@ -166,29 +166,31 @@ public class RecipeModel extends Model<View>
 	   matchingRecipes = searchRecipe(keywords);				//Call the local search method to find recipes that match the keywords
 	   ArrayList<Recipe> matchingIngredientRecipes = new ArrayList<Recipe>();   
 
-	   for (int i = 0; i<matchingRecipes.size(); i++){
-		   boolean ingredientIsInKitchen = true;
-		   for (int q = 0; q<matchingRecipes.get(i).getIngredients().size(); q++){
-			   if(!ingredientIsInKitchen){
-				   break;
-			   }
-			   for (int n = 0; n<kitchenIngredients.size(); n++) {
-				   if (!matchingRecipes.get(i).getIngredients().get(q).getType()
-						   .equals(kitchenIngredients.get(n).getType())) {
-					   ingredientIsInKitchen = false;		   				
-				   }
-				   else {
-					   ingredientIsInKitchen = true;
-					   break;
-				   }		   				
-			   }
-		   }
-		   if (ingredientIsInKitchen) {
-			   matchingIngredientRecipes.add(matchingRecipes.get(i));	   				
+	   for (int i = 0; i<matchingRecipes.size(); i++) {
+		   if(kitchenHasAllIngredients(matchingRecipes.get(i), kitchenIngredients)) {
+			   matchingIngredientRecipes.add(matchingRecipes.get(i));
 		   }
 	   }		   
 	   return matchingIngredientRecipes;		   
    } 
+   
+   private boolean kitchenHasAllIngredients(Recipe recipe, List<Ingredient> kitchenIngredients) {
+	   for (int i = 0; i<recipe.getIngredients().size(); i++) {
+		   if(!kitchenHasIngredient(recipe.getIngredients().get(i), kitchenIngredients)) {
+			   return false;
+		   }
+	   }
+	   return true;
+   }
+   
+   private boolean kitchenHasIngredient(Ingredient recipeIngredient, List<Ingredient> kitchenIngredients) {
+	   for (int i = 0; i<kitchenIngredients.size(); i++) {
+		   if (kitchenIngredients.get(i).getType().equalsIgnoreCase(recipeIngredient.getType())) {
+			   return true;
+		   }
+	   }
+	   return false;
+   }
 
    /**
     * Sorts the recipe in alphabetical order by the recipe's name	    * 
