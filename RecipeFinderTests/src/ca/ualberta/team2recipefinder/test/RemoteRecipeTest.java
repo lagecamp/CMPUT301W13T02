@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import ca.ualberta.team2recipefinder.controller.RecipeFinderApplication;
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
 import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.MyKitchen;
@@ -19,11 +20,13 @@ import ca.ualberta.team2recipefinder.model.ServerPermissionException;
 
 public class RemoteRecipeTest
 {
-	String path = "file.sav";
+	private final String path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + "file10.sav";
+
+	
 	@Test
 	public void testRemoteRecipes()
 	{
-
+		
 		fail("Not yet implemented");
 	}
 
@@ -243,8 +246,9 @@ public class RemoteRecipeTest
 	@Test
 	public void testPostPicture()
 	{
-
-
+		Recipe r = new Recipe();
+		Recipe r2 = new Recipe();
+		assertEquals(r.getRecipeID(), r2.getRecipeID());
 	}
 
 	@Test
