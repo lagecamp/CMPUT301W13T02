@@ -19,7 +19,7 @@ import ca.ualberta.team2recipefinder.model.ServerPermissionException;
 
 public class RemoteRecipeTest
 {
-
+	String path = "file.sav";
 	@Test
 	public void testRemoteRecipes()
 	{
@@ -31,7 +31,7 @@ public class RemoteRecipeTest
 	public void testCanPublish()
 	{
 					
-		RemoteRecipes rr = new RemoteRecipes();				//Test whether you can publish your own recipe
+		RemoteRecipes rr = new RemoteRecipes(path);				//Test whether you can publish your own recipe
 		Recipe r = new Recipe();
 		assertTrue(rr.canPublish(r));
 
@@ -44,7 +44,7 @@ public class RemoteRecipeTest
 	@Test
 	public void testPublishRecipe()
 	{
-		RemoteRecipes rr = new RemoteRecipes();
+		RemoteRecipes rr = new RemoteRecipes(path);
 		Recipe r = new Recipe();
 		
 		r.setAuthor("Test Author");
@@ -77,7 +77,7 @@ public class RemoteRecipeTest
 
 	@Test
 	public void testPostComment()	{
-		RemoteRecipes rr = new RemoteRecipes();
+		RemoteRecipes rr = new RemoteRecipes(path);
 		Recipe r = new Recipe();
 		
 		r.setAuthor("Test Author");
@@ -130,7 +130,7 @@ public class RemoteRecipeTest
 		r3.setProcedure("Mix and Bake");
 		r3.addComment(":)");
 		
-		RemoteRecipes rr = new RemoteRecipes();
+		RemoteRecipes rr = new RemoteRecipes(path);
 
 		String[] keywords = {"rice"};
 		try
@@ -159,7 +159,7 @@ public class RemoteRecipeTest
 	@Test
 	public void testSearchWithIngredient()
 	{
-		RemoteRecipes rr = new RemoteRecipes();
+		RemoteRecipes rr = new RemoteRecipes(path);
 		Recipe r = new Recipe();
 		String[] keywordName = {"name"};
 		String[] keywordRice = {"rice"};
@@ -187,7 +187,7 @@ public class RemoteRecipeTest
 		r3.setProcedure("Mix and Bake");
 		r3.addComment(":)");
 		
-		MyKitchen mk = new MyKitchen();
+		MyKitchen mk = new MyKitchen(path);
 		
 		try
 		{
@@ -244,14 +244,45 @@ public class RemoteRecipeTest
 	public void testPostPicture()
 	{
 
-		fail("Not yet implemented");
+
 	}
 
 	@Test
 	public void testDownload()
 	{
+		Recipe r2 = new Recipe();
+		
+		r2.setAuthor("Joe Smith");
+		r2.setName("Rice");
+		r2.setProcedure("Boil in Water");
+		r2.addComment("Delicious");
+		
+		RemoteRecipes rr = new RemoteRecipes(path);
+		try
+		{
+			rr.publishRecipe(r2);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServerPermissionException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Recipe downloaded;
+		try
+		{
+			downloaded = rr.download(r2.getServerId());
+			assertEquals(r2.getRecipeID(), downloaded.getRecipeID());
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		fail("Not yet implemented");
+
+
 	}
 
 }
