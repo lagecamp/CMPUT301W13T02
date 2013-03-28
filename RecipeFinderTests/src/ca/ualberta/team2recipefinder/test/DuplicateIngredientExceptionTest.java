@@ -1,14 +1,12 @@
 package ca.ualberta.team2recipefinder.test;
 
-import static org.junit.Assert.*;
 
-import org.junit.Test;
-
+import junit.framework.TestCase;
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
 import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.MyKitchen;
 
-public class DuplicateIngredientExceptionTest {
+public class DuplicateIngredientExceptionTest extends TestCase {
 
 	private void throwAnException(String msg) throws DuplicateIngredientException {
 		throw new DuplicateIngredientException(msg);
@@ -18,7 +16,6 @@ public class DuplicateIngredientExceptionTest {
 		throw new DuplicateIngredientException();
 	}	
 	
-	@Test
 	public void testConstructor() {
 		boolean caughtException = false;
 		
@@ -51,7 +48,6 @@ public class DuplicateIngredientExceptionTest {
 		assertTrue(caughtException);
 	}
 	
-	@Test
 	public void testGetIngredientType() {
 		boolean caughtException = false;
 		
@@ -66,7 +62,6 @@ public class DuplicateIngredientExceptionTest {
 		}
 	}
 	
-	@Test
 	public void addDuplicateIngredients() {
 		Ingredient i1 = new Ingredient("test", 0d, "g");
 		Ingredient i2 = new Ingredient("test", 0d, "g");

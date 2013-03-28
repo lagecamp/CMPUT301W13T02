@@ -1,37 +1,31 @@
 package ca.ualberta.team2recipefinder.test;
 
-import static org.junit.Assert.*;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.TestCase;
+
 
 import ca.ualberta.team2recipefinder.model.*;
 
 /**
  * Tests RecipeModel class
  */
-public class RecipeModelTest
-{
+public class RecipeModelTest extends TestCase {
 	
 	RecipeModel model;
 	
 	MyKitchen kitchen;
 
-	@Before
-	public void setUp() throws Exception
-	{
+	public void setUp() throws Exception {
 		model = new RecipeModel("model.sav");
 		
 		// we make sure we start with an empty model
 		model.getAllRecipes().removeAll(model.getAllRecipes());
 	}
 
-	@Test
 	public void testAdd()
 	{
 		Recipe recipe = new Recipe("spaghetti", "test", "test", new ArrayList<Ingredient>(), false);
@@ -51,7 +45,6 @@ public class RecipeModelTest
 		assertEquals(recipe.getRecipeID(), model.getRecipeById(recipe.getRecipeID()).getRecipeID());
 	}
 	
-	@Test
 	public void testRemove()
 	{
 		Recipe recipe1 = new Recipe("spaghetti", "test", "test", new ArrayList<Ingredient>(), false);
@@ -72,7 +65,6 @@ public class RecipeModelTest
 		assertEquals("rice", model.getRecipe(0).getName());
 	}
 	
-	@Test
 	public void testAddRecipeTwice()
 	{
 		Recipe recipe1 = new Recipe("spaghetti", "test", "test", new ArrayList<Ingredient>(), false);
@@ -97,7 +89,6 @@ public class RecipeModelTest
 		}
 	}
 	
-	@Test
 	public void testSearchKeyInName()
 	{
 		Recipe recipe1 = new Recipe("spaghetti", "", "", new ArrayList<Ingredient>(), false);
@@ -134,7 +125,6 @@ public class RecipeModelTest
 		checkExpectedResults(tomatos, expectedResults);
 	}
 	
-	@Test
 	public void testSearchWithIngredients()
 	{
 		Ingredient ingredient1 = new Ingredient("tomato", 12.0, "unit");
@@ -207,7 +197,6 @@ public class RecipeModelTest
 		checkExpectedResults(rice, expectedResults);
 	}
 	
-	@Test
 	public void testReplace()
 	{
 		Recipe recipe1 = new Recipe("spaghetti", "test", "test", new ArrayList<Ingredient>(), false);
@@ -227,7 +216,6 @@ public class RecipeModelTest
 		assertEquals("rice", model.getRecipe(0).getName());
 	}
 	
-	@Test
 	public void getNextOrPrevRecipeById() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException
 	{
 		Recipe recipe1 = new Recipe("id1", "test", "test", new ArrayList<Ingredient>(), false);
