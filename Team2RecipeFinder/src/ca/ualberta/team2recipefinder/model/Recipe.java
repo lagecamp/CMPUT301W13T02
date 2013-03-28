@@ -21,9 +21,7 @@ import android.graphics.drawable.Drawable;
 * @author CMPUT 301 Team 2
 *
 */
-public class Recipe extends Model<View> implements Serializable
-{
-
+public class Recipe extends Model<View> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String procedure;
@@ -289,22 +287,45 @@ public class Recipe extends Model<View> implements Serializable
 		}
 	}
 	
+	/**
+	 * Sets the id of the owner of the recipe
+	 * (it's used when the server is stored remotely)
+	 * @param userId
+	 */
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	
+	/**
+	 * Returns the user id
+	 * @return
+	 */
 	public String getUserId() {
 		return userId;
 	}
 
+	/**
+	 * Sets the id of the recipe on the server
+	 * @param serverId
+	 */
 	public void setServerId(String serverId) {
 		this.serverId = serverId;
 	}
 	
+	/**
+	 * Gets the id of the recipe on the server
+	 * @return
+	 */
 	public String getServerId() {
 		return this.serverId;
 	}
 	
+	/**
+	 * Converts a list of images to a list of a SerializableImages
+	 * and return it
+	 * @param list
+	 * @return
+	 */
 	private List<SerializableImage> toSerializableImage(List<Bitmap> list) {
 		ArrayList<SerializableImage> result = new ArrayList<SerializableImage>();
 		
@@ -317,6 +338,11 @@ public class Recipe extends Model<View> implements Serializable
 		return result;
 	}
 	
+	/**
+	 * Converts a list of SerializableImages to a list of images
+	 * @param list
+	 * @return
+	 */
 	private List<Bitmap> fromSerializableImage(List<SerializableImage> list) {
 		ArrayList<Bitmap> result = new ArrayList<Bitmap>();
 		

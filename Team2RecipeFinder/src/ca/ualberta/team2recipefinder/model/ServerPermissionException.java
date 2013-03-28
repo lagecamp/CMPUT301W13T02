@@ -11,10 +11,17 @@ import java.lang.Exception;
  */
 public class ServerPermissionException extends Exception {
 	
+	/**
+	 * Default constructor
+	 */
 	public ServerPermissionException() {
 		super();
 	}
 	
+	/**
+	 * Constructor that also receives a message to be passed to the superclass
+	 * @param str
+	 */
 	public ServerPermissionException(String str) {
 		super(str);
 	}

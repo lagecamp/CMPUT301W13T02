@@ -258,10 +258,21 @@ public class Controller {
 		recipe.replaceIngredient(oldIngredient, newIngredient);
 	}
 	
+	/**
+	 * Deletes a comment of a recipe
+	 * @param recipe the recipe
+	 * @param oldComment the comment that will be deleted
+	 */
 	public void deleteComment(Recipe recipe, String oldComment) {
 		recipe.removeComment(oldComment);
 	}
 	
+	/**
+	 * Replace a comment for a new one
+	 * @param recipe the recipe
+	 * @param oldComment the old comment
+	 * @param newComment the new comment
+	 */
 	public void replaceComment(Recipe recipe, String oldComment, String newComment) {
 		recipe.replaceComment(oldComment, newComment);
 	}
@@ -282,10 +293,21 @@ public class Controller {
 		return this.model;
 	}
 	
+	/**
+	 * Returns true if the user can publish the recipe
+	 * @param recipe
+	 * @return
+	 */
 	public boolean canPublish(Recipe recipe) {
 		return server.canPublish(recipe);
 	}
 	
+	/**
+	 * Publishs a recipe to the server
+	 * @param recipe the recipe
+	 * @throws IOException an exception that is throw if the server is unavailable or in case of some
+	 * problem publishing the recipe
+	 */
 	public void publishRecipe(Recipe recipe) throws IOException {
 		try {
 			server.publishRecipe(recipe);
@@ -294,14 +316,35 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * Gets a recipe from the server, via its id
+	 * @param serverId
+	 * @return the recipe
+	 * @throws IOException an exception that is throw if the server is unavailable or in case of some
+	 * problem publishing the recipe
+	 */
 	public Recipe downloadRecipe(String serverId) throws IOException {
 		return server.download(serverId);
 	}
 	
+	/**
+	 * Posts a comment to a recipe that is on the server
+	 * @param recipeId the server id of the recipe
+	 * @param comment the commend
+	 * @throws IOException an exception that is throw if the server is unavailable or in case of some
+	 * problem publishing the recipe
+	 */
 	public void postComment(String recipeId, String comment) throws IOException {
 		server.postComment(recipeId, comment);
 	}
 	
+	/**
+	 * Adds a picture to a recipe
+	 * @param recipeId the id of the recipe on the server
+	 * @param image image
+	 * @throws IOException an exception that is throw if the server is unavailable or in case of some
+	 * problem publishing the recipe
+	 */
 	public void postPicture(String recipeId, Bitmap image) throws IOException {
 		server.postPicture(recipeId, image);
 	}
