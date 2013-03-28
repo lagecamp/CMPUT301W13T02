@@ -1,3 +1,8 @@
+/*
+ * @AddEditCommentsActivity.java        1.0 13/03/24
+ *
+ * The following source is protected by a GNU Public License
+ */
 package ca.ualberta.team2recipefinder.views;
 
 import android.app.Activity;
@@ -10,6 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.team2recipefinder.R;
 
+/**
+ * AddEditCommentsActivity Class:  It's main duty is to retrieve comments made by the user and add/edit
+ * them to the recipe
+ * @author CMPUT 301 Team 2
+ *
+ */
 public class AddEditCommentsActivity extends Activity {
 
 	private final int EDIT = 3;
@@ -20,7 +31,9 @@ public class AddEditCommentsActivity extends Activity {
 	TextView txtComment;
 	Button btnDelete;
 	
-	
+	/**
+	 * Sets up the text fields for the Comments Activity
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,11 +48,9 @@ public class AddEditCommentsActivity extends Activity {
 			Bundle extras = getIntent().getExtras();
 			
 			if (extras != null) {
-				String screenMode = extras.getString("mode");				
-								
-				if (screenMode.equals("edit")) {
-					mode = EDIT;
-					
+				String screenMode = extras.getString("mode");									
+				if (screenMode.equals("edit")) {					//Checks if the user is editing a comment or adding a new one
+					mode = EDIT;					
 					txtComment.setText(extras.getString("type"));
 				}
 				else {
@@ -62,6 +73,7 @@ public class AddEditCommentsActivity extends Activity {
 		
 		Button btnOK = (Button) findViewById(R.id.btnOk);
 		btnOK.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View arg0) {
 				// validate fields					
@@ -79,7 +91,7 @@ public class AddEditCommentsActivity extends Activity {
 				}
 			}
 		});
-		
+		//Delete Button
 		btnDelete.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
