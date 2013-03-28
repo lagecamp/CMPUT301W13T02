@@ -42,7 +42,7 @@ import com.google.gson.reflect.TypeToken;
 
 /**
  * This class encapsulates all the requests to/from the server that stores
- * recipes remotely. Some of the code was based upon chenlei's code
+ * recipes remotely. Some of the code was based upon Chenlei's code
  * showed in the lab
  * @author cmput-301 team 2
  *
@@ -254,6 +254,12 @@ public class RemoteRecipes {
 		}
 	}
 
+	/**
+	 * Add a comment to a recipe that is already on the server
+	 * @param recipeId the id of the recipe
+	 * @param comment the comment
+	 * @throws IOException
+	 */
 	public void postComment(String recipeId, String comment) throws IOException {		
 		HttpPost request = new HttpPost(REMOTE_DB_LINK + RECIPES + recipeId + "/_update");
 		String query = 	"{\"script\" : \"ctx._source.comments += comment\",\"params\" : {\"comment\" : \"" + comment + "\"}}";
@@ -279,6 +285,12 @@ public class RemoteRecipes {
 		Log.d("server", status);
 	}
 
+	/**
+	 * Search for a recipe on the server
+	 * @param keywords list of keywords
+	 * @return the recipes that match the search criteria
+	 * @throws IOException
+	 */
 	public List<Recipe> search(String[] keywords) throws IOException {
 		String query_str = "";
 		
@@ -326,6 +338,14 @@ public class RemoteRecipes {
 		return results;
 	}
 
+	/**
+	 * Search for recipes on the server that match the ingredients
+	 * that are provided
+	 * @param keywords list of keywords
+	 * @param kitchenIngredients the ingredients you have
+	 * @return list of recipes that match the criteria
+	 * @throws IOException
+	 */
 	public List<Recipe> searchWithIngredient(String[] keywords,
 			List<Ingredient> kitchenIngredients) throws IOException {
 		String query_str = "(";
@@ -389,6 +409,12 @@ public class RemoteRecipes {
 		return results;		
 	}
 
+	/**
+	 * Adds a picture to the recipe
+	 * @param recipeId the id of the recipe
+	 * @param image the image you want to add to the recipe
+	 * @throws IOException 
+	 */
 	public void postPicture(String recipeId, Bitmap image) throws IOException {
 		String image_str = ElasticSearchRecipe.convertImageToBase64(image);
 		
@@ -416,6 +442,12 @@ public class RemoteRecipes {
 		Log.d("server", status);
 	}
 
+	/**
+	 * Downloads a recipe from the server
+	 * @param recipeId the id of the recipe
+	 * @return the recipe
+	 * @throws IOException
+	 */
 	public Recipe download(String recipeId) throws IOException {
 		HttpGet getRequest = new HttpGet(REMOTE_DB_LINK + RECIPES + recipeId);
 		getRequest.addHeader("Accept","application/json");
@@ -433,6 +465,12 @@ public class RemoteRecipes {
 		return esRecipe.toRecipe(recipeId);
 	}
 
+	/**
+	 * Returns the content of an entity
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	private String getEntityContent(HttpResponse response) throws IOException {
 		BufferedReader br = new BufferedReader(
 				new InputStreamReader((response.getEntity().getContent())));
