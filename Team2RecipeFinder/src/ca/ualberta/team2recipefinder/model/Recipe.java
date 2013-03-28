@@ -218,17 +218,26 @@ public class Recipe extends Model<View> implements Serializable {
 		return onServer;
 	}
 	
+	/**
+	 * Removes the specified comment from this recipes list.
+	 * @param oldComment comment to be removed
+	 */
 	public void removeComment(String oldComment) {
 		comments.remove(oldComment);
 	}
 	
+	/**
+	 * Replaces a specified comment with a new a comment
+	 * @param oldComment comment to be replaced
+	 * @param newComment the new comment
+	 */
 	public void replaceComment(String oldComment, String newComment) {
 		comments.remove(oldComment);
 		comments.add(newComment);
 	}
 	
 	/**
-	 * 
+	 * Sets this recipes on server status to desired value
 	 * @param onServer True or false depending on whether the recipe is on the server
 	 */
 	public void setOnServer(boolean onServer){
@@ -236,20 +245,38 @@ public class Recipe extends Model<View> implements Serializable {
 		notifyViews();
 	}
 	
+	/**
+	 * Retrieves a list of all this recipes photos in Bitmap format
+	 * @return a list of this recipes photos
+	 */
 	public List<Bitmap> getAllPhotos() {
 		return fromSerializableImage(images);
 	}
 	
+	
+	/**
+	 * Adds a photo to this recipe
+	 * @param image the photo to be added
+	 */
 	public void addPhoto(Bitmap image) {
 		SerializableImage s_image = new SerializableImage();
 		s_image.setImage(image);
 		images.add(s_image);
 	}
 	
+	/**
+	 * Removes the photo at the specified index from the recipe
+	 * @param index the index of the photo to be removed
+	 */
 	public void removePhoto(int index) {
 		images.remove(index);
 	}
 	
+	/**
+	 * Gets the photo from the specified index from the recipe
+	 * @param index the index of the desired photo
+	 * @return the photo at index
+	 */
 	public Bitmap getPhoto(int index) {
 		Bitmap photo;
 		try {
@@ -260,14 +287,28 @@ public class Recipe extends Model<View> implements Serializable {
 		return photo;	
 	}
 	
+	/**
+	 * Adds a comment to the recipe
+	 * @param comment the comment
+	 */
 	public void addComment(String comment) {
 		comments.add(comment);
 	}
 	
+	/**
+	 * Retrieves a list of all of this recipes comments
+	 * @return a list of all the comments belonging to this recipe
+	 */
 	public List<String> getAllComments() {
 		return comments;
 	}
 	
+	/**
+	 * Retrieves the comment at the specified index from this recipe
+	 * 
+	 * @param index the index of the desired comment
+	 * @return the comment at index
+	 */
 	public String getComment(int index) {
 		String comment;
 		try {
@@ -278,6 +319,10 @@ public class Recipe extends Model<View> implements Serializable {
 		return comment;
 	}
 	
+	/**
+	 * Checks if this recipe has photos
+	 * @return True if the recipe contains photos, false if it does not
+	 */
 	public boolean hasPhotos() {
 		if (images.size() == 0) {
 			return false;
