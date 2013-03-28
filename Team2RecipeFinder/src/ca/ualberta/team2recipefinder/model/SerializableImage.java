@@ -13,15 +13,12 @@ import android.util.Log;
 /**
  * Adapted code that allow a bitmap to be serializable
  * taken from: http://stackoverflow.com/questions/9219023/best-way-to-serialize-deserialize-an-image-in-android
- * @author cmput-301 team 2
+ * @author diadyne
  *
  */
 public class SerializableImage implements Serializable {
-
 	private static final long serialVersionUID = 2L;
-
 	private static final int NO_IMAGE = -1;
-
 	private transient Bitmap image;
 
 	public Bitmap getImage() {
@@ -32,6 +29,11 @@ public class SerializableImage implements Serializable {
 		this.image = image;
 	}
 
+	/**
+	 * Serializes the image
+	 * @param out
+	 * @throws IOException
+	 */
 	private void writeObject(ObjectOutputStream out) throws IOException {
 		if (image != null) {
 			ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -49,6 +51,12 @@ public class SerializableImage implements Serializable {
 		}
 	}
 
+	/**
+	 * Desserializes the image
+	 * @param in
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		int length = in.readInt();
 

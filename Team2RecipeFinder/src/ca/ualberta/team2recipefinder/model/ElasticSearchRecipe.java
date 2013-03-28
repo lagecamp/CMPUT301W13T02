@@ -10,16 +10,27 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Base64;
 
+/**
+ * Class that is used for representing a recipe that is on the
+ * server. It used by the JSON parser
+ * @author CMPUT 301 Team 2
+ *
+ */
 public class ElasticSearchRecipe {
-	public String name;
-	public String procedure;
-	public String author;
-	public List<Ingredient> ingredients;
-	public List<String> comments;
-	public long id;
-	public List<String> images;
-	public String userId;
+	private String name;
+	private String procedure;
+	private String author;
+	private List<Ingredient> ingredients;
+	private List<String> comments;
+	private long id;
+	private List<String> images;
+	private String userId;
 	
+	/**
+	 * Constructor that creates a new ElasticSearchRecipe based
+	 * upon a Recipe
+	 * @param recipe the recipe
+	 */
 	public ElasticSearchRecipe(Recipe recipe) {
 		this.name = recipe.getName();
 		this.procedure = recipe.getProcedure();
@@ -37,6 +48,12 @@ public class ElasticSearchRecipe {
 		this.userId = recipe.getUserId();
 	}
 	
+	/**
+	 * Converts the current instance of ElasticSearchRecipe
+	 * into a Recipe
+	 * @param serverId the id of this ElasticSearchRecipe on the server
+	 * @return
+	 */
 	public Recipe toRecipe(String serverId) {
 		List<Bitmap> images = new LinkedList<Bitmap>();
 		
@@ -56,6 +73,11 @@ public class ElasticSearchRecipe {
 		return recipe;
 	}
 	
+	/**
+	 * Converts a bitmap image to a Base64 string
+	 * @param image the bitmap image
+	 * @return the base64 string that corresponds to the image
+	 */
 	public static String convertImageToBase64(Bitmap image) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		image.compress(Bitmap.CompressFormat.JPEG, 20, stream);
@@ -63,6 +85,11 @@ public class ElasticSearchRecipe {
 		return Base64.encodeToString(bitmapdata, Base64.URL_SAFE | Base64.NO_WRAP);
 	}
 	
+	/**
+	 * Converts a Base64 string into a bitmap image
+	 * @param image the base64 string that corresponds to the image
+	 * @return the bitmap image
+	 */
 	public static Bitmap getImageFromBase64(String image) {		
 		byte[] imageData = Base64.decode(image, Base64.URL_SAFE | Base64.NO_WRAP);		
 		return BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
