@@ -25,7 +25,7 @@ public class RecipeModelTest
 	@Before
 	public void setUp() throws Exception
 	{
-		model = new RecipeModel();
+		model = new RecipeModel("model.sav");
 		
 		// we make sure we start with an empty model
 		model.getAllRecipes().removeAll(model.getAllRecipes());

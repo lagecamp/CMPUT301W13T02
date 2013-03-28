@@ -19,10 +19,9 @@ public class MyKitchenTest {
 	
 	@Before
 	public void setUp() {
-		model = new MyKitchen();
+		model = new MyKitchen("ingredients.sav");
 		
-		//ensure model is empty
-		
+		//ensure model is empty		
 		model.getIngredients().removeAll(model.getIngredients());
 	}
 	
