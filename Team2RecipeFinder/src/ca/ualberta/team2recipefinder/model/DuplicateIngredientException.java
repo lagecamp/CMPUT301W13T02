@@ -12,11 +12,20 @@ import java.lang.Exception;
 public class DuplicateIngredientException extends Exception {
 	private String ingredientType;// the type of the ingredient causes the exception
 	
+	/**
+	 * Default constructor. Creates a DuplicateIngredientException with
+	 * a blank ingredient type.
+	 */
 	public DuplicateIngredientException() {
 		super();
 		ingredientType = "";
 	}
 	
+	/**
+	 * Creates a DuplicateIngredientException with
+	 * the specified ingredient type.
+	 * @param str the desired ingredient type
+	 */
 	public DuplicateIngredientException(String str) {
 		super(str+" already exits.");
 		ingredientType=str;

@@ -62,7 +62,7 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 	Controller c;
 	
 	/**
-	 * Sets up all button listeners for this activity.
+	 * Sets up all button listeners for this activity. Called when the activity is first created.
 	 * 
 	 * @param	savedInstanceState Bundle containing the activity's previously frozen state, if there was one. 
 	 */
@@ -200,6 +200,8 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 
 	/**
 	 * Updates the current info being displayed. Use if the recipe is changed.
+	 * 
+	 * @param model the model that called the method
 	 */
 	public void update(Recipe model) {
 		Button publishDownloadButton = (Button) findViewById(R.id.publish_download_button);
@@ -299,6 +301,12 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 		imageInfo.setText(info);
 	}
 
+	/**
+	 * Called when the recipe is being edited remotely. Checks if the edit was okay
+	 * 
+	 * @param requestCode the ID of the request code
+	 * @param resultCode the ID of the result code
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
             Intent data) {
