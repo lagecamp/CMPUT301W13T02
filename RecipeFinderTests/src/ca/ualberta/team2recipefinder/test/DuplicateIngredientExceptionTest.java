@@ -10,13 +10,13 @@ import ca.ualberta.team2recipefinder.model.MyKitchen;
 
 public class DuplicateIngredientExceptionTest {
 
-	public void throwAnException(String msg) throws DuplicateIngredientException {
+	private void throwAnException(String msg) throws DuplicateIngredientException {
 		throw new DuplicateIngredientException(msg);
 	}
-	public void throwAnException() throws DuplicateIngredientException {
-		throw new DuplicateIngredientException();
-	}
 	
+	private void throwAnException() throws DuplicateIngredientException {
+		throw new DuplicateIngredientException();
+	}	
 	
 	@Test
 	public void testConstructor() {
@@ -70,8 +70,7 @@ public class DuplicateIngredientExceptionTest {
 	public void addDuplicateIngredients() {
 		Ingredient i1 = new Ingredient("test", 0d, "g");
 		Ingredient i2 = new Ingredient("test", 0d, "g");
-		MyKitchen my = new MyKitchen();
-		
+		MyKitchen my = new MyKitchen("ingredients.sav");		
 		
 		boolean caughtFirstExp = false;
 		boolean caughtSecondExp = false;
