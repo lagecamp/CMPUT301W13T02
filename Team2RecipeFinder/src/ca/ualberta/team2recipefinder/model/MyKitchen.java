@@ -23,16 +23,12 @@ import ca.ualberta.team2recipefinder.views.View;
  * @see	ca.ualberta.team2recipefinder.model.Recipe
  */
 public class MyKitchen extends Model<View> {
-	private String filename = "IngredientList1.sav";// the name of the file where the ingredient list will be stored
 	private String path;// the path to the file
 	
 	ArrayList<Ingredient> ingredientList;// the list of the ingredients
 	
-	public MyKitchen() {
-		// gets the folder where we should put the files
-		// created by the application (and appends filename)
-		path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + filename;
-		
+	public MyKitchen(String path) {
+		this.path = path;		
 		ingredientList = load();
 	}
 
