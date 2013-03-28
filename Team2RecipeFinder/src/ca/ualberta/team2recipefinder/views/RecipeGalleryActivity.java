@@ -31,6 +31,13 @@ import android.widget.ImageView;
 public class RecipeGalleryActivity extends Activity {  
 	private Gallery gallery;  
 	private List<Bitmap> bitmaps;
+	
+	/**
+	 * Called when activity is first created. Set's up listeners and adapters for this
+	 * activity.
+	 * 
+	 * @param savedInstanceState Bundle containing the activity's previously frozen state, if there was one. 
+	 */
 	@Override  
 	public void onCreate(Bundle savedInstanceState) {  
 	super.onCreate(savedInstanceState);  

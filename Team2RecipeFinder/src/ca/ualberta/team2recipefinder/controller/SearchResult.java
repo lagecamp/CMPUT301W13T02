@@ -61,6 +61,10 @@ public class SearchResult {
 		return source;
 	}	
 	
+	/**
+	 * Converts this SearchResult to string format
+	 * @return the string representation of this SearchResult
+	 */
 	@Override
 	public String toString() {
 		String origin = this.source == SOURCE_LOCAL ? "L" : "S";

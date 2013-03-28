@@ -12,7 +12,6 @@ import java.util.List;
 import ca.ualberta.team2recipefinder.views.View;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 
 /**
 * Recipe Class: This class represents our recipe objects. All recipes have a Name, Procedure, Ingredient List, and Author.
