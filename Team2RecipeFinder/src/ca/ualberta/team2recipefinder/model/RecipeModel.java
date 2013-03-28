@@ -27,7 +27,6 @@ import ca.ualberta.team2recipefinder.views.View;
  */
 public class RecipeModel extends Model<View>
 {
-	private static final String filename = "file2.sav";
 	private String path;
 	private ArrayList<Recipe> recipes; 
 	
@@ -35,13 +34,8 @@ public class RecipeModel extends Model<View>
 	 * Constructor Method
 	 * Creates a RecipeModel Object and loads the recipes from the specified file
 	 */
-	public RecipeModel(){
-		// gets the folder where we should put the files
-		// created by the application (and appends filename)
-		path = //filename;				
-				RecipeFinderApplication.getAppContext()
-				.getFilesDir() + "/" + filename;
-		
+	public RecipeModel(String path) {
+		this.path = path;		
 		this.recipes = load();
 	}	
 
