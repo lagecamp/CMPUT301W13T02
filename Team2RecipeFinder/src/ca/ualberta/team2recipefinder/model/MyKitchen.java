@@ -35,7 +35,7 @@ public class MyKitchen extends Model<View> {
 		
 		ingredientList = load();
 	}
-	
+
 	/**
 	 * Loads the ingredient list from file
 	 * @return the ingredient list loaded
