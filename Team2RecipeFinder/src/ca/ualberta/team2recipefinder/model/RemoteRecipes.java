@@ -56,11 +56,6 @@ public class RemoteRecipes {
 	private final String USERS = "user/";
 	private final String RECIPES = "recipe/";
 
-	/**
-	 * The file that stores the user id
-	 */
-	private final String USER_ID_FILE = "user.sav";
-
 	private HttpClient httpclient = new DefaultHttpClient();
 	private Gson gson = new Gson();
 	
@@ -70,8 +65,8 @@ public class RemoteRecipes {
 	/**
 	 * Default constructor
 	 */
-	public RemoteRecipes() {
-		this.path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + USER_ID_FILE;
+	public RemoteRecipes(String path) {
+		this.path = path;
 	}
 	
 	/**
