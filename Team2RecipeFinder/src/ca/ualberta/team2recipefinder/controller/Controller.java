@@ -2,11 +2,9 @@ package ca.ualberta.team2recipefinder.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
 import ca.ualberta.team2recipefinder.model.Ingredient;
@@ -56,7 +54,6 @@ public class Controller {
 	 * @return a list of recipes that resulted from the search
 	 */
 	public List<SearchResult> search(String[] keywords, boolean searchLocally, boolean searchFromWeb) {
-		ArrayList<Recipe> results = new ArrayList<Recipe>();
 		
 		List<Recipe> localResults = new ArrayList<Recipe>();
 		List<Recipe> remoteResults = new ArrayList<Recipe>();
