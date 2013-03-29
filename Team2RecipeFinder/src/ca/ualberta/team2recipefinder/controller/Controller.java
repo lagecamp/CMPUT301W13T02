@@ -23,9 +23,12 @@ import ca.ualberta.team2recipefinder.model.ServerPermissionException;
  */
 public class Controller {
 	
-	RecipeModel model;
-	MyKitchen myKitchen;
-	RemoteRecipes server;
+	private RecipeModel model;
+	private RecipeModel cache;
+	private MyKitchen myKitchen;
+	private RemoteRecipes server;
+	
+	private int cacheSize = 0;
 	
 	/**
 	 * Constructor for controller. The models for ingredients and recipes must be
@@ -33,11 +36,15 @@ public class Controller {
 	 * @param model the RecipeModel object
 	 * @param myKitchen the MyKitchen object
 	 * @param server the RemoteRecipes object
+	 * @param cache the object that caches results locally
 	 */
-	public Controller(RecipeModel model, MyKitchen myKitchen, RemoteRecipes server) {
+	public Controller(RecipeModel model, MyKitchen myKitchen, RemoteRecipes server, RecipeModel cache,
+			int cacheSize) {
 		this.model = model;
 		this.myKitchen = myKitchen;
 		this.server = server;
+		this.cache = cache;
+		this.cacheSize = cacheSize;
 	}
 	
 	/**
@@ -61,8 +68,12 @@ public class Controller {
 		if (searchFromWeb) {
 			try {
 				remoteResults = server.search(keywords);
+				
+				// add results to the cache
+				this.addResultsToCache(remoteResults);
 			} catch (IOException e) {
-				e.printStackTrace();
+				// if the server fails, search on the cache
+				remoteResults = cache.searchRecipe(keywords);				
 			}
 		}	
 		
@@ -89,8 +100,12 @@ public class Controller {
 		if (searchFromWeb) {
 			try {
 				remoteResults = server.searchWithIngredient(keywords, myKitchen.getIngredients());
+				
+				// add results to the cache
+				this.addResultsToCache(remoteResults);
 			} catch (IOException e) {
-				e.printStackTrace();
+				// if the server fails, search on the cache
+				remoteResults = cache.searchWithIngredient(keywords, myKitchen.getIngredients());				
 			}
 		}	
 		
@@ -114,6 +129,21 @@ public class Controller {
 		}
 		
 		return results;
+	}
+	
+	/**
+	 * Put search results in the cache
+	 * @param results the recipes that will be added to the cache
+	 */
+	private void addResultsToCache(List<Recipe> results) {
+		cache.removeAll();
+		int i = 0;
+		for (Recipe recipe : results) {					
+			if (++i > cacheSize) {
+				break;
+			}					
+			cache.add(recipe);
+		}
 	}
 	
 	/**
@@ -324,7 +354,19 @@ public class Controller {
 	 * problem publishing the recipe
 	 */
 	public Recipe downloadRecipe(String serverId) throws IOException {
-		return server.download(serverId);
+		try {
+			return server.download(serverId);
+		} catch (IOException e) {
+			// if it fails, use the cache
+			Recipe result = cache.getRecipeByServerId(serverId);
+			
+			if (result == null) {
+				throw new IOException();
+			}
+			else {
+				return result;
+			}
+		}
 	}
 	
 	/**
