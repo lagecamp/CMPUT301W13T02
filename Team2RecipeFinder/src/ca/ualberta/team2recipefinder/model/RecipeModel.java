@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -107,53 +108,35 @@ public class RecipeModel extends Model<View>
 		}			
 		return recipes;
 	}
-
-	/**
-	 * Searches the phone's recipes for the specific keyword.  It looks at the recipe's name, procedure, author, and ingredients
-	 * @param keywords An array of strings filled with keywords
-	 * @return Returns an ArrayList of type Recipe that match the keywords
-	 */
-	public ArrayList<Recipe> searchRecipe(String[] keywords) {
-		ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();		   
-
-		for (int k = 0; k<keywords.length; k++){							//Searches the Arrraylist and looks for any recipe name, author, procedure which contains the keywords
-			for (int i = 0; i<recipes.size(); i++) {
-				if ((recipes.get(i).getName()
-						.toLowerCase(Locale.ENGLISH)
-						.contains(keywords[k]
-								.toLowerCase(Locale.ENGLISH)) 
-								|| recipes.get(i).getAuthor()
-								.toLowerCase(Locale.ENGLISH)
-								.contains(keywords[k]
-										.toLowerCase(Locale.ENGLISH)) 
-										|| recipes.get(i).getProcedure().
-										toLowerCase(Locale.ENGLISH).contains(keywords[k])) 
-										&& !matchingrecipes.contains(recipes.get(i))) {
-					matchingrecipes.add(recipes.get(i));						
-				}
-				else {		   				
-					for (int n = 0; n<recipes.get(i).getIngredients().size(); n++) {		//Searches the Arraylist and looks for any ingredient that contains the keyword
-						if ((recipes.get(i)
-								.getIngredients().get(n)
-								.getType().toLowerCase(Locale.ENGLISH)
-								.contains(keywords[k].toLowerCase(Locale.ENGLISH)))  
-								&& !matchingrecipes.contains(recipes.get(i))) {
-							matchingrecipes.add(recipes.get(i));
-						}
-					}
-				}
-			}
-		}		   	   
-		return matchingrecipes;		   
-	}
-
-
-	/**
-	 * Searches the database for recipes in which the user has every ingredient
-	 * @param keywords An array of strings filled with keywords
-	 * @param kitchenIngredients Ingredients that you have in your kitchen
-	 * @return Returns an ArrayList of type Recipe that match the keywords and ingredients from My Kitchen
-	 */
+	
+   /**
+    * Searches the phone's recipes for the specific keyword.  It looks at the recipe's name, procedure, author, and ingredients
+    * @param keywords An array of strings filled with keywords
+    * @return Returns an ArrayList of type Recipe that match the keywords
+    */
+   public ArrayList<Recipe> searchRecipe(String[] keywords) {
+	   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();
+	   Recipe r;
+	  
+	   for (int k = 0; k<keywords.length; k++){							//Searches the Arrraylist and looks for any recipe name, author, procedure which contains the keywords
+		   for (int i = 0; i<recipes.size(); i++) {
+			   r = recipes.get(i);
+			   if (r.containsKeyword(keywords[k]) && !matchingrecipes.contains(recipes.get(i))) {
+				   matchingrecipes.add(recipes.get(i));						
+			   }
+		   }
+	   }		   	   
+	   return matchingrecipes;		   
+   }
+   
+	   
+	   
+   /**
+    * Searches the database for recipes in which the user has every ingredient
+    * @param keywords An array of strings filled with keywords
+    * @param kitchenIngredients Ingredients that you have in your kitchen
+    * @return Returns an ArrayList of type Recipe that match the keywords and ingredients from My Kitchen
+    */
 	public ArrayList<Recipe> searchWithIngredient(String[] keywords, List<Ingredient> kitchenIngredients) {		   
 		ArrayList<Recipe> matchingRecipes = new ArrayList<Recipe>();			   
 		matchingRecipes = searchRecipe(keywords);				//Call the local search method to find recipes that match the keywords
@@ -166,6 +149,9 @@ public class RecipeModel extends Model<View>
 		}		   
 		return matchingIngredientRecipes;		   
 	} 
+
+
+
 
 	private boolean kitchenHasAllIngredients(Recipe recipe, List<Ingredient> kitchenIngredients) {
 		for (int i = 0; i<recipe.getIngredients().size(); i++) {
@@ -188,19 +174,8 @@ public class RecipeModel extends Model<View>
 	/**
 	 * Sorts the recipe in alphabetical order by the recipe's name	    * 
 	 */
-	private void sortRecipes(){
-		Recipe temp;
-
-		for (int n = recipes.size()-1; n >= 1; n--) {								//Sorts all recipes using bubble sort
-			for (int i = 0; i<n; i++) {
-				if (recipes.get(i).getName().compareToIgnoreCase
-						(recipes.get(i+1).getName()) > 0) {
-					temp = recipes.get(i);
-					recipes.set(i, recipes.get(i+1));
-					recipes.set(i+1, temp);
-				}				   
-			}
-		}
+	private void sortRecipes(){		
+		Collections.sort(recipes);
 	}
 
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,7 +67,7 @@ public class MyKitchen extends Model<View> {
 		}
 		ingredientList.add(ingredient);
 		
-		sort(ingredientList);
+		sort();
 		write(ingredientList);
 		notifyViews();
 	}
@@ -101,17 +102,8 @@ public class MyKitchen extends Model<View> {
 	 * Sort the ingredient List by type in dictionary order
 	 * @param ingredientList to sort
 	 */
-	private void sort(ArrayList<Ingredient> ingredientList) {
-		Ingredient temp;
-		   
-		for(int n = ingredientList.size() - 1; n > 1; n--)
-			for(int i = 0; i < n; i++){
-				if(ingredientList.get(i).getType().compareToIgnoreCase(ingredientList.get(i+1).getType()) > 0){
-					temp = ingredientList.get(i);
-		   			ingredientList.set(i, ingredientList.get(i + 1));
-		   			ingredientList.set(i + 1, temp);
-		   		}				   
-			}
+	private void sort() {
+		Collections.sort(ingredientList);
 	}
 	
 	/**
@@ -139,7 +131,7 @@ public class MyKitchen extends Model<View> {
 		if (oldIngredient.getType().equals(newIngredient.getType())) {
 			ingredientList.remove(oldIngredient);
 			ingredientList.add(newIngredient);
-			sort(ingredientList);
+			sort();
 			write(ingredientList);
 			notifyViews();
 		}

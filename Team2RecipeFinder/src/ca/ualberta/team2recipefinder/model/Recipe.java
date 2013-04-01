@@ -8,6 +8,7 @@ package ca.ualberta.team2recipefinder.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import ca.ualberta.team2recipefinder.views.View;
 
@@ -20,7 +21,7 @@ import android.graphics.Bitmap;
 * @author CMPUT 301 Team 2
 *
 */
-public class Recipe extends Model<View> implements Serializable {
+public class Recipe extends Model<View> implements Serializable, Comparable<Recipe> {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String procedure;
@@ -183,10 +184,11 @@ public class Recipe extends Model<View> implements Serializable {
 	 */
 	public void addIngredient(Ingredient ingredient) throws DuplicateIngredientException {
 		boolean alreadyThere = false;
+		String ingredientType = ingredient.getType();
 		for (int n = 0; n < ingredients.size(); n++) {
-			if (ingredients.get(n).getType().equalsIgnoreCase(ingredient.getType())) {
+			if (ingredients.get(n).getType().equalsIgnoreCase(ingredientType)) {
 				alreadyThere = true;
-				throw new DuplicateIngredientException(ingredient.getType());
+				throw new DuplicateIngredientException(ingredientType);
 			}
 		}
 		if (!alreadyThere){
@@ -438,6 +440,46 @@ public class Recipe extends Model<View> implements Serializable {
 		}
 		str += "<br/><br/><i>This e-mail is sent from <a href='https://github.com/lagecamp/CMPUT301W13T02'>Recipe Finder</a>.</i>";
 		return str;
+	}
+	
+	/**
+	 * Checks if this recipe contains a given keyword
+	 * @param keyword the keyword to be checked
+	 * @return True is the recipe contains the keyword, false otherwise
+	 */
+	public boolean containsKeyword(String keyword) {
+		  boolean cond1 = this.getName().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)); 
+		  boolean cond2 = this.getAuthor().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)); 
+		  boolean cond3 = this.getProcedure().toLowerCase(Locale.ENGLISH).contains(keyword);
+		  
+		  boolean result = (cond1 || cond2 || cond3);
+		  if (!result) {
+			  result = this.checkIngredientsForKeyword(keyword);
+		  }
+		  
+		  return result;
+	   }
+	
+	private boolean checkIngredientsForKeyword(String keyword) {
+		   for (int n = 0; n<this.getIngredients().size(); n++) {		
+			   if ((this.getIngredients().get(n).getType().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)))) {
+				   return true;
+			   }
+		   }
+		   
+		   /* If we go through the for loop without hitting the return statement
+		      the ingredients must not contain the keyword */
+		   return false;
+	}
+
+	/**
+	 * Compares one recipe to another based on dictionary order of its type
+	 * @return 0 if the recipes are equal, a negative integer if this recipe is before the specified recipe, 
+	 * 			or a positive integer if this recipe is after the specified ingredient.
+	 */
+	@Override
+	public int compareTo(Recipe otherR) {
+		return this.getName().compareToIgnoreCase(otherR.getName());
 	}
 	
 }

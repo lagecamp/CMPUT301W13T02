@@ -249,7 +249,21 @@ public class RecipeModelTest extends TestCase {
 		assertEquals(recipe3, model.getPreviousRecipeById(recipe1.getRecipeID()));
 	}
 	
+	public void testGetRecipeBySeverId() {
+		Recipe recipe = new Recipe();
+		String serverId = "TestingRecipe";
+		recipe.setServerId(serverId);
+		model.add(recipe);
+		assertTrue("Get Recipe By Server ID", recipe.equals(model.getRecipeByServerId(serverId)));
+		model.remove(recipe);
+	}
 	
+	public void testRemoveAll() {
+		model.add(new Recipe());
+		model.add(new Recipe());
+		model.removeAll();
+		assertEquals("Remove all", 0, model.getAllRecipes().size());
+	}
 	private void checkExpectedResults(List<Recipe> results, List<Recipe> expectedResults) {
 		for (Recipe recipe : results) {
 			assertTrue(expectedResults.contains(recipe));
