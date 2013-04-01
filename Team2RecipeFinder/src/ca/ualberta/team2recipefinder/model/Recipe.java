@@ -8,6 +8,7 @@ package ca.ualberta.team2recipefinder.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import ca.ualberta.team2recipefinder.views.View;
 
@@ -368,6 +369,36 @@ public class Recipe extends Model<View> implements Serializable
 		}
 		str += "<br/><br/><i>This e-mail is sent from <a href='https://github.com/lagecamp/CMPUT301W13T02'>Recipe Finder</a>.</i>";
 		return str;
+	}
+	
+	/**
+	 * Checks if this recipe contains a given keyword
+	 * @param keyword the keyword to be checked
+	 * @return True is the recipe contains the keyword, false otherwise
+	 */
+	public boolean containsKeyword(String keyword) {
+		  boolean cond1 = this.getName().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)); 
+		  boolean cond2 = this.getAuthor().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)); 
+		  boolean cond3 = this.getProcedure().toLowerCase(Locale.ENGLISH).contains(keyword);
+		  
+		  boolean result = (cond1 || cond2 || cond3);
+		  if (!result) {
+			  result = this.checkIngredientsForKeyword(keyword);
+		  }
+		  
+		  return result;
+	   }
+	
+	private boolean checkIngredientsForKeyword(String keyword) {
+		   for (int n = 0; n<this.getIngredients().size(); n++) {		
+			   if ((this.getIngredients().get(n).getType().toLowerCase(Locale.ENGLISH).contains(keyword.toLowerCase(Locale.ENGLISH)))) {
+				   return true;
+			   }
+		   }
+		   
+		   /* If we go through the for loop without hitting the return statement
+		      the ingredients must not contain the keyword */
+		   return false;
 	}
 	
 }

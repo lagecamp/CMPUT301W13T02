@@ -121,38 +121,20 @@ public class RecipeModel extends Model<View>
     * @return Returns an ArrayList of type Recipe that match the keywords
     */
    public ArrayList<Recipe> searchRecipe(String[] keywords) {
-	   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();		   
+	   ArrayList<Recipe> matchingrecipes = new ArrayList<Recipe>();
+	   Recipe r;
 	  
 	   for (int k = 0; k<keywords.length; k++){							//Searches the Arrraylist and looks for any recipe name, author, procedure which contains the keywords
 		   for (int i = 0; i<recipes.size(); i++) {
-			   if ((recipes.get(i).getName()
-					   .toLowerCase(Locale.ENGLISH)
-					   .contains(keywords[k]
-							   .toLowerCase(Locale.ENGLISH)) 
-							   || recipes.get(i).getAuthor()
-							   .toLowerCase(Locale.ENGLISH)
-							   .contains(keywords[k]
-									   .toLowerCase(Locale.ENGLISH)) 
-									   || recipes.get(i).getProcedure().
-									   toLowerCase(Locale.ENGLISH).contains(keywords[k])) 
-									   && !matchingrecipes.contains(recipes.get(i))) {
+			   r = recipes.get(i);
+			   if (r.containsKeyword(keywords[k]) && !matchingrecipes.contains(recipes.get(i))) {
 				   matchingrecipes.add(recipes.get(i));						
-			   }
-			   else {		   				
-				   for (int n = 0; n<recipes.get(i).getIngredients().size(); n++) {		//Searches the Arraylist and looks for any ingredient that contains the keyword
-					   if ((recipes.get(i)
-							   .getIngredients().get(n)
-							   .getType().toLowerCase(Locale.ENGLISH)
-							   .contains(keywords[k].toLowerCase(Locale.ENGLISH)))  
-							   && !matchingrecipes.contains(recipes.get(i))) {
-						   matchingrecipes.add(recipes.get(i));
-					   }
-				   }
 			   }
 		   }
 	   }		   	   
 	   return matchingrecipes;		   
    }
+   
 	   
 	   
    /**
