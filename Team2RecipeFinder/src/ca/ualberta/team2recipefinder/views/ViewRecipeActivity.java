@@ -129,6 +129,8 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 				// otherwise, save it locally
 				else if (source == SearchResult.SOURCE_REMOTE) {
 					c.addRecipe(currentRecipe);
+					isLocal = true;
+					update(currentRecipe);
 				}
 			}		
 		});
