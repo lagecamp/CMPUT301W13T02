@@ -353,7 +353,11 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 	
 	/**
 	 * Takes the result from AddEditIngredientActivity and adds it to, or 
-	 * replaces an item from this recipe's ingredient list.
+	 * replaces an item from this recipe's ingredient list. May also be called 
+	 * when a camera app returns a photo.
+	 * 
+	 * @param requestCode the ID of the request code
+	 * @param resultCode the ID of the result code
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
@@ -479,6 +483,9 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
         }
 	}   
 
+	/**
+	 * Adds a photo to the current recipe using the camera application of the user's choice
+	 */
 	public void addPhoto() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -496,6 +503,10 @@ public class EditRecipeActivity extends Activity implements ca.ualberta.team2rec
 		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 	
+	
+	/**
+	 * Removes the currently displayed photo from the recipe.
+	 */
 	public void removePhoto() {
 		AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		adb.setTitle("Confirm");

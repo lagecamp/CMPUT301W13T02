@@ -25,6 +25,12 @@ import android.os.AsyncTask;
  * @see ca.ualberta.team2recipefinder.controller.Controller
  */
 public class RecipeFinderApplication extends Application {
+	private static final String MY_KITCHEN_FILE = "IngredientList1.sav";// the name of the file where the ingredient list will be stored
+	private static final String LOCAL_RECIPES_FILE = "file2.sav"; // stores local recipes
+	private static final String USER_ID_FILE = "user.sav"; // stores the user id on the server
+	private static final String CACHE_FILE = "cache.sav"; // stores the user id on the server
+	private static final int CACHE_SIZE = 20;
+	
 	// Singleton
 	transient private static Controller controller = null;
 
@@ -36,7 +42,7 @@ public class RecipeFinderApplication extends Application {
 	 */
 	public static Controller getController() {
 		if (controller == null) {			
-			controller = new Controller(getModel(), getMyKitchen(), getServer());
+			controller = new Controller(getModel(), getMyKitchen(), getServer(), getCache(), CACHE_SIZE);
 		}
 		return controller;
     }
@@ -52,9 +58,27 @@ public class RecipeFinderApplication extends Application {
 	 */
 	public static RecipeModel getModel() {
 		if (model == null) {
-			model = new RecipeModel();
+			String path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + LOCAL_RECIPES_FILE;
+			model = new RecipeModel(path);
 		}
 		return model;
+    }
+
+	// Singleton
+	transient private static RecipeModel cache = null;
+
+	/**
+	 * Returns the singleton of the Model
+	 * 
+	 * @return the RecipeModel
+	 * @see ca.ualberta.team2recipefinder.model.RecipeModel
+	 */
+	public static RecipeModel getCache() {
+		if (cache == null) {
+			String path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + CACHE_FILE;
+			cache = new RecipeModel(path);
+		}
+		return cache;
     }
 	
 	// Singleton
@@ -68,7 +92,8 @@ public class RecipeFinderApplication extends Application {
 	 */
 	public static MyKitchen getMyKitchen() {
 		if (myKitchen == null) {
-			myKitchen = new MyKitchen();
+			String path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + MY_KITCHEN_FILE;
+			myKitchen = new MyKitchen(path);
 		}
 		return myKitchen;
     }
@@ -84,7 +109,8 @@ public class RecipeFinderApplication extends Application {
 	 */
 	public static RemoteRecipes getServer() {
 		if (server == null) {
-			server = new RemoteRecipes();
+			String path = RecipeFinderApplication.getAppContext().getFilesDir() + "/" + USER_ID_FILE;
+			server = new RemoteRecipes(path);
 		}
 		return server;
     }

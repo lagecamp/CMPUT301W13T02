@@ -1,32 +1,26 @@
 package ca.ualberta.team2recipefinder.test;
 
-import static org.junit.Assert.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.TestCase;
 
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
 import ca.ualberta.team2recipefinder.model.Ingredient;
 import ca.ualberta.team2recipefinder.model.MyKitchen;
 import ca.ualberta.team2recipefinder.model.Recipe;
 
-public class MyKitchenTest {
+public class MyKitchenTest extends TestCase {
 
 	MyKitchen model;
 	
-	@Before
 	public void setUp() {
-		model = new MyKitchen();
+		model = new MyKitchen("ingredients.sav");
 		
-		//ensure model is empty
-		
+		//ensure model is empty		
 		model.getIngredients().removeAll(model.getIngredients());
 	}
 	
-	@Test
 	public void testAdd() {
 		Ingredient i = new Ingredient("Milk", 250d, "mL");
 		
@@ -49,7 +43,6 @@ public class MyKitchenTest {
 		assertEquals(model.getIngredients().get(0), i);
 	}
 	
-	@Test
 	public void testAddingDuplivate() {
 		Ingredient i = new Ingredient("Milk", 250d, "mL");
 		Ingredient ii = new Ingredient("Milk", 250d, "mL");
@@ -70,7 +63,6 @@ public class MyKitchenTest {
 		assertTrue(exceptionWasCaught);
 	}
 	
-	@Test
 	public void testRemove() {
 		Ingredient i1 = new Ingredient("Milk", 250d, "mL");
 		Ingredient i2 = new Ingredient("Sugar", 100d, "g");
@@ -94,7 +86,6 @@ public class MyKitchenTest {
 		assertEquals(model.getIngredient("Sugar"), i2);		
 	}
 	
-	@Test
 	public void testGetIngredient() {
 		Ingredient i1 = new Ingredient("Milk", 250d, "mL");
 		
@@ -110,7 +101,6 @@ public class MyKitchenTest {
 		assertEquals(rval, i1);
 	}
 	
-	@Test
 	public void testReplace() {
 		Ingredient i1 = new Ingredient("Milk", 250d, "mL");
 		Ingredient i2 = new Ingredient("Milk", 1d, "L");
@@ -139,7 +129,6 @@ public class MyKitchenTest {
 		assertEquals(model.getIngredient("Milk").getAmount(), i2.getAmount());
 	}
 	
-	@Test
 	public void testSearch() {
 		Ingredient i1 = new Ingredient("Sugar", 300d, "g");
 		Ingredient i2 = new Ingredient("Salt", 300d, "g");
@@ -180,7 +169,6 @@ public class MyKitchenTest {
 		checkExpectedResults(O_Ingredients, expectedResults);
 	}
 	
-	@Test
 	public void getAllIngredients() {
 		Ingredient i1 = new Ingredient("Sugar", 300d, "g");
 		Ingredient i2 = new Ingredient("Salt", 300d, "g");
