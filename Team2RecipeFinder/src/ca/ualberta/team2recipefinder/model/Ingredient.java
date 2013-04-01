@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @see ca.ualberta.team2recipefinder.model.MyKitchen
  * @see ca.ualberta.team2recipefinder.model.Recipe
  */
-public class Ingredient implements Serializable {
+public class Ingredient implements Serializable, Comparable<Ingredient> {
 	private static final long serialVersionUID = 1L;
 	private String type;// the type of the ingredient
 	private Double amount;// the amount of the ingredient
@@ -64,5 +64,15 @@ public class Ingredient implements Serializable {
 	@Override
 	public String toString() {
 		return amount + " " + unit + " " + type;
+	}
+
+	/**
+	 * Compares one ingredient to another based on dictionary order of its type
+	 * @return 0 if the ingredients are equal, a negative integer if this ingredient is before the specified ingredient, 
+	 * 			or a positive integer if this ingredient is after the specified ingredient.
+	 */
+	@Override
+	public int compareTo(Ingredient another) {
+		return this.getType().compareToIgnoreCase(another.getType());
 	}
 }

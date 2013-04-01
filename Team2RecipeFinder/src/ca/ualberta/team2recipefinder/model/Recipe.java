@@ -472,6 +472,11 @@ public class Recipe extends Model<View> implements Serializable, Comparable<Reci
 		   return false;
 	}
 
+	/**
+	 * Compares one recipe to another based on dictionary order of its type
+	 * @return 0 if the recipes are equal, a negative integer if this recipe is before the specified recipe, 
+	 * 			or a positive integer if this recipe is after the specified ingredient.
+	 */
 	@Override
 	public int compareTo(Recipe otherR) {
 		return this.getName().compareToIgnoreCase(otherR.getName());
