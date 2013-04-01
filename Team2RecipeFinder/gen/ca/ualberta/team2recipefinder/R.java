@@ -160,6 +160,7 @@ public final class R {
         public static final int photos=0x7f050033;
         public static final int picture_description=0x7f050011;
         public static final int procedure=0x7f050014;
+        public static final int recipe_downloaded=0x7f050037;
         public static final int recipe_name_hint=0x7f05001b;
         public static final int remove_photo=0x7f05002a;
         public static final int search=0x7f05000a;
