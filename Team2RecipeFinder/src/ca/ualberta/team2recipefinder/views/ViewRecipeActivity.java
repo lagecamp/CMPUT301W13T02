@@ -131,6 +131,8 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 					c.addRecipe(currentRecipe);
 					isLocal = true;
 					update(currentRecipe);
+					Toast.makeText(ViewRecipeActivity.this, getString(R.string.recipe_downloaded), 
+							   Toast.LENGTH_LONG).show();
 				}
 			}		
 		});
