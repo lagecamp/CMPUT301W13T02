@@ -284,6 +284,8 @@ public class MainActivity extends Activity implements ca.ualberta.team2recipefin
 		recipes.setAdapter(adapter);
 		displayingSearchResults = true;
     }
+    
+    
         
 	/**
 	 * Makes sure that the memory will be managed correctly
