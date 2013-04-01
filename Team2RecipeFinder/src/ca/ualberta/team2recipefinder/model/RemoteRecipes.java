@@ -294,7 +294,7 @@ public class RemoteRecipes {
 		
 		// create query string
 		for (int i = 0; i < keywords.length; i++) {
-			query_str = keywords[i] + " OR ";
+			query_str += keywords[i] + " OR ";
 		}
 		
 		query_str = query_str.substring(0, query_str.length() - 4);	
@@ -350,7 +350,7 @@ public class RemoteRecipes {
 		
 		// create query string (for keywords)
 		for (int i = 0; i < keywords.length; i++) {
-			query_str = keywords[i] + " OR ";
+			query_str += keywords[i] + " OR ";
 		}						
 		
 		query_str = query_str.substring(0, query_str.length() - 4);	
@@ -362,7 +362,7 @@ public class RemoteRecipes {
 		
 		// create query string (for ingredients)
 		for (Ingredient ingredient : kitchenIngredients) {
-			query_str += "\"ingredients.type\":" + ingredient.getType() + " OR ";
+			query_str += "ingredients.type:" + ingredient.getType() + " OR ";
 		}
 		
 		if (kitchenIngredients.size() > 0) {
