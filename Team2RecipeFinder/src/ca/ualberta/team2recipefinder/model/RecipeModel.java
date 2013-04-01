@@ -151,8 +151,12 @@ public class RecipeModel extends Model<View>
 	} 
 
 
-
-
+	/**
+	 * 
+	 * @param recipe
+	 * @param kitchenIngredients
+	 * @return True if the Kitchen has all ingredients for recipe
+	 */
 	private boolean kitchenHasAllIngredients(Recipe recipe, List<Ingredient> kitchenIngredients) {
 		for (int i = 0; i<recipe.getIngredients().size(); i++) {
 			if(!kitchenHasIngredient(recipe.getIngredients().get(i), kitchenIngredients)) {
@@ -162,6 +166,12 @@ public class RecipeModel extends Model<View>
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param recipeIngredient
+	 * @param kitchenIngredients
+	 * @return true if the Kitchen has the specified ingredient for the recipe
+	 */
 	private boolean kitchenHasIngredient(Ingredient recipeIngredient, List<Ingredient> kitchenIngredients) {
 		for (int i = 0; i<kitchenIngredients.size(); i++) {
 			if (kitchenIngredients.get(i).getType().equalsIgnoreCase(recipeIngredient.getType())) {
