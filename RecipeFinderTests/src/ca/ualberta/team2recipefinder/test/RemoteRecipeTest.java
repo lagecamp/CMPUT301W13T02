@@ -132,6 +132,7 @@ public class RemoteRecipeTest extends TestCase {
 	public void testSearchWithIngredient() {
 		RemoteRecipes rr = new RemoteRecipes(path);
 		Recipe r = new Recipe();
+		Recipe recipe = new Recipe();
 		
 		String[] keywordName = {"name"};
 		String[] keywordRice = {"rice"};
@@ -189,8 +190,19 @@ public class RemoteRecipeTest extends TestCase {
 			assertTrue(recipes2.size() >= 1);
 			assertTrue(recipes3.size() == 0);
 
-			assertEquals(recipes1.get(0).getName(), r.getName());
-			assertEquals(recipes2.get(0).getName(), r2.getName());
+			for(int i = 0; i<recipes1.size(); i++) {
+				if(recipes1.get(i).getName().contentEquals(r.getName())) {
+					recipe = recipes1.get(i);
+				}
+			}
+			assertEquals(recipe.getName(), r.getName());
+			
+			for(int i = 0; i<recipes2.size(); i++) {
+				if(recipes2.get(i).getName().contentEquals(r2.getName())) {
+					recipe = recipes2.get(i);
+				}
+			}
+			assertEquals(recipe.getName(), r2.getName());
 
 		}
 		catch (DuplicateIngredientException e) {
