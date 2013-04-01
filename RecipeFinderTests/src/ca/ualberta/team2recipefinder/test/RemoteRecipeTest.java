@@ -208,11 +208,6 @@ public class RemoteRecipeTest extends TestCase {
 		}
 	}
 
-	public void testPostPicture() {
-		Recipe r = new Recipe();
-		Recipe r2 = new Recipe();
-		assertEquals(r.getRecipeID(), r2.getRecipeID());
-	}
 
 	public void testDownload() {
 		Recipe r2 = new Recipe();
