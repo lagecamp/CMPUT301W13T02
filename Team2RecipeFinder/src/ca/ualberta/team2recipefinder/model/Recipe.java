@@ -21,7 +21,7 @@ import android.graphics.Bitmap;
 * @author CMPUT 301 Team 2
 *
 */
-public class Recipe extends Model<View> implements Serializable {
+public class Recipe extends Model<View> implements Serializable, Comparable<Recipe> {
 	private static final long serialVersionUID = 1L;
 	private String name;
 	private String procedure;
@@ -184,10 +184,11 @@ public class Recipe extends Model<View> implements Serializable {
 	 */
 	public void addIngredient(Ingredient ingredient) throws DuplicateIngredientException {
 		boolean alreadyThere = false;
+		String ingredientType = ingredient.getType();
 		for (int n = 0; n < ingredients.size(); n++) {
-			if (ingredients.get(n).getType().equalsIgnoreCase(ingredient.getType())) {
+			if (ingredients.get(n).getType().equalsIgnoreCase(ingredientType)) {
 				alreadyThere = true;
-				throw new DuplicateIngredientException(ingredient.getType());
+				throw new DuplicateIngredientException(ingredientType);
 			}
 		}
 		if (!alreadyThere){
@@ -469,6 +470,11 @@ public class Recipe extends Model<View> implements Serializable {
 		   /* If we go through the for loop without hitting the return statement
 		      the ingredients must not contain the keyword */
 		   return false;
+	}
+
+	@Override
+	public int compareTo(Recipe otherR) {
+		return this.getName().compareToIgnoreCase(otherR.getName());
 	}
 	
 }

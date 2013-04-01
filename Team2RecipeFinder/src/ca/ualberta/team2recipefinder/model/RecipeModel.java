@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -173,19 +174,8 @@ public class RecipeModel extends Model<View>
 	/**
 	 * Sorts the recipe in alphabetical order by the recipe's name	    * 
 	 */
-	private void sortRecipes(){
-		Recipe temp;
-
-		for (int n = recipes.size()-1; n >= 1; n--) {								//Sorts all recipes using bubble sort
-			for (int i = 0; i<n; i++) {
-				if (recipes.get(i).getName().compareToIgnoreCase
-						(recipes.get(i+1).getName()) > 0) {
-					temp = recipes.get(i);
-					recipes.set(i, recipes.get(i+1));
-					recipes.set(i+1, temp);
-				}				   
-			}
-		}
+	private void sortRecipes(){		
+		Collections.sort(recipes);
 	}
 
 
