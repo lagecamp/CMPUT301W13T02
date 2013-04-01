@@ -118,7 +118,7 @@ public class RemoteRecipeTest extends TestCase {
 
 			List<Recipe> recipes = rr.search(keywords);
 
-			assertTrue(recipes.size()==1);
+			assertTrue(recipes.size()>=1);
 			assertEquals(recipes.get(0).getRecipeID(), r2.getRecipeID());
 		}
 		catch (IOException e) {
@@ -148,7 +148,7 @@ public class RemoteRecipeTest extends TestCase {
 		r.addComment("Test Comment");
 
 		Recipe r2 = new Recipe();
-
+		
 		r2.setAuthor("Joe Smith");
 		r2.setName("Rice");
 		r2.setProcedure("Boil in Water");
