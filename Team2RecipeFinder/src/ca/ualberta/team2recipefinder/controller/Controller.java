@@ -20,7 +20,7 @@ import ca.ualberta.team2recipefinder.model.ServerPermissionException;
  * @author cmput-301 team 2
  */
 public class Controller {
-	
+	 
 	private RecipeModel model;
 	private RecipeModel cache;
 	private MyKitchen myKitchen;
