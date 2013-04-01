@@ -1,7 +1,11 @@
 package ca.ualberta.team2recipefinder.test;
 
 
+import java.util.ArrayList;
 import java.util.List;
+
+import android.graphics.Bitmap;
+import android.graphics.Color;
 
 import junit.framework.TestCase;
 import ca.ualberta.team2recipefinder.model.DuplicateIngredientException;
@@ -142,48 +146,36 @@ public class RecipeTest extends TestCase {
 		recipe.setOnServer(true);  
 		assertEquals("GetOnServer", true , recipe.getOnServer());
 	}
-/*
+	
 	public void TestAddPhoto() {
 		Recipe recipe = new Recipe();
-		Bitmap bitmap = new Bitmap();
-		Color color = Color.BLUE;
-		bitmap.setPixel(0, 0, color);
+		Bitmap bitmap = Bitmap.createBitmap(5, 5, Bitmap.Config.ARGB_8888);
 		recipe.addPhoto(bitmap);
-		assertEquals("Add Photo", color, recipe.getPhoto(0).getPixel(0, 0));
+		assertTrue("Add Photo", bitmap.equals(recipe.getPhoto(0)));
 	}
 
-	@Test
 	public void TestGetAllPhotos() {
 		Recipe recipe = new Recipe();
-		Bitmap bitmap1 = new Bitmap();
-		Bitmap bitmap2 = new Bitmap();
-		Color color1 = Color.BLUE;
-		Color color2 = Color.GREEN;
-		bitmap1.setPixel(0, 0, color1);
-		bitmap2.setPixel(0, 0, color2);
+		Bitmap bitmap1 = Bitmap.createBitmap(5, 5, Bitmap.Config.ARGB_8888);
+		Bitmap bitmap2 = Bitmap.createBitmap(5, 4, Bitmap.Config.ARGB_8888);
 		recipe.addPhoto(bitmap1);
 		recipe.addPhoto(bitmap2);
-		List<Bitmap> bitmapList = recipe.getAllPhotos();
-		assertTrue("Get All Photos", (color1 == bitmapList[0].getPixel(0,0) && color2 == bitmapList[1].getPixel(0,0));
+		assertTrue("Get All Photos", (bitmap1.equals(recipe.getAllPhotos().get(0)) && bitmap2.equals(recipe.getAllPhotos().get(1))));
 	}
 
-	@Test
 	public void TestRemovePhoto() {
 		Recipe recipe = new Recipe();
-		Bitmap bitmap = new Bitmap();
+		Bitmap bitmap = Bitmap.createBitmap(5, 5, Bitmap.Config.ARGB_8888);
 		recipe.addPhoto(bitmap);
 		recipe.removePhoto(0);
 		assertTrue("Remove Photo", recipe.hasPhotos());
 	}
 
-	@Test
 	public void TestGetPhoto() {
 		Recipe recipe = new Recipe();
-		Bitmap bitmap = new Bitmap();
-		Color color = Color.BLUE;
-		bitmap.setPixel(0, 0, color);
+		Bitmap bitmap = Bitmap.createBitmap(5, 5, Bitmap.Config.ARGB_8888);
 		recipe.addPhoto(bitmap);
-		assertEquals("Get Photo", color, recipe.getPhoto(0).getPixel(0, 0));
+		assertTrue("Add Photo", bitmap.equals(recipe.getPhoto(0)));
 	}
 
 	
@@ -197,9 +189,10 @@ public class RecipeTest extends TestCase {
 		Recipe recipe = new Recipe();
 		recipe.addComment("testing1");
 		recipe.addComment("testing2");
-		List<String> comments = recipe.getAllComments();
-		assertTrue("Get All Comments", (comments[0] == "testing1" && comments[1] == "testing2"));
+		ArrayList<String> comments = (ArrayList<String>) recipe.getAllComments();
+		assertTrue("Get All Comments", (comments.get(0) == "testing1" && comments.get(1) == "testing2"));
 	}
+/*
 */
 	public void testGetComment() {
 		Recipe recipe = new Recipe();

@@ -61,7 +61,8 @@ public class ViewRecipeActivity extends Activity implements ca.ualberta.team2rec
 	
 	Controller c;
 	
-	/**
+
+	/** 
 	 * Sets up all button listeners for this activity. Called when the activity is first created.
 	 * 
 	 * @param	savedInstanceState Bundle containing the activity's previously frozen state, if there was one. 
