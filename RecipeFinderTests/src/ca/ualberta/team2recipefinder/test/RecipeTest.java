@@ -160,7 +160,7 @@ public class RecipeTest extends TestCase {
 		Bitmap bitmap2 = Bitmap.createBitmap(5, 4, Bitmap.Config.ARGB_8888);
 		recipe.addPhoto(bitmap1);
 		recipe.addPhoto(bitmap2);
-		assertTrue("Get All Photos", (bitmap1.equals(recipe.getAllPhotos().get(0)) && bitmap2.equals(recipe.getAllPhotos().get(1)));
+		assertTrue("Get All Photos", (bitmap1.equals(recipe.getAllPhotos().get(0)) && bitmap2.equals(recipe.getAllPhotos().get(1))));
 	}
 
 	public void TestRemovePhoto() {

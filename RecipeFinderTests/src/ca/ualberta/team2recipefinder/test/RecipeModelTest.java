@@ -65,11 +65,6 @@ public class RecipeModelTest extends TestCase {
 		assertEquals("rice", model.getRecipe(0).getName());
 	}
 	
-	public void testWriteFile() {
-		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		model.writeFile(recipes);
-	}
-	
 	public void testAddRecipeTwice()
 	{
 		Recipe recipe1 = new Recipe("spaghetti", "test", "test", new ArrayList<Ingredient>(), false);
